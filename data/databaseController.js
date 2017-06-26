@@ -1,18 +1,19 @@
 const assert = require('assert');
 const database = require('mongodb').MongoClient;
-const url = 'mongodb://forum_user:123456@95.87.202.12:27017/forum';
+const config = require('../config.js').database;
+const url = 'mongodb://' + config.username + ':' + config.password + '@'+config.host+':'+config.port+'/'+config.dbName;
 
 module.exports = {
-    mongoConnectExample: function() {
+    mongoConnectExample: function(callback) {
         database.connect(url, function(err, db) {
-            assert.equal(null, err);
-            console.log('Connected successfully to server');
+            let test;
+            if (err) {
+                test = err.message;
+            } else {
+                test = 'Database connect successful!';
+            }
 
-            db.close();
+            callback(test);
         });
-    },
-
-    test: function() {
-        return 'afaf';
     },
 };

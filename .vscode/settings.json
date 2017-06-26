@@ -1,4 +1,6 @@
 {
     "eslint.enable": true,
-    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "files.insertFinalNewline": true,
+    "files.eol": "\n"
 }
