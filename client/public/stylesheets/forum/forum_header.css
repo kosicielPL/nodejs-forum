@@ -1,14 +1,26 @@
 body {
-    background: #191919 url('/img/background-patterns/darker_dust.png') !important;
-    background-attachment: fixed !important;
+    /*background: #191919 url('/img/background-patterns/darker_dust.png') !important;*/
+    /*background-attachment: fixed !important;*/
+
+    background-image: url("/img/huge_blurred.jpg");
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .forum-header {
     position: absolute;
     width: 100%;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    /*background-image: url("/img/huge_blurred.jpg");
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;*/
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 3px #000;
     /*background: #ccc;*/
 }
 
@@ -42,7 +54,7 @@ body {
 }
 
 .forum-header .nav-first-row {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .forum-header .breadcrumb {

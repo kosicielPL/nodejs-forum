@@ -1,3 +1,7 @@
+.forum-body {
+    /*box-shadow: 0 0 3px #000;*/
+}
+
 .forum-block {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -26,7 +30,7 @@
     margin: 0px !important;
 }
 
-.forum-block h4{
+.forum-block h4 {
     text-shadow: 0 0 3px #ccc;
     padding: 0px !important;
     margin: 0px !important;
@@ -55,8 +59,7 @@
     max-width: 80px;
 }
 
-.forum-card-image{
-}
+.forum-card-image {}
 
 .forum-thread {
     display: block;
@@ -67,15 +70,15 @@
 }
 
 .forum-thread a,
-.forum-thread a:visited{
+.forum-thread a:visited {
     color: #fff;
 }
 
-.forum-thread a:hover{
+.forum-thread a:hover {
     color: #fff;
 }
 
-.forum-thread:hover{
+.forum-thread:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -86,13 +89,35 @@
 .forum-thread-icon {
     padding-left: 10px;
 }
+
 .forum-thread-title {
     padding-left: 10px;
 }
+
 .forum-thread-author {
     /*color: #f4415f;*/
     color: rgba(255, 255, 255, 0.6);
 }
+
 .forum-thread-date {
     color: rgba(255, 255, 255, 0.6);
+}
+
+.parallax {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 3px #000;
+    background-image: url("/img/huge.jpg");
+    height: 300px;
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo-text {
+    padding-left: 50px;
+    padding-top: 150px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
 }

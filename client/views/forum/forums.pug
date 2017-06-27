@@ -3,7 +3,14 @@ extends layout
 block content
     include header
     
-    img(src="../img/huge.jpg").img-responsive.forum-main-logo
+    div.parallax
+        div.container.logo-text
+            | BIG
+            br
+            | TEST
+            br
+            | ICICLES, BABY
+        //- img(src="../img/huge.jpg").img-responsive.forum-main-logo
     div.container.forum-body
         div.row.bottom-buffer
             h3 general
