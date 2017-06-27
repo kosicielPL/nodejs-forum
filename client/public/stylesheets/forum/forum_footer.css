@@ -5,7 +5,7 @@
 
 .forum-footer ul.social-network {
     list-style: none;
-    display: inline;
+    display: block;
     margin-left: 0 !important;
     padding: 0;
 }
@@ -56,7 +56,7 @@
     color: #44BCDD;
 }
 
-.forum-footer .social-circle li a {
+.social-circle li a {
     display: inline-block;
     position: relative;
     margin: 0 auto 0 auto;
@@ -69,14 +69,14 @@
     font-size: 20px;
 }
 
-.forum-footer .social-circle li i {
+.social-circle li i {
     margin: 0;
     line-height: 50px;
     text-align: center;
 }
 
-.forum-footer .social-circle li a:hover i,
-.forum-footer .triggeredHover {
+.social-circle li a:hover i,
+.triggeredHover {
     -moz-transform: rotate(360deg);
     -webkit-transform: rotate(360deg);
     -ms--transform: rotate(360deg);
@@ -88,7 +88,7 @@
     transition: all 0.2s;
 }
 
-.forum-footer .social-circle i {
+.social-circle i {
     color: #fff;
     -webkit-transition: all 0.8s;
     -moz-transition: all 0.8s;
@@ -98,5 +98,5 @@
 }
 
 .forum-footer a {
-    background-color: #D3D3D3;
+    background-color: #383838;
 }

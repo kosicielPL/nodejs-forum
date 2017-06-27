@@ -1,5 +1,6 @@
 body {
-    background: #191919 !important;
+    background: #191919 url('/img/background-patterns/darker_dust.png') !important;
+    background-attachment: fixed !important;
 }
 
 .forum-header {

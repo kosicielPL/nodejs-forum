@@ -1,18 +1,18 @@
 div.container-fluid.forum-header
     nav.row.nav-first-row
-        div.col-lg-1
-        div.col-lg-10
-            div.navbar-header
+        div.col-md-1
+        div.col-md-10
+            div.navbar-header.hidden-xs
                 //- img(src="img/max.jpg").img-responsive.img-rounded
                 span.navbar-brand BIG TEST ICICLES
-            ul.nav.navbar-nav
+            ul.nav.navbar-nav.hidden-xs
                 li
-                    a(href="#").active HOME
+                    a(href="/").active HOME
                 li
-                    a(href="#") FORUMS
+                    a(href="forums") FORUMS
                 li
                     a(href="#") ABOUT
-            ul.nav.navbar-nav.navbar-right
+            ul.nav.navbar-nav.navbar-right.hidden-xs
                 li.dropdown
                     a(href="#",data-toggle="dropdown").dropdown-toggle My account
                         span.caret
@@ -44,10 +44,10 @@ div.container-fluid.forum-header
                 li
                     a(href="#")
                         
-        div.col-lg-1
-    div.row
-        div.col-lg-1
-        div.col-lg-10
+        div.col-md-1
+    div.row.hidden-xs
+        div.col-md-1
+        div.col-md-10
             ul.breadcrumb
                 li
                     a(href="#")
@@ -57,4 +57,4 @@ div.container-fluid.forum-header
                 li
                     a(href='#') Test
                 li.active Active test
-        div.col-lg-1
+        div.col-md-1

@@ -1,9 +1,11 @@
 const index = require('../client/routes/index');
 const users = require('../client/routes/users');
-const forum = require('../client/routes/forum');
+const forums = require('../client/routes/forums');
+const singleforum = require('../client/routes/singleforum');
 
 module.exports = (app) => {
     app.use('/', index);
     app.use('/users', users);
-    app.use('/forum', forum);
+    app.use('/forums', forums);
+    app.use('/forums/general', singleforum);
 };
