@@ -40,3 +40,7 @@ a {
 .forum-body {
   background: #000000;
 }
+
+.forum-header, .forum-header a {
+  color: #fff;
+}

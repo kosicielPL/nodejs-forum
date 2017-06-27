@@ -1,34 +1,60 @@
 div.container-fluid.forum-header
-    nav.navbar.transparent
-        div.row
-            div.col-lg-1
-            div.col-lg-10
-                div.container-fluid
-                    div.navbar-header
-                        //- img(src="img/max.jpg").img-responsive.img-rounded
-                        span.navbar-brand WebSiteName
-                    ul.nav.navbar-nav
-                        li
-                            a(href="#").active Home
-                        li
-                            a(href="#") Link
-                        li
-                            a(href="#") Link
-                    ul.nav.navbar-nav.navbar-right
+    nav.row.nav-first-row
+        div.col-lg-1
+        div.col-lg-10
+            div.navbar-header
+                //- img(src="img/max.jpg").img-responsive.img-rounded
+                span.navbar-brand BIG TEST ICICLES
+            ul.nav.navbar-nav
+                li
+                    a(href="#").active HOME
+                li
+                    a(href="#") FORUMS
+                li
+                    a(href="#") ABOUT
+            ul.nav.navbar-nav.navbar-right
+                li.dropdown
+                    a(href="#",data-toggle="dropdown").dropdown-toggle My account
+                        span.caret
+                    ul.dropdown-menu
                         li
                             a(href="#")
-                                span.glyphicon.glyphicon-user  Sign Up
+                                span.glyphicon.glyphicon-user
+                                |Profile
                         li
                             a(href="#")
-                                span.glyphicon.glyphicon-log-in  Login            
-            div.col-lg-1
-        div.row
-            div.col-lg-1
-            div.col-lg-10
-                ul.breadcrumb
-                    li
-                        a(href='#') Home
-                    li
-                        a(href='#') Library
-                    li.active Data
-            div.col-lg-1
+                                span.glyphicon.glyphicon-cog
+                                |Settings
+                        li
+                            a(href="#")
+                                span.glyphicon.glyphicon-pencil
+                                |Sign up
+                        li
+                            a(href="#")
+                                span.glyphicon.glyphicon-log-in
+                                |Log in
+                        li
+                            a(href="#")
+                                span.glyphicon.glyphicon-log-out
+                                |Log out
+                                    
+                li
+                    a(href="#")
+                        
+                li
+                    a(href="#")
+                        
+        div.col-lg-1
+    div.row
+        div.col-lg-1
+        div.col-lg-10
+            ul.breadcrumb
+                li
+                    a(href="#")
+                        span.glyphicon.glyphicon-home
+                li
+                    a(href='#') Forums
+                li
+                    a(href='#') Test
+                li.active Active test
+        div.col-lg-1

@@ -1,0 +1,83 @@
+body {
+    background: #191919 !important;
+}
+
+.forum-header {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /*background: #ccc;*/
+}
+
+.forum-header .navbar-nav>li>a,
+.forum-header .navbar-brand {
+    text-transform: uppercase;
+    padding-top: 10px !important;
+    padding-bottom: 0 !important;
+    height: 40px;
+    margin: 0px;
+}
+
+.forum-header .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.forum-header .navbar-brand {
+    color: #fff;
+}
+
+.forum-header .navbar-nav>li>a:hover,
+.forum-header .navbar-nav>li>a:focus {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 1);
+}
+
+.forum-header .navbar-nav>li>a.active {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 0 3px #ffffff;
+}
+
+.forum-header .nav-first-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.forum-header .breadcrumb {
+    background: rgba(255, 255, 255, 0);
+    border: 0px solid rgba(255, 255, 255, 0);
+    border-radius: 0px;
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0px;
+}
+
+.forum-header .breadcrumb li {
+    font-size: 14px;
+}
+
+.forum-header .breadcrumb a {
+    color: rgba(161, 161, 161, 1);
+}
+
+.forum-header .breadcrumb a:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+}
+
+.forum-header .breadcrumb>.active {
+    color: rgba(255, 255, 255, 1);
+}
+
+.forum-header .breadcrumb>li+li:before {
+    color: rgba(204, 204, 204, 1);
+    content: "\203A\00a0";
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.forum-header .dropdown .glyphicon{
+    margin-right: 15px;
+}
