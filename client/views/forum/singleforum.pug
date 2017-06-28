@@ -2,122 +2,371 @@ extends layout
 
 block content
     include header
-    
     div.parallax
-        //- img(src="../img/huge.jpg").img-responsive.forum-main-logo
-    div.container.forum-body
-        h1 General
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
-        div.forum-thread
-            a(href="#")
-                div.row
-                    div.col-xs-6
-                        span.glyphicon.glyphicon-file.forum-thread-icon
-                        span.forum-thread-title This is a forum thread
-                    div.col-xs-2.forum-thread-author Xpload
-                    div.col-xs-2.forum-thread-comment
-                        span.glyphicon.glyphicon-comment
-                        |  152
-                    div.col-xs-2.forum-thread-date 26.06.2017
+        div.container.logo-text
+            div.forum-name
+                //- img(src="../img/max.jpg").img-responsive.img-circle.thread-title-image
+                | General Discussion
 
+    div.container.forum-body
+        div.row.thread-controls
+            div.col-xs-6.thread-controls-left
+                a(href="#").btn.btn-new-thread NEW THREAD
+            div.col-xs-6.thread-controls-right
+                a(href="#").btn.btn-search-thread SEARCH
+
+                
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+        div.row.thread-row.grid
+            a(href="/forums/general/generic-thread")
+                div.container-fluid
+                    div.col-xs-12
+                        div.col-sm-6
+                            div.container-fluid
+                                div.row
+                                    span.thread-row-icon.glyphicon.glyphicon-file
+                                    span.thread-row-title This is a forum thread
+                                div.row.visible-xs
+                                    div.thread-row-text  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo officiis, alias perspiciatis. Velit animi laudantium ea autem maxime libero, numquam fugiat est hic, sit tempore, repellendus magni dolores magnam incidunt.
+                                div.row.visible-xs
+                                    div.col-xs-12
+                                        span.thread-row-comment
+                                            span.glyphicon.glyphicon-comment
+                                            |  152   &nbsp;&nbsp;&nbsp;
+                                        span.thread-row-author   Xpload
+                        div.col-sm-2.hidden-xs.thread-row-author Xpload
+                        div.col-sm-2.hidden-xs.thread-row-comment
+                            span.glyphicon.glyphicon-comment
+                            |  152
+                        div.col-sm-2.hidden-xs.thread-row-date 26.06.2017
+
+        div.row.forum-pagination 
+            ul.pagination
+                li.page-item
+                    a(href="#").page-link
+                        span(aria-hidden="true") &laquo;
+                        span.sr-only Previous
+                li.page-item.active
+                    a(href="#") 1
+                li.page-item
+                    a(href="#") 2
+                li.page-item
+                    a(href="#") 3
+                li.page-item
+                    a(href="#") 4
+                li.page-item
+                    a(href="#") 5
+                li.page-item
+                    a(href="#").page-link
+                        span(aria-hidden="true") &raquo;
+                        span.sr-only Next
 
 
     include footer

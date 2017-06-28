@@ -1,3 +1,9 @@
+html{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     /*background: #191919 url('/img/background-patterns/darker_dust.png') !important;*/
     /*background-attachment: fixed !important;*/
@@ -93,4 +99,23 @@ body {
 
 .forum-header .dropdown .glyphicon{
     margin-right: 15px;
+}
+
+.parallax {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 3px #000;
+    background-image: url("/img/huge.jpg");
+    height: 300px;
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo-text {
+    padding-left: 50px;
+    padding-top: 150px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
 }

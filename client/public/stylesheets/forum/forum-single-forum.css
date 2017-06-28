@@ -1,0 +1,44 @@
+.thread-row {
+    display: block;
+    color: #fff;
+    text-shadow: 0px 0px 3px #000, 0px 0px 3px #000;
+    font-size: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.thread-row a,
+.thread-row a:visited {
+    color: #fff;
+}
+
+.thread-row a:hover {
+    color: #fff;
+}
+
+.thread-row:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.thread-row+.thread-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.thread-row-icon {
+    padding-left: 10px;
+    width: 20px;
+}
+
+.thread-row-title {
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.thread-row-author {
+    /*color: #f4415f;*/
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.thread-row-date {
+    color: rgba(255, 255, 255, 0.6);
+}

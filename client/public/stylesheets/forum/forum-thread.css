@@ -1,0 +1,61 @@
+.post-left-part {
+    vertical-align: top;
+    width: 300px;
+}
+
+.post-container {
+    color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.original-post{
+    background: rgba(255, 255, 255, 0.05);
+}
+.post-date {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.post-text {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.post-avatar-container {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+
+.post-avatar {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 3px #000;
+}
+
+.post-author-container {
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.post-author-name {
+    font-size: 16px;
+}
+
+.post-author-title {
+
+}
+
+.post-author-posts{
+    color: rgba(255, 255, 255, 0.6);
+}
+.post-left-part-container {
+}
+.post-mobile-date {
+    text-align: right;
+}
+
+.post-container+.post-container {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
