@@ -15,17 +15,26 @@ body {
     background-size: cover;
 }
 
+.forum-header-container {
+    background-image: url("/img/huge.jpg");
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
 .forum-header {
-    position: absolute;
+    /*position: absolute;
     width: 100%;
-    z-index: 100;
+    z-index: 100;*/
     background: rgba(255, 255, 255, 0.05);
     /*background-image: url("/img/huge_blurred.jpg");
     background-attachment: fixed;
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;*/
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 3px #000;
     /*background: #ccc;*/
 }
@@ -105,17 +114,34 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 3px #000;
     background-image: url("/img/huge.jpg");
-    height: 300px;
     background-attachment: fixed;
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.logo-text {
-    padding-left: 50px;
-    padding-top: 150px;
+.logo-3-rows {
+    min-height: 220px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.logo-1-rows {
+    min-height: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.logo-text-container {
+    height: 100%;
     color: #fff;
     font-size: 30px;
     font-weight: 800;
+    display: table;
+}
+
+.logo-text {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
 }
