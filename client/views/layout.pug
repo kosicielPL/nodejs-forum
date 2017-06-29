@@ -2,9 +2,21 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='../lib/bootstrap/dist/css/bootstrap.css')
-    link(src='../lib/jquery/dist/jquery.js')
-    link(src='../lib/bootstrap/dist/js/bootstrap.js')
+    meta(name='viewport', content='width=device-width, height=device-height, initial-scale=1.0')
+    block scripts
+    script(src='/lib/jquery/dist/jquery.js')
+    script(src='/lib/bootstrap/dist/js/bootstrap.js')
+    script(src='/js/mobileMenu.js')
+    block styles
+    link(rel='stylesheet', href='/stylesheets/forum/forum-header.css')
+    link(rel='stylesheet', href='/stylesheets/forum/forum-body.css')
+    link(rel='stylesheet', href='/stylesheets/forum/forum-footer.css')
+    link(rel='stylesheet', href='/stylesheets/mobile-menu.css')
+    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.css')
   body
-    block content
+    div.whole-page-wrapper
+      include mobileMenu
+      include header
+      block content
+      include footer

@@ -1,8 +1,10 @@
-extends layout
+extends ../layout
 
+block styles
+    link(rel='stylesheet', href='/stylesheets/forum/forum-thread.css')
+    
 block content
-    include header
-    div.parallax.logo-1-rows
+    div.logo-parallax.logo-1-rows
         div.container.logo-text-container
             div.logo-text
                 //- img(src="../img/avatar.gif").img-responsive.img-circle.thread-title-image
@@ -237,8 +239,3 @@ block content
                     a(href="#").page-link
                         span(aria-hidden="true") &raquo;
                         span.sr-only Next
-
-
-
-
-    include footer

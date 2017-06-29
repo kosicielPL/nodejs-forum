@@ -1,3 +1,4 @@
+
 div.forum-header-container
     div.container-fluid.forum-header
         nav.row.nav-first-row
@@ -13,10 +14,12 @@ div.forum-header-container
                         a(href="/forums") FORUMS
                     li.hidden-xs
                         a(href="#") ABOUT
-                    li.visible-xs
-                        a.btn
+                    li.visible-xs.header-mobile
+                        //- a.btn.mobile-menu-open-btn
+                        //-     span.glyphicon.glyphicon-menu-hamburger
+                        //-     |  MENU
+                        button.btn.btn-large.mobile-menu-toggle-btn
                             span.glyphicon.glyphicon-menu-hamburger
-                            |  MENU
                         //- a(href="#").glyphicon.glyphicon-menu-hamburger
                         //-     |  PHONE MENU
                             
@@ -42,6 +45,7 @@ div.forum-header-container
                                 a(href="#")
                                     span.glyphicon.glyphicon-log-in
                                     |Log in
+                            li.divider
                             li
                                 a(href="#")
                                     span.glyphicon.glyphicon-log-out

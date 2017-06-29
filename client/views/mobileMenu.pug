@@ -1,0 +1,61 @@
+div.mobile-menu-container
+    ul.mobile-menu
+        li.mobile-menu-item
+            a(href="#")
+                span.glyphicon.glyphicon-home  
+                |   HOME
+        li.mobile-menu-item
+            a(href="#", data-toggle="collapse", data-target="#mobile-submenu-forum")
+                span.glyphicon.glyphicon-th-large
+                |   FORUMS   
+                span.caret
+            div#mobile-submenu-forum.mobile-submenu.collapse
+                ul.mobile-menu
+                    li.mobile-menu-item.mobile-menu-subitem
+                        span.category general
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") General Discussion
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") Announcements
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") News
+                ul.mobile-menu
+                    li.mobile-menu-item.mobile-menu-subitem
+                        span.category general
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") C#
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") C++
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") JavaScript
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") HTML
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") Intel
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") CSS
+                ul.mobile-menu
+                    li.mobile-menu-item.mobile-menu-subitem
+                        span.category off-topic
+                    li.mobile-menu-item.mobile-menu-subitem
+                        a(href="#") Off-Topic
+        li.mobile-menu-item
+            a(href="#")
+                span.glyphicon.glyphicon-user 
+                | PROFILE
+        li.mobile-menu-item
+            a(href="#")
+                span.glyphicon.glyphicon-cog
+                | SETTINGS
+        li.mobile-menu-item
+            a(href="#")
+                span.glyphicon.glyphicon-pencil
+                | SIGN UP
+        li.mobile-menu-item
+            a(href="#")
+                span.glyphicon.glyphicon-log-in
+                | LOGIN
+        li.mobile-menu-item
+            a(href="#")
+                span.glyphicon.glyphicon-log-out
+                | LOGOUT

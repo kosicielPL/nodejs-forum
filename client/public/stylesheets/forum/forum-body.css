@@ -1,11 +1,17 @@
 .forum-body {
     /*box-shadow: 0 0 3px #000;*/
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 .forum-body h3 {
     padding-left: 20px;
     text-transform: uppercase;
     color: #ce6363;
+}
+.forum-body h1,
+.forum-body h2{
+    color: #fff;
 }
 
 .forum-main-logo {

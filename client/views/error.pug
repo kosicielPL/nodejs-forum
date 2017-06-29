@@ -1,6 +1,9 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    div.logo-parallax.logo-1-rows
+        div.container.logo-text-container
+            div.logo-text= message
+    div.container.forum-body
+      h3= error.status
+      pre #{error.stack}

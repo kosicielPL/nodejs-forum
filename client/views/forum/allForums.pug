@@ -1,8 +1,10 @@
-extends layout
+extends ../layout
+
+block styles
+    link(rel='stylesheet', href='/stylesheets/forum/forum-all-forums.css')
 
 block content
-    include header
-    div.parallax.logo-3-rows
+    div.logo-parallax.logo-3-rows
         div.container.logo-text-container
             div.logo-text
                 | BIG
@@ -136,4 +138,3 @@ block content
                                     h4 off-topic
                                 div.row.forum-card-description
                                     h5 forum description goes here
-    include footer

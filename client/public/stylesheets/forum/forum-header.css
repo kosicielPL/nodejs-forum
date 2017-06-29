@@ -1,27 +1,56 @@
-html{
-    height: 100%;
+html {
+    height: 100vh;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
 body {
-    /*background: #191919 url('/img/background-patterns/darker_dust.png') !important;*/
+    background: url('/img/huge_blurred.jpg') !important;
+    background-color: #191919;
+    background-attachment: fixed !important;
+    background-position: top !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
     /*background-attachment: fixed !important;*/
-
-    background-image: url("/img/huge_blurred.jpg");
-    background-attachment: fixed;
-    background-position: top;
+    /*background-image: url("/img/huge_blurred.jpg") !important;
+    background-attachment: fixed !important;
+    background-position: top !important;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover !important;*/
+    height: 100vh;
+    min-height: 100vh;
+}
+
+.whole-page-wrapper {
+    /*background: url('/img/huge_blurred.jpg') !important;*/
+    /*background-color: #191919;*/
+    /*background-attachment: fixed !important;*/
+    /*background-position: top !important;*/
+    /*background-repeat: no-repeat !important;*/
+    /*background-size: cover !important;*/
+    /*background-attachment: fixed !important;*/
+    /*background-image: url("/img/huge_blurred.jpg") !important;
+    background-attachment: fixed !important;
+    background-position: top !important;
+    background-repeat: no-repeat;
+    background-size: cover !important;*/
+    /*height: 100vh;*/
+    /*min-height: 100vh;*/
 }
 
 .forum-header-container {
-    background-image: url("/img/huge.jpg");
-    background-attachment: fixed;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: #000;
+}
 
+@media (min-width: 768px) {
+    .forum-header-container {
+        background-image: url("/img/huge.jpg") !important;
+        background-attachment: fixed !important;
+        background-position: top !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
 }
 
 .forum-header {
@@ -106,18 +135,29 @@ body {
     padding-right: 15px;
 }
 
-.forum-header .dropdown .glyphicon{
+.forum-header .dropdown .glyphicon {
     margin-right: 15px;
 }
 
-.parallax {
+.logo-parallax {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 3px #000;
-    background-image: url("/img/huge.jpg");
-    background-attachment: fixed;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+}
+
+@media (max-width: 767px) {
+    .logo-parallax {
+        background: rgba(0, 0, 0, 0.6);
+    }
+}
+
+@media (min-width: 768px) {
+    .logo-parallax {
+        background-image: url("/img/huge.jpg");
+        background-attachment: fixed;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }
 
 .logo-3-rows {
@@ -144,4 +184,9 @@ body {
     height: 100%;
     display: table-cell;
     vertical-align: middle;
+}
+
+.header-mobile {
+    text-align: right;
+    padding-right: 10px;
 }

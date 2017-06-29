@@ -2,16 +2,28 @@
     text-align: center;
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.11); /* DON'T FIX ME!!! BORDERS WILL DISAPPEAR!!! */
+    border-top: 1px solid rgba(255, 255, 255, 0.11);
+    /* DON'T FIX ME!!! BORDERS WILL DISAPPEAR!!! */
     box-shadow: 0 0 3px #000;
     z-index: 100;
-    /*background: purple;*/
-    background-image: url("/img/huge.jpg");
     height: 300px;
-    background-attachment: fixed;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+}
+
+@media (max-width: 767px) {
+    .forum-footer {
+        background: rgba(0, 0, 0, 0.6);
+    }
+}
+
+@media (min-width: 768px) {
+    .forum-footer {
+        /*background: purple;*/
+        background-image: url("/img/huge.jpg");
+        background-attachment: fixed;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }
 
 .forum-footer ul.social-network {
