@@ -62,11 +62,11 @@
 }
 
 .mobile-menu-subitem {
-    margin-left: 30px;
+    margin-left: 5px;
 }
 
 .mobile-menu-item .glyphicon {
-    padding-right: 10px;
+    padding-right: 20px;
 }
 
 /*.mobile-menu-item+.mobile-menu-item{
@@ -74,5 +74,17 @@
 }*/
 
 .mobile-submenu {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 5px solid #ce6363;
     background: rgba(20, 20, 20, 0.9);
+}
+
+.mobile-menu-hide-everything-im-not-creative {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    position: fixed;
+    z-index: 10;
+    display: none;
 }

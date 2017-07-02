@@ -3,27 +3,33 @@ const mobileMenuOpenButton = '.mobile-menu-open-btn';
 const mobileMenuCloseButton = '.mobile-menu-close-btn';
 const mobileMenuToggleButton = '.mobile-menu-toggle-btn';
 const mobileMenuToggleButtonSpan = mobileMenuToggleButton + ' span';
+const hideEverything = '.mobile-menu-hide-everything-im-not-creative';
+
+let mobileMenuOpen = false;
 
 $(document).ready(function() {
-    let mobileMenuOpen = false;
+
+    $(hideEverything).click(() => {
+        closeMobileMenu();
+    });
 
     $(mobileMenuToggleButton).click(() => {
         if (mobileMenuOpen) {
-            mobileMenuOpen = false;
             closeMobileMenu();
         } else {
-            mobileMenuOpen = true;
             openMobileMenu();
         }
     });
 });
 
 function openMobileMenu() {
+    mobileMenuOpen = true;
     $(mobileMenuToggleButtonSpan).removeClass('glyphicon-menu-hamburger');
     $(mobileMenuToggleButtonSpan).addClass('glyphicon-remove');
     $(mobileMenu).show();
+    $(hideEverything).stop().fadeIn();
     $(mobileMenu).stop().animate({
-        width: '300px',
+        width: '250px',
     });
     $('body').css({
         overflow: 'hidden',
@@ -31,6 +37,7 @@ function openMobileMenu() {
 }
 
 function closeMobileMenu() {
+    mobileMenuOpen = false;
     $(mobileMenuToggleButtonSpan).removeClass('glyphicon-remove');
     $(mobileMenuToggleButtonSpan).addClass('glyphicon-menu-hamburger');
     $(mobileMenu).stop().animate({
@@ -38,6 +45,7 @@ function closeMobileMenu() {
     }, () => {
         $(mobileMenu).hide();
     });
+    $(hideEverything).stop().fadeOut();
     $('body').css({
         overflow: 'auto',
     });
