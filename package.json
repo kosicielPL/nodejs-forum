@@ -6,6 +6,7 @@
     "start": "node ./server/server.js"
   },
   "dependencies": {
+    "async": "^2.5.0",
     "babel-eslint": "^7.2.3",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",

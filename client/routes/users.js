@@ -4,9 +4,9 @@ const db = require('../../data/databaseController.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  db.mongoConnectExample((test) => {
-    res.send(test);
-  });
+    db.mongoConnectExample((test) => {
+        res.send(test);
+    });
 });
 
 module.exports = router;

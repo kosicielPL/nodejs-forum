@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/../client/public')));
+app.use('/', express.static(path.join(__dirname, '/../client/public')));
 app.use('/lib', express.static(__dirname + '/../node_modules'));
 
 const routes = require('./routes.js')(app);

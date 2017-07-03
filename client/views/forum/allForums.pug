@@ -13,128 +13,20 @@ block content
                 br
                 | ICICLES, BABY
     div.container.forum-body
-        div.row
-            h3 general
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 general discussion
-                                div.row.forum-card-description
-                                    h5 General stuff
-            //- div.bottom-buffer.visible-xs
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 announcements
-                                div.row.forum-card-description
-                                    h5 Announcements inside
-            //- div.bottom-buffer
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 News
-                                div.row.forum-card-description
-                                    h5 Everything tech related
-
-        div.row
-            h3 tech talk
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 C++
-                                div.row.forum-card-description
-                                    h5 Everything C++ related
-            //- div.bottom-buffer.visible-xs
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 C#
-                                div.row.forum-card-description
-                                    h5 Everything C# related
-            //- div.row.col-xs-12.bottom-buffer
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 JavaScript
-                                div.row.forum-card-description
-                                    h5 Everything JavaScript related
-            //- div.bottom-buffer.visible-xs
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 HTML
-                                div.row.forum-card-description
-                                    h5 No programmers inside
-            //- div.row.col-xs-12.bottom-buffer
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 Intel
-                                div.row.forum-card-description
-                                    h5 Intel inside
-            //- div.bottom-buffer.visible-xs
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 CSS
-                                div.row.forum-card-description
-                                    h5 Style me baby
-
-        div.row
-            h3 off-topic
-            div.col-sm-6
-                div.forum-card-container
-                    a(href="forums/general")
-                        div.row.forum-card
-                            div.col-lg-2.col-xs-3.forum-card-image-container
-                                img(src="../img/max.jpg").img-responsive.img-rounded.forum-card-image
-                            div.col-lg-10.col-xs-9.forum-card-text-container
-                                div.row.forum-card-title
-                                    h4 off-topic
-                                div.row.forum-card-description
-                                    h5 forum description goes here
+        -var categories = JSON.parse(result);
+        each category in categories
+            if category.forums.length > 0
+                div.row
+                    h3= category.name
+                    each forum in category.forums
+                        div.col-sm-6
+                            div.forum-card-container
+                                a(href="forums/" + forum.internalName)
+                                    div.row.forum-card
+                                        div.col-lg-2.col-xs-3.forum-card-image-container
+                                            img(src="../img/" + forum.image).img-responsive.img-rounded.forum-card-image
+                                        div.col-lg-10.col-xs-9.forum-card-text-container
+                                            div.row.forum-card-title
+                                                h4= forum.name
+                                            div.row.forum-card-description
+                                                h5= forum.description
