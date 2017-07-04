@@ -1,0 +1,25 @@
+.forum-pagination .pagination>li>a,
+.forum-pagination .pagination>li>a:hover,
+.forum-pagination .pagination>li>a:active,
+.forum-pagination .pagination>li>a:focus,
+.forum-pagination .pagination>li>span,
+.forum-pagination .pagination>li>span:hover,
+.forum-pagination .pagination>li>span:active,
+.forum-pagination .pagination>li>span:focus {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.forum-pagination .pagination>li>a:hover,
+.forum-pagination .pagination>li>span:hover,
+.forum-pagination .pagination>li>span:active {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.pagination>li.active>a,
+.pagination>li.active>a:active,
+.pagination>li.active>a:focus,
+.pagination>li.active>a:hover {
+    background: #ce6363;
+    color: #fff;
+}

@@ -3,6 +3,16 @@ extends ../layout
 block styles
     link(rel='stylesheet', href='/stylesheets/forum/new-thread.css')
 
+block currentPageCategory
+    -var selected = 'forums';
+
+block navigationMenu
+    li
+        a(href='/forums/') Forums
+    li
+        a(href='/forums/' + forum.internalName + '/') #{forum.name}
+    li.active New thread
+
 block content
     div.logo-parallax.logo-1-rows
         div.container.logo-text-container

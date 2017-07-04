@@ -1,5 +1,6 @@
 const assert = require('assert');
 const database = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectID;
 const config = require('../config.js').database;
 const url = 'mongodb://' + config.username + ':' + config.password + '@' + config.host + ':' + config.port + '/' + config.dbName;
 
@@ -37,11 +38,12 @@ module.exports = {
                             },
                         },
                     ])
-                    .toArray(function(error, result) {
+                    .toArray((error, result) => {
+                        db.close();
                         if (error) {
                             reject(error);
                         } else {
-                            resolve(JSON.stringify(result));
+                            resolve(result);
                         }
                     });
                 // db.close();
@@ -57,28 +59,96 @@ module.exports = {
                     .findOne({
                         internalName: forumInternalName,
                     }, (error, result) => {
+                        db.close();
                         if (error) {
                             reject(error);
+                        } else if (result) {
+                            resolve(result);
                         } else {
-                            resolve(JSON.stringify(result));
+                            reject('Forum doesnt exist!');
                         }
                     });
             });
         });
     },
 
-    getForumThreads: (forumInternalName) => {
+    getForumThreads: (forumId, resultsPerPage, page) => {
+        return new Promise((resolve, reject) => {
+            if (page < 1) {
+                reject('Requested page is less than 1');
+            }
+
+            if (resultsPerPage < 0) {
+                reject('Requested results per page are less than 0');
+            }
+
+            database.connect(url, (err, db) => {
+                assert.equal(null, err);
+                db.collection('threads')
+                    .find({
+                        forum: new ObjectId(forumId),
+                    })
+                    .skip((page - 1) * resultsPerPage)
+                    .limit(resultsPerPage)
+                    .toArray((error, result) => {
+                        db.close();
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(result);
+                        }
+                    });
+            });
+        });
+    },
+
+    getForumThreadsCount: (forumId) => {
         return new Promise((resolve, reject) => {
             database.connect(url, (err, db) => {
                 assert.equal(null, err);
                 db.collection('threads')
                     .find({
-                        forum_id: forumInternalName,
-                    }, (error, result) => {
+                        forum: new ObjectId(forumId),
+                    })
+                    .count()
+                    .then((count, error) => {
+                        db.close();
                         if (error) {
                             reject(error);
                         } else {
-                            resolve(JSON.stringify(result));
+                            resolve(count);
+                        }
+                    });
+            });
+        });
+    },
+
+    getThread: (threadId) => {
+        return new Promise((resolve, reject) => {
+            database.connect(url, (err, db) => {
+                assert.equal(null, err);
+                db.collection('threads')
+                    .aggregate([{
+                            '$match': {
+                                _id: new ObjectId(threadId),
+                            },
+                        },
+                        {
+                            '$lookup': {
+                                from: 'forums',
+                                localField: 'forum',
+                                foreignField: '_id',
+                                as: 'forum',
+                            },
+                        }, {
+                            '$unwind': '$forum',
+                        },
+                    ], (error, result) => {
+                        db.close();
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(result[0]);
                         }
                     });
             });

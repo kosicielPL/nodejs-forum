@@ -94,7 +94,7 @@ body {
 .forum-header .navbar-nav>li>a.active {
     background-color: transparent;
     color: rgba(255, 255, 255, 1);
-    text-shadow: 0 0 3px #ffffff;
+    text-shadow: 0 0 15px #ffffff, 0 0 8px #ffffff;
 }
 
 .forum-header .nav-first-row {
@@ -124,7 +124,8 @@ body {
     text-decoration: none;
 }
 
-.forum-header .breadcrumb>.active {
+.forum-header .breadcrumb>.active,
+.forum-header .breadcrumb>.active a {
     color: rgba(255, 255, 255, 1);
 }
 
@@ -167,9 +168,8 @@ body {
 }
 
 .logo-1-rows {
-    min-height: 100px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .logo-text-container {

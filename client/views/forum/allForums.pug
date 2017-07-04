@@ -3,6 +3,12 @@ extends ../layout
 block styles
     link(rel='stylesheet', href='/stylesheets/forum/forum-all-forums.css')
 
+block currentPageCategory
+    -var selected = 'forums';
+
+block navigationMenu
+    li.active Forums
+        
 block content
     div.logo-parallax.logo-3-rows
         div.container.logo-text-container
@@ -13,14 +19,14 @@ block content
                 br
                 | ICICLES, BABY
     div.container.forum-body
-        each category in result
+        each category in categories
             if category.forums.length > 0
                 div.row
                     h3= category.name
                     each forum in category.forums
                         div.col-sm-6
                             div.forum-card-container
-                                a(href="forums/" + forum.internalName)
+                                a(href="/forums/" + forum.internalName)
                                     div.row.forum-card
                                         div.col-lg-2.col-xs-3.forum-card-image-container
                                             img(src="../img/" + forum.image).img-responsive.img-rounded.forum-card-image

@@ -3,11 +3,10 @@ const router = express.Router();
 const db = require('../../data/databaseController.js');
 
 router.get('/forums', function(req, res, next) {
-    Promise.all([
-        db.getForums(),
-    ]).then((result) => {
-        res.json(result);
-    });
+    db.getForums()
+        .then((result) => {
+            res.json(result);
+        });
 });
 
 router.get('/forums/:forum', function(req, res, next) {
@@ -20,6 +19,13 @@ router.get('/forums/:forum', function(req, res, next) {
             } else {
                 res.send('forum not found');
             }
+        });
+});
+
+router.get('/test', function(req, res, next) {
+    db.getForum('general-discussion')
+        .then((result) => {
+            res.json(result);
         });
 });
 
