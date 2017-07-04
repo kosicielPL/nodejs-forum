@@ -13,8 +13,7 @@ block content
                 br
                 | ICICLES, BABY
     div.container.forum-body
-        -var categories = JSON.parse(result);
-        each category in categories
+        each category in result
             if category.forums.length > 0
                 div.row
                     h3= category.name

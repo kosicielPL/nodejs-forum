@@ -1,66 +1,60 @@
-.post-left-part {
+#new-thread-name,
+#new-thread-name:focus {
+    outline: none !important;
+    background: rgba(255, 255, 255, 0);
+    border: 0px;
+    color: #fff;
+    font-size: 18px;
+    padding-left: 40px;
+    width: 100%;
+}
+
+.new-thread-left-part {
     vertical-align: top;
     width: 300px;
 }
 
-.post-container {
+.new-thread-container {
     color: #fff;
     padding-top: 20px;
     padding-bottom: 20px;
-}
-
-.post-container table {
-    width: 100%;
-}
-
-.original-post {
     background: rgba(255, 255, 255, 0.05);
 }
 
-.post-date {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.post-text {
+.new-thread-content {
     margin-top: 10px;
     font-size: 16px;
 }
 
-.post-avatar-container {
+.new-thread-avatar-container {
     width: 80px;
     height: 80px;
     display: inline-block;
 }
 
-.post-avatar {
+.new-thread-avatar {
     max-width: 100%;
     max-height: 100%;
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 0 3px #000;
 }
 
-.post-author-container {
+.new-thread-author-container {
     display: inline-block;
     margin-left: 20px;
     vertical-align: top;
 }
 
-.post-author-name {
+.new-thread-author-name {
     font-size: 16px;
 }
 
-.post-author-title {}
+.new-thread-author-title {}
 
-.post-author-posts {
+.new-thread-author-posts {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.post-left-part-container {}
-
-.post-mobile-date {
-    text-align: right;
-}
-
-.post-container+.post-container {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+.new-thread-container table {
+    width: 100%;
 }

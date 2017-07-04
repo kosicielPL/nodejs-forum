@@ -59,6 +59,16 @@
     background: #f47142;
 }
 
+.btn-new-thread {
+    color: #fff;
+    background: #f47142;
+}
+
+.btn-create-thread {
+    color: #fff;
+    background: #f47142;
+}
+
 .thread-controls-left {
     text-align: left;
 }

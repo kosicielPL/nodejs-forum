@@ -21,11 +21,6 @@ module.exports = {
         return new Promise((resolve, reject) => {
             database.connect(url, (err, db) => {
                 assert.equal(null, err);
-                // db.collection('forums')
-                //     .find()
-                //     .toArray(function(error, items) {
-                //         resolve(items);
-                //     });
                 db.collection('categories')
                     .aggregate([{
                             '$sort': {
@@ -50,6 +45,42 @@ module.exports = {
                         }
                     });
                 // db.close();
+            });
+        });
+    },
+
+    getForum: (forumInternalName) => {
+        return new Promise((resolve, reject) => {
+            database.connect(url, (err, db) => {
+                assert.equal(null, err);
+                db.collection('forums')
+                    .findOne({
+                        internalName: forumInternalName,
+                    }, (error, result) => {
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(JSON.stringify(result));
+                        }
+                    });
+            });
+        });
+    },
+
+    getForumThreads: (forumInternalName) => {
+        return new Promise((resolve, reject) => {
+            database.connect(url, (err, db) => {
+                assert.equal(null, err);
+                db.collection('threads')
+                    .find({
+                        forum_id: forumInternalName,
+                    }, (error, result) => {
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(JSON.stringify(result));
+                        }
+                    });
             });
         });
     },

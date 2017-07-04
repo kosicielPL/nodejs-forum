@@ -1,0 +1,41 @@
+extends ../layout
+
+block styles
+    link(rel='stylesheet', href='/stylesheets/forum/new-thread.css')
+
+block content
+    div.logo-parallax.logo-1-rows
+        div.container.logo-text-container
+            div.logo-text General Discussion
+    div.container.forum-body
+        h2 New thread
+        div.container.new-thread-container
+            table
+                tr
+                    td.hidden-sm.hidden-xs.new-thread-left-part
+                        div.new-thread-left-part-container
+                            div.new-thread-avatar-container
+                                img(src="/img/avatar.gif").new-thread-avatar
+                            div.new-thread-author-container
+                                div.new-thread-author-name Xpload
+                                div.new-thread-author-title User
+                                div.new-thread-author-posts 257 posts
+                    td.container.right-part
+                        div.row.visible-xs.visible-sm
+                            div.new-thread-left-part-container
+                                div.new-thread-avatar-container
+                                    img(src="/img/avatar.gif").new-thread-avatar
+                                div.new-thread-author-container
+                                    div.new-thread-author-name Xpload
+                                    div.new-thread-author-title User
+                                    div.new-thread-author-posts 257 posts
+
+                        div.row.new-thread-content
+                            form
+                                div.form-group.has-feedback.has-feedback-left
+                                    span.glyphicon.glyphicon-pencil.form-control-feedback
+                                    input(type='text', placeholder='Thread name')#new-thread-name.form-control
+                                div.form-group
+                                    textarea(rows='15')#new-thread-content.form-control
+                                div.form-group
+                                    button.btn.btn-create-thread.pull-right CREATE THREAD

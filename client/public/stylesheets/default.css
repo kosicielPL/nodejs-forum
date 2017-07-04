@@ -1,0 +1,33 @@
+.container-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 3px #000;
+}
+
+*:focus {
+    border-color: rgba(126, 239, 104, 0) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(126, 239, 104, 0) !important;
+    outline: 0 none !important;
+    -webkit-appearance: none !important;
+}
+
+.has-feedback-left input.form-control {
+    padding-left: 34px;
+    padding-right: 12px;
+}
+
+.has-feedback-left .form-control-feedback {
+    left: 0;
+}
+
+.form-horizontal .has-feedback-left .form-control-feedback {
+    left: 12px;
+}
+
+.has-feedback-left input.input-sm {
+    padding-left: 30px;
+}
+
+.has-feedback-left input.input-lg {
+    padding-left: 46px;
+}
