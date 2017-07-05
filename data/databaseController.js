@@ -192,4 +192,42 @@ module.exports = {
             });
         });
     },
+
+    postNewThread: (forumId, threadTitle, threadContent) => {
+        return new Promise((resolve, reject) => {
+            console.log('forum id: ' + forumId);
+            console.log(threadTitle);
+            console.log(threadContent);
+            database.connect(url, (err, db) => {
+                db.collection('threads')
+                    .insert({
+                        'forum': new ObjectId(forumId),
+                        'title': threadTitle,
+                        'dateCreated': new Date(),
+                        'dateUpdated': new Date(),
+                    }, (threadError, thread) => {
+                        const threadId = thread.insertedIds[0].toString();
+                        console.log('thread id: ' + threadId);
+                        if (threadError) {
+                            reject(threadError);
+                        }
+                        db.collection('posts')
+                            .insert({
+                                'thread': new ObjectId(threadId),
+                                'content': threadContent,
+                                'originalPost': true,
+                                'dateCreated': new Date(),
+                                'dateUpdated': new Date(),
+                            }, (postError, post) => {
+                                db.close();
+                                if (postError) {
+                                    reject(postError);
+                                } else {
+                                    resolve(threadId);
+                                }
+                            });
+                    });
+            });
+        });
+    },
 };

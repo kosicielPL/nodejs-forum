@@ -22,7 +22,7 @@ router.get('/forums/:forum', function(req, res, next) {
         });
 });
 
-router.get('/test', function(req, res, next) {
+router.get('/forumstructure', function(req, res, next) {
     db.getForumStructure()
         .then((result) => {
             res.json(result);

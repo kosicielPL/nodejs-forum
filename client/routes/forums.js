@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
         });
 });
 
-// post new thread in forum
+// get page for new thread in forum
 router.get('/:forum/new', function(req, res, next) {
     db.getForum(req.params.forum)
         .catch((error) => {
@@ -27,6 +27,28 @@ router.get('/:forum/new', function(req, res, next) {
                 title: 'Creating new thread',
                 forum: forum,
             });
+        });
+});
+
+// post new thread in forum
+router.post('/:forum/new', function(req, res, next) {
+    const title = req.body.title;
+    const content = req.body.content;
+    const forum = req.params.forum;
+
+    db.getForum(forum)
+        .catch((error) => {
+            res.redirect('/'); // ADD 404 ERROR PAGE
+        })
+        .then((resultForum) => {
+            db.postNewThread(resultForum._id, title, content)
+                .catch((error) => {
+                    res.redirect('/');
+                })
+                .then((resultThread) => {
+                    // res.send(resultThread);
+                    res.redirect('/forums/thread/' + resultThread);
+                });
         });
 });
 
@@ -47,7 +69,7 @@ router.get('/thread/:thread', function(req, res, next) {
 
 // single forum
 router.get('/:forum/:page?', function(req, res, next) {
-    const threadsPerPage = 2;
+    const threadsPerPage = 10;
     let forum = req.params.forum;
     let page = req.params.page;
 
@@ -77,7 +99,6 @@ router.get('/:forum/:page?', function(req, res, next) {
                         if (page > totalPages && page > 1) {
                             res.send('page doesnt exist'); // FIX ME LATER
                         }
-
                         res.render('forum/singleForum', {
                             title: forum.name,
                             forum: forum,

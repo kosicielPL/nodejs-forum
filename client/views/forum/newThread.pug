@@ -41,11 +41,11 @@ block content
                                     div.new-thread-author-posts 257 posts
 
                         div.row.new-thread-content
-                            form
+                            form(action='/forums/' + forum.internalName + '/new', method='post')
                                 div.form-group.has-feedback.has-feedback-left
                                     span.glyphicon.glyphicon-pencil.form-control-feedback
-                                    input(type='text', placeholder='Thread name')#new-thread-name.form-control
+                                    input(type='text', placeholder='Thread name', name='title')#new-thread-name.form-control
                                 div.form-group
-                                    textarea(rows='15')#new-thread-content.form-control
+                                    textarea(rows='15', name='content')#new-thread-content.form-control
                                 div.form-group
                                     button.btn.btn-create-thread.pull-right CREATE THREAD

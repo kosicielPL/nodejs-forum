@@ -3,12 +3,12 @@ module.exports = (server) => {
 
     io.on('connection', function(socket) {
         io.emit('test', {
-            msg: 'User has connected!',
+            msg: 'A user has connected!',
         });
         console.log('a user connected');
         socket.on('disconnect', function() {
             io.emit('test', {
-                msg: 'User has disconnected!',
+                msg: 'A user has disconnected!',
             });
             console.log('user disconnected');
         });

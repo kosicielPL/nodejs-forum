@@ -3,7 +3,7 @@ extends layout
 block content
     div.logo-parallax.logo-1-rows
         div.container.logo-text-container
-            div.logo-text= message
+            div.logo-text ERROR #{error.status}
     div.container.forum-body
-      h3= error.status
-      pre #{error.stack}
+        h1= message
+        pre #{error.stack}

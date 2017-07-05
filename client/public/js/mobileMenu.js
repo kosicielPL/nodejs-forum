@@ -8,6 +8,7 @@ const hideEverything = '.mobile-menu-hide-everything-im-not-creative';
 let mobileMenuOpen = false;
 
 $(document).ready(function() {
+    const forumStructure = {};
 
     $(hideEverything).click(() => {
         closeMobileMenu();
@@ -20,33 +21,38 @@ $(document).ready(function() {
             openMobileMenu();
         }
     });
+
+    function openMobileMenu() {
+        mobileMenuOpen = true;
+        $(mobileMenuToggleButtonSpan).removeClass('glyphicon-menu-hamburger');
+        $(mobileMenuToggleButtonSpan).addClass('glyphicon-remove');
+        $(mobileMenu).show();
+        $(hideEverything).stop().fadeIn();
+        $(mobileMenu).stop().animate({
+            width: '250px',
+        });
+        $('body').css({
+            overflow: 'hidden',
+        });
+    }
+
+    function closeMobileMenu() {
+        mobileMenuOpen = false;
+        $(mobileMenuToggleButtonSpan).removeClass('glyphicon-remove');
+        $(mobileMenuToggleButtonSpan).addClass('glyphicon-menu-hamburger');
+        $(mobileMenu).stop().animate({
+            width: '0px',
+        }, () => {
+            $(mobileMenu).hide();
+        });
+        $(hideEverything).stop().fadeOut();
+        $('body').css({
+            overflow: 'auto',
+        });
+    }
+
+    function loadForumStructure(){
+        // TODO: add AJAX request to get forum structure
+        // /api/forumstructure
+    }
 });
-
-function openMobileMenu() {
-    mobileMenuOpen = true;
-    $(mobileMenuToggleButtonSpan).removeClass('glyphicon-menu-hamburger');
-    $(mobileMenuToggleButtonSpan).addClass('glyphicon-remove');
-    $(mobileMenu).show();
-    $(hideEverything).stop().fadeIn();
-    $(mobileMenu).stop().animate({
-        width: '250px',
-    });
-    $('body').css({
-        overflow: 'hidden',
-    });
-}
-
-function closeMobileMenu() {
-    mobileMenuOpen = false;
-    $(mobileMenuToggleButtonSpan).removeClass('glyphicon-remove');
-    $(mobileMenuToggleButtonSpan).addClass('glyphicon-menu-hamburger');
-    $(mobileMenu).stop().animate({
-        width: '0px',
-    }, () => {
-        $(mobileMenu).hide();
-    });
-    $(hideEverything).stop().fadeOut();
-    $('body').css({
-        overflow: 'auto',
-    });
-}
