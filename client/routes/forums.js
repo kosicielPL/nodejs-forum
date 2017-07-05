@@ -47,7 +47,7 @@ router.get('/thread/:thread', function(req, res, next) {
 
 // single forum
 router.get('/:forum/:page?', function(req, res, next) {
-    const threadsPerPage = 8;
+    const threadsPerPage = 2;
     let forum = req.params.forum;
     let page = req.params.page;
 
@@ -74,13 +74,17 @@ router.get('/:forum/:page?', function(req, res, next) {
                         let totalPages = result[1] / threadsPerPage;
                         totalPages = Math.ceil(totalPages);
 
+                        if (page > totalPages && page > 1) {
+                            res.send('page doesnt exist'); // FIX ME LATER
+                        }
+
                         res.render('forum/singleForum', {
                             title: forum.name,
                             forum: forum,
                             threads: result[0],
-                            currentPage: page,
-                            totalPages: totalPages,
-                            threadsCount: result[1],
+                            currentPage: page * 1,
+                            totalPages: totalPages * 1,
+                            threadsCount: result[1] * 1,
                         });
                     });
                 // res.send(info);

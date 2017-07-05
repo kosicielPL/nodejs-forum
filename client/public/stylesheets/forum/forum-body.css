@@ -9,8 +9,9 @@
     text-transform: uppercase;
     color: #ce6363;
 }
+
 .forum-body h1,
-.forum-body h2{
+.forum-body h2 {
     color: #fff;
 }
 
@@ -42,36 +43,6 @@
 .thread-controls {
     padding: 30px;
     /*text-align: right;*/
-}
-
-.btn-new-thread {
-    color: #fff;
-    background: #ce6363;
-}
-
-.btn-search-thread {
-    color: #000;
-    background: #fff;
-}
-
-.btn-reply-thread {
-    color: #fff;
-    background: #f47142;
-}
-
-.btn-create-post {
-    color: #fff;
-    background: #bf42f4;
-}
-
-.btn-new-thread {
-    color: #fff;
-    background: #f47142;
-}
-
-.btn-create-thread {
-    color: #fff;
-    background: #f47142;
 }
 
 .thread-controls-left {

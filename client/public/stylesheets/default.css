@@ -31,3 +31,72 @@
 .has-feedback-left input.input-lg {
     padding-left: 46px;
 }
+
+.btn-new-thread {
+    color: #fff;
+    border: 1px solid rgba(206, 99, 99, 1) !important;
+    background: rgba(206, 99, 99, 0.9);
+    /*box-shadow: 0 0 3px rgba(206, 99, 99, 1), 0 0 5px rgba(206, 99, 99, 1);*/
+}
+
+.btn-new-thread:hover,
+.btn-new-thread:focus {
+    color: #fff !important;
+    border: 1px solid rgba(206, 99, 99, 1) !important;
+    background: rgba(206, 99, 99, 1);
+    text-shadow: 0 0 3px #fff;
+    /*box-shadow: 0 0 3px rgba(206, 99, 99, 1), 0 0 5px rgba(206, 99, 99, 1);*/
+}
+
+.btn-search-thread {
+    color: #000;
+    border: 1px solid rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 0.9);
+    /*box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 5px rgba(255, 255, 255, 1);*/
+}
+
+.btn-search-thread:hover,
+.btn-search-thread:focus {
+    color: #000 !important;
+    border: 1px solid rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 1);
+    /*text-shadow: 0 0 3px #000;*/
+    /*box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 5px rgba(255, 255, 255, 1);*/
+}
+
+.btn-reply-thread {
+    color: #fff;
+    border: 1px solid rgba(244, 113, 66, 1) !important;
+    background: rgba(244, 113, 66, 0.9);
+    /*box-shadow: 0 0 3px rgba(244, 113, 66, 1), 0 0 5px rgba(244, 113, 66, 1);*/
+}
+
+.btn-reply-thread:hover,
+.btn-reply-thread:focus {
+    color: #fff !important;
+    border: 1px solid rgba(244, 113, 66, 1) !important;
+    background: rgba(244, 113, 66, 1);
+    text-shadow: 0 0 3px #fff;
+    /*box-shadow: 0 0 3px rgba(244, 113, 66, 1), 0 0 5px rgba(244, 113, 66, 1);*/
+}
+
+.btn-create-post {
+    color: #fff;
+    background: #bf42f4;
+}
+
+.btn-create-thread {
+    color: #fff;
+    border: 1px solid rgba(206, 99, 99, 1) !important;
+    background: rgba(206, 99, 99, 0.9);
+    /*box-shadow: 0 0 3px rgba(206, 99, 99, 1), 0 0 5px rgba(206, 99, 99, 1);*/
+}
+
+.btn-create-thread:hover,
+.btn-create-thread:focus {
+    color: #fff !important;
+    border: 1px solid rgba(206, 99, 99, 1) !important;
+    background: rgba(206, 99, 99, 1);
+    text-shadow: 0 0 3px #fff;
+    /*box-shadow: 0 0 3px rgba(206, 99, 99, 1), 0 0 5px rgba(206, 99, 99, 1);*/
+}

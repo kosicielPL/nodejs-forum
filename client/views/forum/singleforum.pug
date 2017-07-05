@@ -28,6 +28,7 @@ block content
                 a(href="#").btn.btn-search-thread
                     span.glyphicon.glyphicon-search
 
+
         if threads.length <= 0
             div.container.text-center
                 h2 This forums contains no threads :'(
@@ -72,58 +73,95 @@ block content
         //-             span.glyphicon.glyphicon-search
 
         div.row.forum-pagination
-            ul.pagination
-                - currentPage = currentPage * 1
-                - totalPages = totalPages * 1
+            div.pagination
                 //- first page
                 if currentPage > 3
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/1').page-link
-                            span(aria-hidden='true') First
-                            span.sr-only Previous
+                    a(href='/forums/' + forum.internalName + '/1').page-item 1
 
                 //- previous page
                 if currentPage > 3
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-link
-                            span(aria-hidden='true') &laquo;
-                            span.sr-only Previous
+                    span.page-item ...
+                //- span.page-item ...
 
                 //- page - 2
                 if currentPage > 2
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + (currentPage - 2))= currentPage - 2
+                    a(href='/forums/' + forum.internalName + '/' + (currentPage - 2)).page-item= currentPage - 2
 
                 //- page - 1
                 if currentPage > 1
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + (currentPage - 1))= currentPage - 1
+                    a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-item= currentPage - 1
 
                 //- current page
                 if totalPages > 1
-                    li.page-item.active
-                        a(href="")= currentPage
-
+                    span.page-item.active= currentPage
+                
                 //- page + 1
                 if totalPages > currentPage
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + (currentPage + 1))= currentPage + 1
+                    a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-item= currentPage + 1
 
                 //- page + 2
                 if totalPages > currentPage + 1
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + (currentPage + 2))= currentPage + 2
+                    a(href='/forums/' + forum.internalName + '/' + (currentPage + 2)).page-item= currentPage + 2
 
                 //- next page
                 if totalPages > currentPage + 2
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-link
-                            span(aria-hidden='false') &raquo;
-                            span.sr-only Next
+                    span.page-item ...
 
                 //- last page
                 if totalPages > currentPage + 2
-                    li.page-item
-                        a(href='/forums/' + forum.internalName + '/' + totalPages).page-link
-                            span(aria-hidden='false') Last
-                            span.sr-only Next
+                    a(href='/forums/' + forum.internalName + '/' + totalPages).page-item= totalPages
+
+
+            //- ul.pagination
+            //-     //- first page
+            //-     if currentPage > 3
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/1').page-link
+            //-                 span(aria-hidden='true') First
+            //-                 span.sr-only Previous
+
+            //-     //- previous page
+            //-     if currentPage > 3
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-link
+            //-                 span(aria-hidden='true') &laquo;
+            //-                 span.sr-only Previous
+
+            //-     //- page - 2
+            //-     if currentPage > 2
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + (currentPage - 2))= currentPage - 2
+
+            //-     //- page - 1
+            //-     if currentPage > 1
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + (currentPage - 1))= currentPage - 1
+
+            //-     //- current page
+            //-     if totalPages > 1
+            //-         li.page-item.active
+            //-             a(href="")= currentPage
+
+            //-     //- page + 1
+            //-     if totalPages > currentPage
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + (currentPage + 1))= currentPage + 1
+
+            //-     //- page + 2
+            //-     if totalPages > currentPage + 1
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + (currentPage + 2))= currentPage + 2
+
+            //-     //- next page
+            //-     if totalPages > currentPage + 2
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-link
+            //-                 span(aria-hidden='false') &raquo;
+            //-                 span.sr-only Next
+
+            //-     //- last page
+            //-     if totalPages > currentPage + 2
+            //-         li.page-item
+            //-             a(href='/forums/' + forum.internalName + '/' + totalPages).page-link
+            //-                 span(aria-hidden='false') Last
+            //-                 span.sr-only Next

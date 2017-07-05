@@ -8,7 +8,7 @@ div.forum-header-container
                     //- img(src="img/max.jpg").img-responsive.img-rounded
                     span.navbar-brand BIG TEST ICICLES
                 block currentPageCategory
-                    -var selected = 'home';
+                    -var selected = '';
                 -var menu = { 'home': '/', 'forums': '/forums/', 'about': '/about' };
                 ul.nav.navbar-nav
                     each val, key in menu
@@ -33,19 +33,19 @@ div.forum-header-container
                             span.caret
                         ul.dropdown-menu
                             li
-                                a(href="#")
+                                a(href="/users/profile/xpload")
                                     span.glyphicon.glyphicon-user
                                     |Profile
                             li
-                                a(href="#")
+                                a(href="/settings/")
                                     span.glyphicon.glyphicon-cog
                                     |Settings
                             li
-                                a(href="#")
+                                a(href="/users/signup")
                                     span.glyphicon.glyphicon-pencil
                                     |Sign up
                             li
-                                a(href="#")
+                                a(href="/users/login")
                                     span.glyphicon.glyphicon-log-in
                                     |Log in
                             li.divider

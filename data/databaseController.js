@@ -46,7 +46,6 @@ module.exports = {
                             resolve(result);
                         }
                     });
-                // db.close();
             });
         });
     },
@@ -149,6 +148,45 @@ module.exports = {
                             reject(error);
                         } else {
                             resolve(result[0]);
+                        }
+                    });
+            });
+        });
+    },
+
+    // FIXING REQUIRED -> TRIM THE FORUMS SUBARRAY
+    getForumStructure: () => {
+        return new Promise((resolve, reject) => {
+            database.connect(url, (err, db) => {
+                assert.equal(null, err);
+                db.collection('categories')
+                    .aggregate([{
+                            '$sort': {
+                                'priority': 1,
+                                'forums.priority': 1,
+                            },
+                        },
+                        {
+                            '$lookup': {
+                                from: 'forums',
+                                localField: '_id',
+                                foreignField: 'category',
+                                as: 'forums',
+                            },
+                        },
+                    ])
+                    .map((category) => {
+                        return {
+                            category: category.name,
+                            forums: category.forums,
+                        };
+                    })
+                    .toArray((error, result) => {
+                        db.close();
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve(result);
                         }
                     });
             });

@@ -23,7 +23,7 @@ router.get('/forums/:forum', function(req, res, next) {
 });
 
 router.get('/test', function(req, res, next) {
-    db.getForum('general-discussion')
+    db.getForumStructure()
         .then((result) => {
             res.json(result);
         });

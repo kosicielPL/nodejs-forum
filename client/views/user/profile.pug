@@ -1,0 +1,13 @@
+extends ../layout
+
+block navigationMenu
+    li Users
+    li.active= user
+
+block content
+    div.logo-parallax.logo-1-rows
+        div.container.logo-text-container
+            div.logo-text #{user}'s profile
+    div.container.forum-body
+      center
+        h2 profile page for #{user}
