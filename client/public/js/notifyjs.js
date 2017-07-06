@@ -3,9 +3,10 @@ $.notify.addStyle('glass', {
     classes: {
         base: {
             'padding': '12px 15px 12px 15px',
-            'text-shadow': '0 1px 0 rgba(255, 255, 255, 0.5)',
+            'font-size': '16px',
+            // 'text-shadow': '0 1px 0 rgba(255, 255, 255, 0.5)',
             'background-color': '#fcf8e3',
-            'border': '1 px solid rgba(255, 255, 255, 0.2) !important',
+            'border': '1 px solid rgba(255, 255, 255, 1) !important',
             'border-radius': '2px',
             'box-shadow': '0 0 3px #000',
             'white-space': 'nowrap',
