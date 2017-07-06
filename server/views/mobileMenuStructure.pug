@@ -1,7 +1,7 @@
 each category in structure
     ul.mobile-menu
         li.mobile-menu-item.mobile-menu-subitem
-            span.category= category.category
+            span.category= category.name
         each forum in category.forums
             li.mobile-menu-item.mobile-menu-subitem
                 a(href="/forums/" + forum.internalName)= forum.name

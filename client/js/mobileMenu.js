@@ -24,15 +24,10 @@ $(document).ready(function() {
         }
     });
 
-    $(mobileMenuStructureToggle).click(() => {
+    function openMobileMenu() {
         if (!forumStructureIsLoaded) {
             loadForumStructure();
         }
-    });
-
-    $
-
-    function openMobileMenu() {
         mobileMenuOpen = true;
         $(mobileMenuToggleButtonSpan).removeClass('glyphicon-menu-hamburger');
         $(mobileMenuToggleButtonSpan).addClass('glyphicon-remove');

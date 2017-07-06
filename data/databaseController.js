@@ -174,13 +174,15 @@ module.exports = {
                                 as: 'forums',
                             },
                         },
+                        {
+                            '$project': {
+                                _id: 0,
+                                'name': 1,
+                                'forums.name': 1,
+                                'forums.internalName': 1,
+                            },
+                        },
                     ])
-                    .map((category) => {
-                        return {
-                            category: category.name,
-                            forums: category.forums,
-                        };
-                    })
                     .toArray((error, result) => {
                         db.close();
                         if (error) {
