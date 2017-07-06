@@ -37,19 +37,53 @@ module.exports = (url, database) => {
             });
         },
 
-        getPostsInThread: (threadId) => {
+        getPostsInThread: (threadId, resultsPerPage, page) => {
+            return new Promise((resolve, reject) => {
+                database.connect(url, (err, db) => {
+                    db.collection('posts')
+                        .aggregate([{
+                                '$match': {
+                                    thread: new ObjectId(threadId),
+                                },
+                            },
+                            {
+                                '$sort': {
+                                    dateCreated: 1,
+                                },
+                            },
+                            {
+                                '$skip': (page - 1) * resultsPerPage,
+                            },
+                            {
+                                '$limit': resultsPerPage,
+                            },
+                        ], (error, result) => {
+                            db.close();
+                            if (error) {
+                                reject(error);
+                            } else {
+                                resolve(result);
+                            }
+                        });
+                });
+            });
+        },
+
+        getPostsInThreadCount: (threadId) => {
             return new Promise((resolve, reject) => {
                 database.connect(url, (err, db) => {
                     db.collection('posts')
                         .find({
                             thread: new ObjectId(threadId),
                         })
-                        .toArray((error, posts) => {
+                        .count()
+                        .then((count, error) => {
+                            db.close();
                             if (error) {
                                 reject(error);
+                            } else {
+                                resolve(count);
                             }
-                            db.close();
-                            resolve(posts);
                         });
                 });
             });

@@ -2,6 +2,7 @@ extends ../layout
 
 block styles
     link(rel='stylesheet', href='/stylesheets/forum/forum-thread.css')
+    link(rel='stylesheet', href='/stylesheets/forum/forum-pagination.css')
 
 block currentPageCategory
     -var selected = 'forums';
@@ -22,19 +23,20 @@ block content
         div.row.thread-controls
             div.col-xs-12
                 a(href="#post-reply").btn.btn-reply-thread POST REPLY
-
-        div.container.post-container.original-post
-            div.sidebar.post-left-part
-                div.post-avatar-container
-                    img(src="/img/avatar.gif").post-avatar
-                div.post-author-container
-                    div.post-author-name Xpload
-                    div.post-author-title User
-                    div.post-author-posts 257 posts
-                span.pull-right.post-date.visible-sm.visible-xs= thread.dateCreated
-            div.post-right-part.container-fluid
-                div.row.post-date.hidden-xs.hidden-sm= thread.dateCreated
-                div.row.post-text= thread.content
+        
+        if currentPage <= 1
+            div.container.post-container.original-post
+                div.sidebar.post-left-part
+                    div.post-avatar-container
+                        img(src="/img/avatar.gif").post-avatar
+                    div.post-author-container
+                        div.post-author-name Xpload
+                        div.post-author-title User
+                        div.post-author-posts 257 posts
+                    span.pull-right.post-date.visible-sm.visible-xs= thread.dateCreated
+                div.post-right-part.container-fluid
+                    div.row.post-date.hidden-xs.hidden-sm= thread.dateCreated
+                    div.row.post-text= thread.content
 
         each post in posts
             div(id=post._id).container.post-container
@@ -50,11 +52,46 @@ block content
                     div.row.post-date.hidden-xs.hidden-sm= post.dateUpdated
                     div.row.post-text= post.content
 
+        div.row.forum-pagination
+            div.pagination
+                //- first page
+                if currentPage > 3
+                    a(href='/forums/thread/' + thread._id + '/1').page-item 1
 
-        div.row &nbsp;
-        div.row &nbsp;
-        div.row &nbsp;
-        div.row &nbsp;
+                //- previous page
+                if currentPage > 3
+                    span.page-item ...
+                //- span.page-item ...
+
+                //- page - 2
+                if currentPage > 2
+                    a(href='/forums/thread/' + thread._id + '/' + (currentPage - 2)).page-item= currentPage - 2
+
+                //- page - 1
+                if currentPage > 1
+                    a(href='/forums/thread/' + thread._id + '/' + (currentPage - 1)).page-item= currentPage - 1
+
+                //- current page
+                if threadsCount > 0
+                    span.page-item.active= currentPage
+                
+                //- page + 1
+                if totalPages > currentPage
+                    a(href='/forums/thread/' + thread._id + '/' + (currentPage + 1)).page-item= currentPage + 1
+
+                //- page + 2
+                if totalPages > currentPage + 1
+                    a(href='/forums/thread/' + thread._id + '/' + (currentPage + 2)).page-item= currentPage + 2
+
+                //- next page
+                if totalPages > currentPage + 2
+                    span.page-item ...
+
+                //- last page
+                if totalPages > currentPage + 2
+                    a(href='/forums/thread/' + thread._id + '/' + totalPages).page-item= totalPages
+
+                    
         h2#post-reply Post reply
         div.container.post-container.original-post
             div.sidebar.post-left-part
@@ -71,24 +108,3 @@ block content
                             textarea(rows='10', name='content')#new-post-content.form-control
                         div.form-group
                             button.btn.btn-reply-thread.pull-right POST REPLY
-
-        div.row.forum-pagination 
-            ul.pagination
-                li.page-item
-                    a(href="#").page-link
-                        span(aria-hidden="true") &laquo;
-                        span.sr-only Previous
-                li.page-item.active
-                    a(href="#") 1
-                li.page-item
-                    a(href="#") 2
-                li.page-item
-                    a(href="#") 3
-                li.page-item
-                    a(href="#") 4
-                li.page-item
-                    a(href="#") 5
-                li.page-item
-                    a(href="#").page-link
-                        span(aria-hidden="true") &raquo;
-                        span.sr-only Next

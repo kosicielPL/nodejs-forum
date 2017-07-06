@@ -13,14 +13,17 @@ module.exports = {
         getSingle: forums.getForum,
         getStructure: forums.getForumStructure,
     },
+
     threads: {
         getSingle: threads.getThread,
         getAllInForum: threads.getThreadsInForum,
         getAllInForumCount: threads.getThreadsInForumCount,
         createSingle: threads.postNewThread,
     },
+
     posts: {
         createSingle: posts.postNewPost,
         getAllInThread: posts.getPostsInThread,
+        getPostsInThreadCount: posts.getPostsInThreadCount,
     },
 };

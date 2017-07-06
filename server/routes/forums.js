@@ -7,7 +7,7 @@ const io = require('../setupSocketio');
 router.get('/', function(req, res, next) {
     db.forums.getAll()
         .catch((error) => {
-            res.redirect('/'); // ADD 404 ERROR PAGE
+            res.send(error); // ADD 404 ERROR PAGE
         })
         .then((result) => {
             res.render('forum/allForums', {
@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 router.get('/:forum/new', function(req, res, next) {
     db.forums.getSingle(req.params.forum)
         .catch((error) => {
-            res.redirect('/'); // ADD 404 ERROR PAGE
+            res.send(error); // ADD 404 ERROR PAGE
         })
         .then((forum) => {
             res.render('forum/newThread', {
@@ -39,12 +39,12 @@ router.post('/:forum/new', function(req, res, next) {
 
     db.forums.getSingle(forum)
         .catch((error) => {
-            res.redirect('/'); // ADD 404 ERROR PAGE
+            res.send(error); // ADD 404 ERROR PAGE
         })
         .then((resultForum) => { // ADD CHECK IF FORUM EXISTS
             db.threads.createSingle(resultForum._id, title, content)
                 .catch((error) => {
-                    res.redirect('/');
+                    res.send(error);
                 })
                 .then((resultThread) => {
                     // res.send(resultThread);
@@ -64,14 +64,12 @@ router.post('/:thread/newpost', function(req, res, next) {
 
     db.threads.getSingle(thread)
         .catch((error) => {
-            res.send(error);
-            res.redirect('/'); // ADD 404 ERROR PAGE
+            res.send(error); // ADD 404 ERROR PAGE
         })
         .then((resultThread) => { // ADD CHECK IF THREAD EXISTS
             db.posts.createSingle(resultThread._id, content)
                 .catch((error) => {
                     res.send(error);
-                    res.redirect('/');
                 })
                 .then((resultPost) => {
                     // res.send(resultThread);
@@ -82,22 +80,43 @@ router.post('/:thread/newpost', function(req, res, next) {
 });
 
 // view thread
-router.get('/thread/:thread', function(req, res, next) {
+router.get('/thread/:thread/:page?', function(req, res, next) {
+    const threadsPerPage = 10;
+    let thread = req.params.forum;
+    let page = req.params.page;
+
+    if (typeof page === 'undefined') {
+        page = 1;
+    }
+
     db.threads.getSingle(req.params.thread)
         .catch((threadError) => {
-            res.redirect('/'); // ADD 404 ERROR PAGE
+            res.send(threadError); // ADD 404 ERROR PAGE
         })
-        .then((thread) => {
-            db.posts.getAllInThread(thread._id)
+        .then((threadResult) => {
+            thread = threadResult;
+            Promise.all([
+                    db.posts.getAllInThread(thread._id, threadsPerPage, page),
+                    db.posts.getPostsInThreadCount(thread._id),
+                ])
                 .catch((postsError) => {
-                    res.redirect('/');
+                    res.send(postsError);
                 })
-                .then((posts) => {
-                    // res.json(posts);
+                .then((result) => {
+                    // res.json(result);
+                    let totalPages = result[1] / threadsPerPage;
+                    totalPages = Math.ceil(totalPages);
+
+                    if (page > totalPages && page > 1) {
+                        res.send('page doesnt exist'); // FIX ME LATER
+                    }
                     res.render('forum/thread', {
                         title: thread.title,
                         thread: thread,
-                        posts: posts,
+                        posts: result[0],
+                        currentPage: page * 1,
+                        totalPages: totalPages * 1,
+                        threadsCount: result[1] * 1,
                     });
                 });
         });
@@ -115,10 +134,10 @@ router.get('/:forum/:page?', function(req, res, next) {
 
     db.forums.getSingle(forum)
         .catch((error) => {
-            res.redirect('/'); // ADD 404 ERROR PAGE
+            res.send(error); // ADD 404 ERROR PAGE
         })
-        .then((forumData) => {
-            forum = forumData;
+        .then((forumResult) => {
+            forum = forumResult;
             if (forum !== null) {
                 Promise.all([
                         db.threads.getAllInForum(forum._id, threadsPerPage, page),

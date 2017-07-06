@@ -65,7 +65,7 @@ block content
 
 
 
-    div.container.forum-body
+    div.container
         //- div.row.thread-controls
         //-     div.col-xs-6.thread-controls-left
         //-         a(href="#").btn.btn-new-thread NEW THREAD
@@ -93,7 +93,7 @@ block content
                     a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-item= currentPage - 1
 
                 //- current page
-                if totalPages > 1
+                if threadsCount > 0
                     span.page-item.active= currentPage
                 
                 //- page + 1
