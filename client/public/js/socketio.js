@@ -2,7 +2,8 @@ const socket = io();
 
 socket.on('test', (msg) => {
     $.notify(msg.msg, {
-        className: 'info',
+        style: 'glass',
+        className: 'error',
         position: 'bottom right',
     });
 });

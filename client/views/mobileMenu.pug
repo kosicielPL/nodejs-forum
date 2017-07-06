@@ -5,40 +5,12 @@ div.mobile-menu-container
                 span.glyphicon.glyphicon-home  
                 | HOME
         li.mobile-menu-item
-            a(href="#", data-toggle="collapse", data-target="#mobile-submenu-forum")
+            a(href="#", data-toggle="collapse", data-target="#mobile-submenu-forum")#mobile-menu-structure-toggle
                 span.glyphicon.glyphicon-th-large
                 | FORUMS   
                 span.caret
             div#mobile-submenu-forum.mobile-submenu.collapse
-                ul.mobile-menu
-                    li.mobile-menu-item.mobile-menu-subitem
-                        span.category general
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/general-discussion") General Discussion
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/announcements") Announcements
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/news") News
-                ul.mobile-menu
-                    li.mobile-menu-item.mobile-menu-subitem
-                        span.category general
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/c-sharp") C#
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/c-plus-plus") C++
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/javascript") JavaScript
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/html") HTML
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/#") Intel
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/css") CSS
-                ul.mobile-menu
-                    li.mobile-menu-item.mobile-menu-subitem
-                        span.category off-topic
-                    li.mobile-menu-item.mobile-menu-subitem
-                        a(href="/forums/off-topic") Off-Topic
+                img(src='/img/loading.gif').img.img-responsive
         li.mobile-menu-item
             a(href="/users/profile/xpload")
                 span.glyphicon.glyphicon-user 
