@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../data/databaseController.js');
+const db = require('../../data/database.js');
 
 router.get('/forums', function(req, res, next) {
-    db.getForums()
+    db.forums.getAll()
         .then((result) => {
             res.json(result);
         });
@@ -11,7 +11,8 @@ router.get('/forums', function(req, res, next) {
 
 router.get('/forums/:forum', function(req, res, next) {
     const forum = req.params.forum;
-    db.getForum(forum)
+
+    db.forums.getSingle(forum)
         .then((result) => {
             const info = JSON.parse(result);
             if (info !== null) {
@@ -23,7 +24,7 @@ router.get('/forums/:forum', function(req, res, next) {
 });
 
 router.get('/forumstructure', function(req, res, next) {
-    db.getForumStructure()
+    db.forums.getStructure()
         .then((result) => {
             res.json(result);
         });

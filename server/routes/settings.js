@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../data/databaseController.js');
+const db = require('../../data/database.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    db.mongoConnectExample((test) => {
-        res.render('settings', {
-            title: 'Settings',
-        });
+    res.render('settings', {
+        title: 'Settings',
     });
 });
 

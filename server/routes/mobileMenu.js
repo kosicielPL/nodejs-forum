@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../data/databaseController.js');
+const db = require('../../data/database.js');
 
 router.get('/forumstructure', function(req, res, next) {
-    db.getForumStructure()
+    db.forums.getStructure()
         .then((result) => {
             res.render('mobileMenuStructure', {
                 structure: result,

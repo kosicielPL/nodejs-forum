@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../data/databaseController.js');
+const db = require('../../data/database.js');
 
 // all forums
 router.get('/', function(req, res, next) {
-    db.getForums()
+    db.forums.getAll()
         .catch((error) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 // get page for new thread in forum
 router.get('/:forum/new', function(req, res, next) {
-    db.getForum(req.params.forum)
+    db.forums.getSingle(req.params.forum)
         .catch((error) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
@@ -36,12 +36,12 @@ router.post('/:forum/new', function(req, res, next) {
     const content = req.body.content;
     const forum = req.params.forum;
 
-    db.getForum(forum)
+    db.forums.getSingle(forum)
         .catch((error) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
         .then((resultForum) => { // ADD CHECK IF FORUM EXISTS
-            db.postNewThread(resultForum._id, title, content)
+            db.threads.createSingle(resultForum._id, title, content)
                 .catch((error) => {
                     res.redirect('/');
                 })
@@ -57,13 +57,13 @@ router.post('/:thread/newpost', function(req, res, next) {
     const content = req.body.content;
     const thread = req.params.thread;
 
-    db.getThread(thread)
+    db.threads.getSingle(thread)
         .catch((error) => {
             res.send(error);
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
         .then((resultThread) => { // ADD CHECK IF THREAD EXISTS
-            db.postNewPost(resultThread._id, content)
+            db.posts.createSingle(resultThread._id, content)
                 .catch((error) => {
                     res.send(error);
                     res.redirect('/');
@@ -78,12 +78,12 @@ router.post('/:thread/newpost', function(req, res, next) {
 
 // view thread
 router.get('/thread/:thread', function(req, res, next) {
-    db.getThread(req.params.thread)
+    db.threads.getSingle(req.params.thread)
         .catch((threadError) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
         .then((thread) => {
-            db.getPostsInThread(thread._id)
+            db.posts.getAllInThread(thread._id)
                 .catch((postsError) => {
                     res.redirect('/');
                 })
@@ -108,7 +108,7 @@ router.get('/:forum/:page?', function(req, res, next) {
         page = 1;
     }
 
-    db.getForum(forum)
+    db.forums.getSingle(forum)
         .catch((error) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
@@ -116,8 +116,8 @@ router.get('/:forum/:page?', function(req, res, next) {
             forum = forumData;
             if (forum !== null) {
                 Promise.all([
-                        db.getForumThreads(forum._id, threadsPerPage, page),
-                        db.getForumThreadsCount(forum._id),
+                        db.threads.getAllInForum(forum._id, threadsPerPage, page),
+                        db.threads.getAllInForumCount(forum._id),
                     ])
                     .catch((err) => {
                         res.send(err);
