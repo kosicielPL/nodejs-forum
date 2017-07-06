@@ -2,7 +2,7 @@ module.exports = (server) => {
     const io = require('socket.io')(server);
     let clients = [];
 
-    io.on('connection', function(socket) {
+    io.on('connection', (socket) => {
         const address = socket.request.connection.remoteAddress;
 
         clients.push(address);
@@ -25,6 +25,12 @@ module.exports = (server) => {
                 msg: address + ' has disconnected!',
             });
             console.log('A user disconnected - socket id: ' + socket.id);
+        });
+    });
+
+    io.on('test', (socket) => {
+        socket.emit('test', {
+            msg: 'it works!',
         });
     });
 

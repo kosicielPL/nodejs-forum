@@ -5,7 +5,7 @@ const forums = require('../server/routes/forums');
 const mobileMenu = require('../server/routes/mobileMenu');
 const api = require('../server/routes/api');
 
-module.exports = (app) => {
+module.exports = (app, io) => {
     app.use('/', index);
     app.use('/users', users);
     app.use('/settings', settings);

@@ -40,7 +40,7 @@ router.post('/:forum/new', function(req, res, next) {
         .catch((error) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
-        .then((resultForum) => {
+        .then((resultForum) => { // ADD CHECK IF FORUM EXISTS
             db.postNewThread(resultForum._id, title, content)
                 .catch((error) => {
                     res.redirect('/');
@@ -52,18 +52,49 @@ router.post('/:forum/new', function(req, res, next) {
         });
 });
 
+// post new post in thread lol
+router.post('/:thread/newpost', function(req, res, next) {
+    const content = req.body.content;
+    const thread = req.params.thread;
+
+    db.getThread(thread)
+        .catch((error) => {
+            res.send(error);
+            res.redirect('/'); // ADD 404 ERROR PAGE
+        })
+        .then((resultThread) => { // ADD CHECK IF THREAD EXISTS
+            db.postNewPost(resultThread._id, content)
+                .catch((error) => {
+                    res.send(error);
+                    res.redirect('/');
+                })
+                .then((resultPost) => {
+                    // res.send(resultThread);
+                    // res.send(resultPost);
+                    res.redirect('/forums/thread/' + thread + '/#' + resultPost);
+                });
+        });
+});
+
 // view thread
 router.get('/thread/:thread', function(req, res, next) {
     db.getThread(req.params.thread)
-        .catch((error) => {
+        .catch((threadError) => {
             res.redirect('/'); // ADD 404 ERROR PAGE
         })
-        .then((result) => {
-            // res.send(result);
-            res.render('forum/thread', {
-                title: result.title,
-                thread: result,
-            });
+        .then((thread) => {
+            db.getPostsInThread(thread._id)
+                .catch((postsError) => {
+                    res.redirect('/');
+                })
+                .then((posts) => {
+                    // res.json(posts);
+                    res.render('forum/thread', {
+                        title: thread.title,
+                        thread: thread,
+                        posts: posts,
+                    });
+                });
         });
 });
 

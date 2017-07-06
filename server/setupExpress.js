@@ -22,7 +22,6 @@ app.use('/', express.static(path.join(__dirname, '/../client')));
 app.use('/lib', express.static(__dirname + '/../node_modules'));
 
 const routes = require('./routes.js')(app);
-// const api = require('./api.js')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

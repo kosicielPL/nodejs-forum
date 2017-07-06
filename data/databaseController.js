@@ -83,10 +83,9 @@ module.exports = {
 
             database.connect(url, (err, db) => {
                 assert.equal(null, err);
-                
+
                 db.collection('threads')
-                    .aggregate([
-                        {
+                    .aggregate([{
                             '$match': {
                                 forum: new ObjectId(forumId),
                             },
@@ -141,8 +140,7 @@ module.exports = {
             database.connect(url, (err, db) => {
                 assert.equal(null, err);
                 db.collection('threads')
-                    .aggregate([
-                        {
+                    .aggregate([{
                             '$match': {
                                 _id: new ObjectId(threadId),
                             },
@@ -212,37 +210,74 @@ module.exports = {
 
     postNewThread: (forumId, threadTitle, threadContent) => {
         return new Promise((resolve, reject) => {
-            console.log('forum id: ' + forumId);
-            console.log(threadTitle);
-            console.log(threadContent);
             database.connect(url, (err, db) => {
                 db.collection('threads')
                     .insert({
                         'forum': new ObjectId(forumId),
                         'title': threadTitle,
+                        'content': threadContent,
                         'dateCreated': new Date(),
                         'dateUpdated': new Date(),
                     }, (threadError, thread) => {
                         const threadId = thread.insertedIds[0].toString();
-                        console.log('thread id: ' + threadId);
                         if (threadError) {
                             reject(threadError);
                         }
-                        db.collection('posts')
-                            .insert({
-                                'thread': new ObjectId(threadId),
-                                'content': threadContent,
-                                'originalPost': true,
-                                'dateCreated': new Date(),
-                                'dateUpdated': new Date(),
-                            }, (postError, post) => {
-                                db.close();
-                                if (postError) {
-                                    reject(postError);
-                                } else {
-                                    resolve(threadId);
+                        db.close();
+                        resolve(threadId);
+                    });
+            });
+        });
+    },
+
+    postNewPost: (threadId, content) => {
+        return new Promise((resolve, reject) => {
+            database.connect(url, (err, db) => {
+                db.collection('posts')
+                    .insert({
+                        'thread': new ObjectId(threadId),
+                        'content': content,
+                        'dateCreated': new Date(),
+                        'dateUpdated': new Date(),
+                    }, (postError, post) => {
+                        const postId = post.insertedIds[0].toString();
+                        if (postError) {
+                            reject(postError);
+                        }
+                        db.collection('threads')
+                            .update({
+                                _id: new ObjectId(threadId),
+                            }, {
+                                '$set': {
+                                    dateUpdated: new Date(),
+                                },
+                            }, {
+                                upsert: true,
+                            }, (updateError, result) => {
+                                if (updateError) {
+                                    reject(updateError);
                                 }
+                                db.close();
+                                resolve(postId);
                             });
+                    });
+            });
+        });
+    },
+
+    getPostsInThread: (threadId) => {
+        return new Promise((resolve, reject) => {
+            database.connect(url, (err, db) => {
+                db.collection('posts')
+                    .find({
+                        thread: new ObjectId(threadId),
+                    })
+                    .toArray((error, posts) => {
+                        if (error) {
+                            reject(error);
+                        }
+                        db.close();
+                        resolve(posts);
                     });
             });
         });
