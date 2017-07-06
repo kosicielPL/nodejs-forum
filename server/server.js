@@ -1,4 +1,4 @@
-const app = require('../server/setup');
+const app = require('../server/setupExpress');
 const debug = require('debug')('nodejs-forum:server');
 const http = require('http');
 
@@ -6,7 +6,7 @@ const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 const server = http.createServer(app);
-const io = require('../server/socketio')(server);
+const io = require('../server/setupSocketio')(server);
 
 server.listen(port);
 server.on('error', onError);
