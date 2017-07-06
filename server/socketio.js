@@ -1,16 +1,30 @@
 module.exports = (server) => {
     const io = require('socket.io')(server);
+    let clients = [];
 
     io.on('connection', function(socket) {
-        io.emit('test', {
-            msg: 'A user has connected!',
+        const address = socket.request.connection.remoteAddress;
+
+        clients.push(address);
+
+        socket.broadcast.to('online people').emit('test', {
+            msg: address + ' has connected!',
         });
-        console.log('a user connected');
+        socket.join('online people');
+        console.log('A user connected - socket id: ' + socket.id);
+
         socket.on('disconnect', function() {
-            io.emit('test', {
-                msg: 'A user has disconnected!',
+            const index = clients.indexOf(address);
+
+            if (index !== -1) {
+                clients.splice(index, 1);
+                console.info('Client gone (id=' + socket.id + ').');
+            }
+
+            socket.broadcast.to('online people').emit('test', {
+                msg: address + ' has disconnected!',
             });
-            console.log('user disconnected');
+            console.log('A user disconnected - socket id: ' + socket.id);
         });
     });
 
