@@ -1,6 +1,28 @@
 .post-left-part {
     vertical-align: top;
-    width: 300px;
+}
+
+.post-right-part {
+    vertical-align: top;
+}
+
+@media (min-width: 992px) {
+    .post-left-part {
+        position: absolute;
+        width: 250px;
+    }
+    .post-right-part {
+        margin-left: 265px !important;
+        margin-right: 15px !important;
+        vertical-align: top;
+        min-height: 150px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .post-text {
+        text-align: justify;
+    }
 }
 
 .post-container {
@@ -22,7 +44,8 @@
 }
 
 .post-text {
-    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 16px;
 }
 
@@ -65,7 +88,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#new-post-content{
+#new-post-content {
     color: #000;
     font-size: 16px;
     background: rgba(255, 255, 255, 0.8);
