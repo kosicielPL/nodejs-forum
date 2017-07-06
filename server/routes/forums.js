@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../data/database.js');
+const io = require('../setupSocketio');
 
 // all forums
 router.get('/', function(req, res, next) {
@@ -47,6 +48,10 @@ router.post('/:forum/new', function(req, res, next) {
                 })
                 .then((resultThread) => {
                     // res.send(resultThread);
+                    io.send('newthread', {
+                        user: 'Xpload',
+                        forum: resultForum.name,
+                    });
                     res.redirect('/forums/thread/' + resultThread);
                 });
         });

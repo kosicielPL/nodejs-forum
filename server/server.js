@@ -6,7 +6,9 @@ const app = require('../server/setupExpress');
 app.set('port', port);
 
 const server = http.createServer(app);
-const io = require('../server/setupSocketio').create(server);
+const io = require('../server/setupSocketio');
+io.create(server);
+io.setup();
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

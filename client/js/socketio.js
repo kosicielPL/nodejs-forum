@@ -7,3 +7,12 @@ socket.on('test', (msg) => {
         position: 'bottom right',
     });
 });
+
+socket.on('newthread', (msg) => {
+    const string = msg.user + ' has posted in ' + msg.forum;
+    $.notify(string, {
+        style: 'glass',
+        className: 'info',
+        position: 'bottom right',
+    });
+});
