@@ -83,13 +83,27 @@ module.exports = {
 
             database.connect(url, (err, db) => {
                 assert.equal(null, err);
+                
                 db.collection('threads')
-                    .find({
-                        forum: new ObjectId(forumId),
-                    })
-                    .skip((page - 1) * resultsPerPage)
-                    .limit(resultsPerPage)
-                    .toArray((error, result) => {
+                    .aggregate([
+                        {
+                            '$match': {
+                                forum: new ObjectId(forumId),
+                            },
+                        },
+                        {
+                            '$sort': {
+                                dateUpdated: -1,
+                                dateCreated: 1,
+                            },
+                        },
+                        {
+                            '$skip': (page - 1) * resultsPerPage,
+                        },
+                        {
+                            '$limit': resultsPerPage,
+                        },
+                    ], (error, result) => {
                         db.close();
                         if (error) {
                             reject(error);
@@ -127,7 +141,8 @@ module.exports = {
             database.connect(url, (err, db) => {
                 assert.equal(null, err);
                 db.collection('threads')
-                    .aggregate([{
+                    .aggregate([
+                        {
                             '$match': {
                                 _id: new ObjectId(threadId),
                             },

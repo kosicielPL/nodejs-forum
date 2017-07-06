@@ -55,12 +55,13 @@ block content
                                                 span.glyphicon.glyphicon-comment
                                                 |  152   &nbsp;&nbsp;&nbsp;
                                             span.thread-row-author   Xpload
-                                            span.thread-row-date.pull-right date is broken
+                                            span.thread-row-date.pull-right= thread.dateCreated
                             div.col-sm-2.hidden-xs.thread-row-author Xpload
                             div.col-sm-2.hidden-xs.thread-row-comment
                                 span.glyphicon.glyphicon-comment
                                 |  152
-                            div.col-sm-2.hidden-xs.thread-row-date date is broken
+                            - date =  new Date(thread.dateCreated)
+                            div.col-sm-2.hidden-xs.thread-row-date= date.toDateString()
 
 
 
