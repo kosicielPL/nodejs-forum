@@ -1,20 +1,19 @@
 extends layout
 
 block currentPageCategory
-    -var selected = 'home';
+  -var selected = 'home';
+
+block logotext
+  | BIG
+  br
+  | TEST
+  br
+  | ICICLES, BABY
 
 block content
-    div.logo-parallax.logo-3-rows
-        div.container.logo-text-container
-            div.logo-text
-                | BIG
-                br
-                | TEST
-                br
-                | ICICLES, BABY
-    div.container.forum-body
-      center
-        //- h2 this is gonna be an awesome home page
-        //- h2 some day
-        //- h2 promise
-        img(src='https://scontent.fsof3-1.fna.fbcdn.net/v/t1.0-9/19702510_1244045149052121_4564456610159684092_n.jpg?oh=a9e24ebc81eef7c2afdaddb107f94e8c&oe=5A06D11D').img.img-responsive
+  div.container.forum-body
+    center
+      //- h2 this is gonna be an awesome home page
+      //- h2 some day
+      //- h2 promise
+      img(src='https://scontent.fsof3-1.fna.fbcdn.net/v/t1.0-9/19702510_1244045149052121_4564456610159684092_n.jpg?oh=a9e24ebc81eef7c2afdaddb107f94e8c&oe=5A06D11D').img.img-responsive

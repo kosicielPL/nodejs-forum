@@ -1,110 +1,108 @@
 extends ../layout
 
 block styles
-    link(rel='stylesheet', href='/stylesheets/forum/forum-thread.css')
-    link(rel='stylesheet', href='/stylesheets/forum/forum-pagination.css')
+  link(rel='stylesheet', href='/stylesheets/forum/forum-thread.css')
+  link(rel='stylesheet', href='/stylesheets/forum/forum-pagination.css')
 
 block currentPageCategory
-    -var selected = 'forums';
+  -var selected = 'forums';
 
 block navigationMenu
-    li
-        a(href='/forums/') Forums
-    li
-        a(href='/forums/'+ thread.forum.internalName)= thread.forum.name
-    li.active= thread.title
-    
+  li
+    a(href='/forums/') Forums
+  li
+    a(href='/forums/'+ thread.forum.internalName)= thread.forum.name
+  li.active= thread.title
+
+block logotext
+  | #{thread.forum.name}
+
 block content
-    div.logo-parallax.logo-1-rows
-        div.container.logo-text-container
-            div.logo-text= thread.title
+  div.container.forum-body
+    h2= thread.title
+    //- div.row.thread-controls
+    //-   a(href="#post-reply").btn.btn-reply-thread POST REPLY
 
-    div.container.forum-body
-        div.row.thread-controls
-            div.col-xs-12
-                a(href="#post-reply").btn.btn-reply-thread POST REPLY
-        
-        if currentPage <= 1
-            div.container.post-container.original-post
-                div.sidebar.post-left-part
-                    div.post-avatar-container
-                        img(src="/img/avatar.gif").post-avatar
-                    div.post-author-container
-                        div.post-author-name Xpload
-                        div.post-author-title User
-                        div.post-author-posts 257 posts
-                    span.pull-right.post-date.visible-sm.visible-xs= thread.dateCreated
-                div.post-right-part.container-fluid
-                    div.row.post-date.hidden-xs.hidden-sm= thread.dateCreated
-                    div.row.post-text= thread.content
+    if currentPage <= 1
+      div.container.post-container.original-post
+        div.sidebar.post-left-part
+          div.post-avatar-container
+            img(src="/img/avatar.gif").post-avatar
+          div.post-author-container
+            div.post-author-name Xpload
+            div.post-author-title User
+            div.post-author-posts 257 posts
+          span.pull-right.post-date.visible-sm.visible-xs= thread.dateCreated
+        div.post-right-part.container-fluid
+          div.row.post-date.hidden-xs.hidden-sm= thread.dateCreated
+          div.row.post-text= thread.content
 
-        each post in posts
-            div(id=post._id).container.post-container
-                div.sidebar.post-left-part
-                    div.post-avatar-container
-                        img(src="/img/avatar.gif").post-avatar
-                    div.post-author-container
-                        div.post-author-name Xpload
-                        div.post-author-title User
-                        div.post-author-posts 257 posts
-                    span.pull-right.post-date.visible-sm.visible-xs= post.dateUpdated
-                div.post-right-part.container-fluid
-                    div.row.post-date.hidden-xs.hidden-sm= post.dateUpdated
-                    div.row.post-text= post.content
+    each post in posts
+      div(id=post._id).container.post-container
+        div.sidebar.post-left-part
+          div.post-avatar-container
+            img(src="/img/avatar.gif").post-avatar
+          div.post-author-container
+            div.post-author-name Xpload
+            div.post-author-title User
+            div.post-author-posts 257 posts
+          span.pull-right.post-date.visible-sm.visible-xs= post.dateUpdated
+        div.post-right-part.container-fluid
+          div.row.post-date.hidden-xs.hidden-sm= post.dateUpdated
+          div.row.post-text= post.content
 
-        div.row.forum-pagination
-            div.pagination
-                //- first page
-                if currentPage > 3
-                    a(href='/forums/thread/' + thread._id + '/1').page-item 1
+    div.row.forum-pagination
+      div.pagination
 
-                //- previous page
-                if currentPage > 3
-                    span.page-item ...
-                //- span.page-item ...
+        //- first page
+        if currentPage > 3
+          a(href='/forums/thread/' + thread._id + '/1').page-item 1
 
-                //- page - 2
-                if currentPage > 2
-                    a(href='/forums/thread/' + thread._id + '/' + (currentPage - 2)).page-item= currentPage - 2
+        //- previous page
+        if currentPage > 3
+          span.page-item ...
 
-                //- page - 1
-                if currentPage > 1
-                    a(href='/forums/thread/' + thread._id + '/' + (currentPage - 1)).page-item= currentPage - 1
+        //- page - 2
+        if currentPage > 2
+          a(href='/forums/thread/' + thread._id + '/' + (currentPage - 2)).page-item= currentPage - 2
 
-                //- current page
-                if threadsCount > 0
-                    span.page-item.active= currentPage
-                
-                //- page + 1
-                if totalPages > currentPage
-                    a(href='/forums/thread/' + thread._id + '/' + (currentPage + 1)).page-item= currentPage + 1
+        //- page - 1
+        if currentPage > 1
+          a(href='/forums/thread/' + thread._id + '/' + (currentPage - 1)).page-item= currentPage - 1
 
-                //- page + 2
-                if totalPages > currentPage + 1
-                    a(href='/forums/thread/' + thread._id + '/' + (currentPage + 2)).page-item= currentPage + 2
+        //- current page
+        if threadsCount > 0
+          span.page-item.active= currentPage
 
-                //- next page
-                if totalPages > currentPage + 2
-                    span.page-item ...
+        //- page + 1
+        if totalPages > currentPage
+          a(href='/forums/thread/' + thread._id + '/' + (currentPage + 1)).page-item= currentPage + 1
 
-                //- last page
-                if totalPages > currentPage + 2
-                    a(href='/forums/thread/' + thread._id + '/' + totalPages).page-item= totalPages
+        //- page + 2
+        if totalPages > currentPage + 1
+          a(href='/forums/thread/' + thread._id + '/' + (currentPage + 2)).page-item= currentPage + 2
 
-                    
-        h2#post-reply Post reply
-        div.container.post-container.original-post
-            div.sidebar.post-left-part
-                div.post-avatar-container
-                    img(src="/img/avatar.gif").post-avatar
-                div.post-author-container
-                    div.post-author-name Xpload
-                    div.post-author-title User
-                    div.post-author-posts 257 posts
-            div.post-right-part.container-fluid
-                div.row.new-post-content
-                    form(action='/forums/' + thread._id +'/newpost', method='post')
-                        div.form-group
-                            textarea(rows='10', name='content')#new-post-content.form-control
-                        div.form-group
-                            button.btn.btn-reply-thread.pull-right POST REPLY
+        //- next page
+        if totalPages > currentPage + 2
+          span.page-item ...
+
+        //- last page
+        if totalPages > currentPage + 2
+          a(href='/forums/thread/' + thread._id + '/' + totalPages).page-item= totalPages
+
+    h2#post-reply Post reply
+    div.container.post-container.original-post
+      div.sidebar.post-left-part
+        div.post-avatar-container
+          img(src="/img/avatar.gif").post-avatar
+        div.post-author-container
+          div.post-author-name Xpload
+          div.post-author-title User
+          div.post-author-posts 257 posts
+      div.post-right-part.container-fluid
+        div.row.new-post-content
+          form(action='/forums/' + thread._id +'/newpost', method='post')
+            div.form-group
+              textarea(rows='10', name='content')#new-post-content.form-control
+            div.form-group
+              button.btn.btn-reply-thread.pull-right POST REPLY

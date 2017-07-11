@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/server.js"
+    "start": "node ./server"
   },
   "dependencies": {
     "babel-eslint": "^7.2.3",
