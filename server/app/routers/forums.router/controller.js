@@ -30,35 +30,39 @@ const init = (app, data) => {
                     res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((forum) => {
-                    if (forum !== null) {
-                        Promise
-                            .all([
-                                data.threads.getInForum(forum[0]._id, threadsPerPage, page),
-                                data.threads.getCountInForum(forum[0]._id),
-                            ])
-                            .catch((err) => {
-                                res.send(err);
-                            })
-                            .then((result) => {
-                                // res.send(result);
-                                let totalPages = result[1] / threadsPerPage;
-                                totalPages = Math.ceil(totalPages);
-                                if (page > totalPages && page > 1) {
-                                    res.send('page doesnt exist'); // FIX ME LATER
-                                }
-                                res.render('forum/singleForum', {
-                                    title: forum[0].name,
-                                    forum: forum[0],
-                                    threads: result[0],
-                                    currentPage: page * 1,
-                                    totalPages: totalPages * 1,
-                                    threadsCount: result[1] * 1,
-                                });
-                            });
-                        // res.send(info);
-                    } else {
-                        res.send('forum not found');
+                    if (forum.length <= 0) {
+                        res.render('error', {
+                            title: 'Error 404',
+                            message: 'Forum not found',
+                            error: {
+                                status: 404,
+                            },
+                        });
                     }
+                    Promise
+                        .all([
+                            data.threads.getInForum(forum[0]._id, threadsPerPage, page),
+                            data.threads.getCountInForum(forum[0]._id),
+                        ])
+                        .catch((err) => {
+                            res.send(err);
+                        })
+                        .then((result) => {
+                            // res.send(result);
+                            let totalPages = result[1] / threadsPerPage;
+                            totalPages = Math.ceil(totalPages);
+                            if (page > totalPages && page > 1) {
+                                res.send('page doesnt exist'); // FIX ME LATER
+                            }
+                            res.render('forum/singleForum', {
+                                title: forum[0].name,
+                                forum: forum[0],
+                                threads: result[0],
+                                currentPage: page * 1,
+                                totalPages: totalPages * 1,
+                                threadsCount: result[1] * 1,
+                            });
+                        });
                 });
         },
 
@@ -71,13 +75,31 @@ const init = (app, data) => {
                 page = 1;
             }
 
+            if (threadId.length !== 24) {
+                res.render('error', {
+                    title: 'Error 404',
+                    message: 'Invalid thread ID',
+                    error: {
+                        status: 404,
+                    },
+                });
+            }
+
             return data.threads
                 .getById(threadId)
                 .catch((error) => {
                     res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((thread) => {
-                    // res.send(thread[0].forum);
+                    if (thread.length <= 0) {
+                        res.render('error', {
+                            title: 'Error 404',
+                            message: 'Thread not found',
+                            error: {
+                                status: 404,
+                            },
+                        });
+                    }
                     Promise
                         .all([
                             data.posts.getInThread(thread[0]._id, page, postsPerPage),

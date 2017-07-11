@@ -6,4 +6,5 @@ block logotext
 block content
   div.container.forum-body
     h1= message
-    pre #{error.stack}
+    if(error.stack)
+      pre #{error.stack}
