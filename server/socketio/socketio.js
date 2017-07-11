@@ -4,7 +4,7 @@ const init = (server) => {
 
     io.on('connection', (socket) => {
         const address = socket.request.connection.remoteAddress;
-
+        
         clients.push(address);
 
         socket.broadcast.to('online people').emit('test', {

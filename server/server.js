@@ -12,6 +12,10 @@ Promise.resolve()
     .then((app) => {
         app.set('port', port);
         const server = http.createServer(app);
+        const io = require('./socketio').init(server);
+        io.then((io) => {
+            app.io = io;
+        });
         // app.io.attach(server);
         server.listen(port, () => {
             console.log('Listening on port: ' + port);
