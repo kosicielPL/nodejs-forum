@@ -4,6 +4,9 @@ block styles
   link(rel='stylesheet', href='/stylesheets/forum/forum-thread.css')
   link(rel='stylesheet', href='/stylesheets/forum/forum-pagination.css')
 
+block scripts
+  script(src='/js/new-post.js')
+
 block currentPageCategory
   -var selected = 'forums';
 
@@ -106,5 +109,7 @@ block content
           form(action='/forums/' + thread._id +'/new-post', method='post')
             div.form-group
               textarea(rows='10', name='content')#new-post-content.form-control
+              small.form-text.text-muted Minimum length: 
+                span#content-min-length
             div.form-group
-              button.btn.btn-reply-thread.pull-right POST REPLY
+              button(disabled).btn.btn-reply-thread.pull-right#new-post-button POST REPLY

@@ -67,7 +67,7 @@ class BaseData {
 
     create(model) {
         if (!this._isModelValid(model)) {
-            return Promise.reject('Invalid model');
+            return Promise.reject('Invalid data model!');
         }
 
         return this.collection.insert(model)

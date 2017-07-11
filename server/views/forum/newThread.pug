@@ -3,6 +3,9 @@ extends ../layout
 block styles
   link(rel='stylesheet', href='/stylesheets/forum/new-thread.css')
 
+block scripts
+  script(src='/js/new-thread.js')
+
 block currentPageCategory
   -var selected = 'forums';
 
@@ -47,5 +50,9 @@ block content
                   input(type='text', placeholder='Thread name', name='title')#new-thread-name.form-control
                 div.form-group
                   textarea(rows='15', name='content')#new-thread-content.form-control
+                  small.form-text.text-muted Title minimum length: 
+                    span#title-min-length
+                  small.form-text.text-muted , Content minimum length: 
+                    span#content-min-length
                 div.form-group
-                  button.btn.btn-create-thread.pull-right CREATE THREAD
+                  button(disabled).btn.btn-create-thread.pull-right#new-thread-button CREATE THREAD

@@ -3,7 +3,6 @@ html
   head
     title= title
     meta(name='viewport', content='width=device-width, height=device-height, initial-scale=1.0')
-    block scripts
     script(src='/lib/jquery/dist/jquery.js')
     script(src='/lib/bootstrap/dist/js/bootstrap.js')
     script(src='/lib/socket.io-client/dist/socket.io.js')
@@ -11,7 +10,7 @@ html
     script(src='/js/mobileMenu.js')
     script(src='/js/notifyjs.js')
     script(src='/js/socketio.js')
-    block styles
+    block scripts
     link(rel='stylesheet', href='/stylesheets/default.css')
     link(rel='stylesheet', href='/stylesheets/forum/forum-header.css')
     link(rel='stylesheet', href='/stylesheets/forum/forum-body.css')
@@ -19,6 +18,7 @@ html
     link(rel='stylesheet', href='/stylesheets/mobile-menu.css')
     link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.css')
+    block styles
   body
     div.whole-page-wrapper
       include mobileMenu
