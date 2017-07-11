@@ -1,0 +1,30 @@
+.news-container {
+    margin: 0px;
+    color: #fff;
+    padding: 10px;
+}
+
+.forum {
+    color: bisque;
+}
+
+.news-container .title {
+    color: purple;
+    font-size: 18px;
+}
+
+.news-container .content {
+    color: red;
+}
+
+.news-container .info {
+    color: cyan;
+    font-size: 12px;
+    padding-bottom: 20px;
+    display: block;
+}
+
+
+.forum + .news-container{
+    margin-bottom: 40px;
+}

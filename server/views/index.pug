@@ -1,5 +1,8 @@
 extends layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/home.css')
+
 block currentPageCategory
   -var selected = 'home';
 
@@ -12,8 +15,33 @@ block logotext
 
 block content
   div.container.forum-body
-    center
-      h2 this is gonna be a GLORIOUS home page
-      h2 some day
-      h2 promise
-      h2 eventually
+    div.container
+      div.col-md-8
+        div.row
+          h4.forum Announcements
+          div.container-glass.news-container
+            h5.title Title here
+            span.info posted by 
+              a(href='#') Xpload
+              |  on 27.06.2017
+            p.content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae quam iusto, quaerat perspiciatis, deleniti perferendis nobis natus eius sunt distinctio quo cupiditate pariatur ab at magnam ipsum, maiores sed. Dolore.
+
+          h4.forum Announcements
+          div.container-glass.news-container
+            h5.title Title here
+            span.info posted by 
+              a(href='#') Xpload
+              |  on 27.06.2017
+            p.content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae quam iusto, quaerat perspiciatis, deleniti perferendis nobis natus eius sunt distinctio quo cupiditate pariatur ab at magnam ipsum, maiores sed. Dolore.
+
+          h4.forum Announcements
+          div.container-glass.news-container
+            h5.title Title here
+            span.info posted by 
+              a(href='#') Xpload
+              |  on 27.06.2017
+            p.content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae quam iusto, quaerat perspiciatis, deleniti perferendis nobis natus eius sunt distinctio quo cupiditate pariatur ab at magnam ipsum, maiores sed. Dolore.
+
+
+      div.col-md-4.sidenav
+        div.row newest posts will come here

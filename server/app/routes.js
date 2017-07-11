@@ -1,10 +1,10 @@
 module.exports = (app, data) => {
     const home = require('./routers/home.router')(app, data);
-    const users = require('./routers/users.router')(app, data);
-    const settings = require('./routers/settings.router')(app, data);
+    const users = require('./routers/users.router')(data);
+    const settings = require('./routers/settings.router')(data);
     const forums = require('./routers/forums.router')(app, data);
-    const mobileMenu = require('./routers/mobileMenu.router')(app, data);
-    const api = require('./routers/api.router')(app, data);
+    const mobileMenu = require('./routers/mobileMenu.router')(data);
+    const api = require('./routers/api.router')(data);
 
     app.use('/', home);
     app.use('/users', users);

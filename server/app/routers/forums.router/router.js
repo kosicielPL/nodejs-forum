@@ -3,7 +3,7 @@ const express = require('express');
 module.exports = (app, data) => {
     const router = new express.Router();
     const controller = require('./controller').init(app, data);
-    
+
     // all forums
     router.get('/', (req, res) => {
         return controller.generateAllForumsView(req, res);

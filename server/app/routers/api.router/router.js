@@ -1,6 +1,6 @@
 const express = require('express');
 
-module.exports = (app, data) => {
+module.exports = (data) => {
     const router = new express.Router();
     router.get('/forums', function(req, res, next) {
         data.forums
@@ -26,7 +26,8 @@ module.exports = (app, data) => {
     });
 
     router.get('/forumstructure', function(req, res, next) {
-        data.forums.getStructure()
+        data.categories
+        .getStructure()
             .then((result) => {
                 res.json(result);
             });
