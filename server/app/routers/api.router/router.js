@@ -32,5 +32,12 @@ module.exports = (app, data) => {
             });
     });
 
+    router.get('/test', function(req, res, next) {
+        data.forums.getByCriteria('internalName', 'general-discussion')
+            .then((result) => {
+                res.send(result);
+            });
+    });
+
     return router;
 };

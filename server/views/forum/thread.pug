@@ -11,11 +11,11 @@ block navigationMenu
   li
     a(href='/forums/') Forums
   li
-    a(href='/forums/'+ thread.forum.internalName)= thread.forum.name
+    a(href='/forums/'+ forum.internalName)= forum.name
   li.active= thread.title
 
 block logotext
-  | #{thread.forum.name}
+  | #{forum.name}
 
 block content
   div.container.forum-body
@@ -24,6 +24,7 @@ block content
     //-   a(href="#post-reply").btn.btn-reply-thread POST REPLY
 
     if currentPage <= 1
+      - date =  new Date(thread.dateUpdated)
       div.container.post-container.original-post
         div.sidebar.post-left-part
           div.post-avatar-container
@@ -32,12 +33,13 @@ block content
             div.post-author-name Xpload
             div.post-author-title User
             div.post-author-posts 257 posts
-          span.pull-right.post-date.visible-sm.visible-xs= thread.dateCreated
+          span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
         div.post-right-part.container-fluid
-          div.row.post-date.hidden-xs.hidden-sm= thread.dateCreated
+          div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
           div.row.post-text= thread.content
 
     each post in posts
+      - date =  new Date(post.dateUpdated)
       div(id=post._id).container.post-container
         div.sidebar.post-left-part
           div.post-avatar-container
@@ -46,9 +48,9 @@ block content
             div.post-author-name Xpload
             div.post-author-title User
             div.post-author-posts 257 posts
-          span.pull-right.post-date.visible-sm.visible-xs= post.dateUpdated
+          span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
         div.post-right-part.container-fluid
-          div.row.post-date.hidden-xs.hidden-sm= post.dateUpdated
+          div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
           div.row.post-text= post.content
 
     div.row.forum-pagination
@@ -101,7 +103,7 @@ block content
           div.post-author-posts 257 posts
       div.post-right-part.container-fluid
         div.row.new-post-content
-          form(action='/forums/' + thread._id +'/newpost', method='post')
+          form(action='/forums/' + thread._id +'/new-post', method='post')
             div.form-group
               textarea(rows='10', name='content')#new-post-content.form-control
             div.form-group

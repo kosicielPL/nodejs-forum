@@ -18,11 +18,19 @@ block logotext
 block content
   include modals/newPost
   div.container.forum-body
+
+    div.row.collapse#search-form
+      form.form-inline.pull-right
+        div.input-group
+          input(type="text", name="search", placeholder="Search threads").form-control#search
+        | &nbsp;
+        button(type="submit").btn.btn-default GO
+
     div.row.thread-controls
       div.col-xs-6.thread-controls-left
-        a(href="/forums/" + forum.internalName + "/new").btn.btn-new-thread NEW THREAD
+        a(href="/forums/" + forum.internalName + "/new-thread").btn.btn-new-thread NEW THREAD
       div.col-xs-6.thread-controls-right
-        a(href="#").btn.btn-search-thread
+        button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
           span.glyphicon.glyphicon-search
 
 
@@ -33,6 +41,7 @@ block content
         h2 You can be the first one to post here
 
     each thread in threads
+      - date =  new Date(thread.dateUpdated)
       div.row.thread-row.grid
         a(href="/forums/thread/" + thread._id, title= thread.content).thread-row-container
           div.container-fluid
@@ -52,12 +61,11 @@ block content
                         span.glyphicon.glyphicon-comment
                         |  152   &nbsp;&nbsp;&nbsp;
                       span.thread-row-author   Xpload
-                      span.thread-row-date.pull-right= thread.dateCreated
+                      span.thread-row-date.pull-right= date.toDateString()
               div.col-sm-2.hidden-xs.thread-row-author Xpload
               div.col-sm-2.hidden-xs.thread-row-comment
                 span.glyphicon.glyphicon-comment
                 |  152
-              - date =  new Date(thread.dateCreated)
               div.col-sm-2.hidden-xs.thread-row-date= date.toDateString()
 
 

@@ -1,14 +1,11 @@
 const express = require('express');
-const router = new express.Router();
 
-module.exports = (app, data) => {
-    router.get('/forumstructure', function(req, res, next) {
-        data.forums.getStructure()
-            .then((result) => {
-                res.render('mobileMenuStructure', {
-                    structure: result,
-                });
-            });
+module.exports = (data) => {
+    const router = new express.Router();
+    const controller = require('./controller').init(data);
+
+    router.get('/forumstructure', (req, res) => {
+        return controller.generateMenuStructure(req, res);
     });
 
     return router;

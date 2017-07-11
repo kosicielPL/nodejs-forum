@@ -1,32 +1,24 @@
 const express = require('express');
-const router = new express.Router();
 
-module.exports = (app, data) => {
+module.exports = (data) => {
+    const router = new express.Router();
+    const controller = require('./controller').init(data);
+
     /* GET users listing. */
-    router.get('/', function(req, res, next) {
-        res.send('test');
+    // router.get('/', function(req, res, next) {
+    //     res.send('test');
+    // });
+
+    router.get('/profile/:user', (req, res) => {
+        return controller.generateProfileView(req, res);
     });
 
-    router.get('/profile/:user', function(req, res, next) {
-        const user = req.params.user;
-        res.render('user/profile', {
-            title: user + '\'s profile',
-            user: user,
-        });
+    router.get('/signup', (req, res) => {
+        return controller.generateSignupView(req, res);
     });
 
-    router.get('/signup', function(req, res, next) {
-        const user = req.params.user;
-        res.render('user/signup', {
-            title: 'Sign up',
-        });
-    });
-
-    router.get('/login', function(req, res, next) {
-        const user = req.params.user;
-        res.render('user/login', {
-            title: 'Log in',
-        });
+    router.get('/login', (req, res) => {
+        return controller.generateLoginView(req, res);
     });
 
     return router;

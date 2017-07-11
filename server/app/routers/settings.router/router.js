@@ -1,12 +1,11 @@
 const express = require('express');
-const router = new express.Router();
 
-module.exports = (app, data) => {
-    /* GET users listing. */
-    router.get('/', function(req, res, next) {
-        res.render('settings', {
-            title: 'Settings',
-        });
+module.exports = (data) => {
+    const router = new express.Router();
+    const controller = require('./controller').init(data);
+
+    router.get('/', (req, res) => {
+        return controller.generateSettingsView(req, res);
     });
 
     return router;
