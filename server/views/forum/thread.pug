@@ -39,7 +39,7 @@ block content
           span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
         div.post-right-part.container-fluid
           div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
-          div.row.post-text= thread.content
+          div.row.post-text !{thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
 
     each post in posts
       - date =  new Date(post.dateUpdated)
@@ -54,7 +54,8 @@ block content
           span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
         div.post-right-part.container-fluid
           div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
-          div.row.post-text= post.content
+          div.row.post-text !{post.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
+          
 
     div.row.forum-pagination
       div.pagination
