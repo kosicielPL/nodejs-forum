@@ -6,52 +6,24 @@ html {
 }
 
 body {
-    background: url('/img/huge.jpg') !important;
-    background-color: #191919;
-    background-attachment: fixed !important;
-    background-position: top !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    /*background-attachment: fixed !important;*/
-    /*background-image: url("/img/huge_blurred.jpg") !important;
-    background-attachment: fixed !important;
-    background-position: top !important;
-    background-repeat: no-repeat;
-    background-size: cover !important;*/
+    background-color: #0f0f0f;
     height: 100vh;
     min-height: 100vh;
 }
 
-.whole-page-wrapper {
-    /*background: url('/img/huge_blurred.jpg') !important;*/
-    /*background-color: #191919;*/
-    /*background-attachment: fixed !important;*/
-    /*background-position: top !important;*/
-    /*background-repeat: no-repeat !important;*/
-    /*background-size: cover !important;*/
-    /*background-attachment: fixed !important;*/
-    /*background-image: url("/img/huge_blurred.jpg") !important;
-    background-attachment: fixed !important;
-    background-position: top !important;
-    background-repeat: no-repeat;
-    background-size: cover !important;*/
-    /*height: 100vh;*/
-    /*min-height: 100vh;*/
+@media (min-width: 768px) {
+    body {
+        background: url('/img/huge.jpg') !important;
+        background-attachment: fixed !important;
+        background-position: top !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
 }
 
 .forum-header {
-    /*position: absolute;
-    width: 100%;
-    z-index: 100;*/
-    /*background: rgba(255, 255, 255, 0.05);*/
-    /*background-image: url("/img/huge_blurred.jpg");
-    background-attachment: fixed;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;*/
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 3px #000;
-    /*background: #ccc;*/
 }
 
 .forum-header .navbar-nav>li>a {
@@ -130,27 +102,6 @@ body {
 .forum-header .dropdown .glyphicon {
     margin-right: 15px;
 }
-
-/*.logo-parallax {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 3px #000;
-}
-
-@media (max-width: 767px) {
-    .logo-parallax {
-        background: rgba(0, 0, 0, 0.6);
-    }
-}
-
-@media (min-width: 768px) {
-    .logo-parallax {
-        background-image: url("/img/huge.jpg");
-        background-attachment: fixed;
-        background-position: top;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-}*/
 
 .logo-text-container {
     height: 100%;

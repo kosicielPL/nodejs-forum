@@ -39,3 +39,35 @@
         border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
+
+.latest-thread-row,
+.latest-thread-row:hover,
+.latest-thread-row:visited {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    transition: background-color .5s;
+}
+
+.latest-thread-row:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.latest-thread-row+.latest-thread-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.latest-thread-row .title {
+    font-size: 16px;
+    padding-top: 10px;
+}
+.latest-thread-row .date {
+    font-size: 12px;
+}
+
+.latest-thread-row .small {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}

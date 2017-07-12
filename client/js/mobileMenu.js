@@ -1,3 +1,5 @@
+/* globals $ */
+
 $(document).ready(function() {
     let forumStructureIsLoaded = false;
     const forumStructure = {};
@@ -59,7 +61,7 @@ $(document).ready(function() {
     function loadForumStructure() {
         const host = window.location.hostname;
         const protocol = location.protocol;
-        const url = protocol + '//' + host + '/mobilemenu/forumstructure';
+        const url = protocol + '//' + host + '/helpers/forums-structure';
 
         $.ajax({
             url: url,

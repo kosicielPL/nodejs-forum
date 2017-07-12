@@ -26,7 +26,6 @@
 }
 
 .thread-row-container+.thread-row-container{
-    /*display: block;*/
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -41,7 +40,6 @@
 }
 
 .thread-row-author {
-    /*color: #f4415f;*/
     color: rgba(255, 255, 255, 0.6);
 }
 

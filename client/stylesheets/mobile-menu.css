@@ -58,7 +58,6 @@
 
 .mobile-menu-item a:hover {
     text-decoration: none;
-    /*background: rgba(255, 255, 255, 0.2);*/
 }
 
 .mobile-menu-subitem {
@@ -68,10 +67,6 @@
 .mobile-menu-item .glyphicon {
     padding-right: 20px;
 }
-
-/*.mobile-menu-item+.mobile-menu-item{
-    border-top: 1px solid rgba(255, 255, 255, 0.2);    
-}*/
 
 .mobile-submenu {
     padding-top: 10px;

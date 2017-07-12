@@ -1,5 +1,4 @@
 .forum-body {
-    /*box-shadow: 0 0 3px #000;*/
     padding-bottom: 20px;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -52,7 +51,6 @@
 
 .thread-controls {
     padding: 30px;
-    /*text-align: right;*/
 }
 
 .thread-controls-left {

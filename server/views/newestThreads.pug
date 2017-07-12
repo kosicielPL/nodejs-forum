@@ -1,0 +1,22 @@
+div.container-fluid
+  h4 Latest threads
+each thread in newestThreads
+  - date =  new Date(thread.dateCreated)
+  - if(thread.content.length > 50) thread.content = thread.content.substring(0,50) + '...';
+  a(href="/forums/thread/" + thread._id).latest-thread-row
+    div.container-fluid
+      div.row
+        div.col-xs-3
+          img(src="/img/avatar.gif").img.img-responsive
+        div.col-xs-9
+          div.row
+            span.small by
+            |  Xpload
+          div.row
+            span.small in
+            |  #{thread.forum[0].name}
+          div.row.small on #{date.toDateString()}
+      div.row
+        div.col-xs-12.title= thread.title
+      div.row
+        div.col-xs-12.content= thread.content

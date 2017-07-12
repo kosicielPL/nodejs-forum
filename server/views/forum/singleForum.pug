@@ -38,6 +38,7 @@ block content
   div.container-fluid
     each thread in threads
       - date =  new Date(thread.dateUpdated)
+      - if(thread.content.length > 200) thread.content = thread.content.substring(0,200) + '...';
       a(href="/forums/thread/" + thread._id, title= thread.content).thread-row-container
         div.row.thread-row.grid        
           div.col-sm-6
@@ -47,7 +48,7 @@ block content
                 span.thread-row-title #{thread.title}
               div.row.visible-xs &nbsp;
               div.row.visible-xs
-                div.thread-row-text #{thread.content}
+                div.thread-row-text= thread.content
               div.row.visible-xs &nbsp;
               div.row.visible-xs
                 div

@@ -48,6 +48,43 @@ class ThreadsData extends BaseData {
         return result;
     }
 
+    getNewestN(count) {
+        if (count < 1) {
+            count = 1;
+        }
+
+        let result = this.collection
+            .aggregate([
+                {
+                    '$sort': {
+                        dateCreated: -1,
+                    },
+                },
+                {
+                    '$limit': count,
+                },
+                {
+                    '$lookup': {
+                        from: 'forums',
+                        localField: 'forum',
+                        foreignField: '_id',
+                        as: 'forum',
+                    },
+                },
+            ])
+            .toArray();
+
+        if (this.ModelClass.toViewModel) {
+            result = result.then((models) => {
+                return models
+                    .map((model) =>
+                        this.ModelClass.toViewModel(model));
+            });
+        }
+
+        return result;
+    }
+
     getCountInForum(forumId) {
         const result = this.collection
             .find({
