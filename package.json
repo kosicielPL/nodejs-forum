@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./server",
-    "test": "mocha ./tests/**/*.js",
+    "test": "gulp test:unit",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha tests/**/*.js -- -R spec"
   },
   "dependencies": {
@@ -27,6 +27,9 @@
     "chai": "^4.1.0",
     "eslint": "^4.2.0",
     "eslint-config-google": "^0.8.1",
+    "gulp": "^3.9.1",
+    "gulp-istanbul": "^1.1.2",
+    "gulp-mocha": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0"
