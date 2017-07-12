@@ -1,3 +1,5 @@
+/* globals toastr, io, $ */
+
 const socket = io();
 
 socket.on('test', (msg) => {
@@ -10,9 +12,5 @@ socket.on('test', (msg) => {
 
 socket.on('newthread', (msg) => {
     const string = msg.user + ' has posted in ' + msg.forum;
-    $.notify(string, {
-        style: 'glass',
-        className: 'info',
-        position: 'bottom right',
-    });
+    toastr.info(string, 'New thread');
 });

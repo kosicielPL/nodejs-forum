@@ -6,18 +6,19 @@ html
     script(src='/lib/jquery/dist/jquery.js')
     script(src='/lib/bootstrap/dist/js/bootstrap.js')
     script(src='/lib/socket.io-client/dist/socket.io.js')
-    script(src='/lib/notifyjs-browser/dist/notify.js')
+    script(src='/lib/toastr/build/toastr.min.js')
+    script(src='/js/toastr-setup.js')
     script(src='/js/mobileMenu.js')
-    script(src='/js/notifyjs.js')
     script(src='/js/socketio.js')
     block scripts
+    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.css')
+    link(rel='stylesheet', href='/lib/toastr/build/toastr.css')
     link(rel='stylesheet', href='/stylesheets/default.css')
     link(rel='stylesheet', href='/stylesheets/forum/forum-header.css')
     link(rel='stylesheet', href='/stylesheets/forum/forum-body.css')
     link(rel='stylesheet', href='/stylesheets/forum/forum-footer.css')
     link(rel='stylesheet', href='/stylesheets/mobile-menu.css')
-    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
-    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.css')
     block styles
   body
     div.whole-page-wrapper

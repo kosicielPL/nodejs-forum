@@ -17,7 +17,8 @@
     "notifyjs-browser": "^0.4.2",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

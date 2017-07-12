@@ -5,6 +5,8 @@ block logotext
 
 block content
   div.container.forum-body
-    h1= message
-    if(error.stack)
-      pre #{error.stack}
+    center
+      img(src="/img/error.png").img.img-responsive
+      h1 Ooops! #{message}
+      if(error.stack)
+        pre #{error.stack}
