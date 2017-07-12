@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server"
+    "start": "node ./server",
+    "test": "mocha ./tests/**/*.js",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha tests/**/*.js -- -R spec"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -22,8 +24,11 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "chai": "^4.1.0",
     "eslint": "^4.2.0",
     "eslint-config-google": "^0.8.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2",
     "nodemon": "^1.11.0"
   }
 }

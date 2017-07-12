@@ -10,11 +10,12 @@
 
 .news-container .title {
     color: #fff;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .news-container .content {
     color: #fff;
+    text-align: justify;
 }
 
 .news-container .info {
@@ -70,4 +71,8 @@
 .latest-thread-row .small {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.6);
+}
+
+.news-container+.news-container{
+    margin-top: 60px;
 }
