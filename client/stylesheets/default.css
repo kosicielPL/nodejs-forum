@@ -4,6 +4,20 @@
     box-shadow: 0 0 3px #000;
 }
 
+.blurred {
+    background-color: #0f0f0f;
+}
+
+@media (min-width: 768px) {
+    .blurred {
+        background-image: url("/img/huge_blurred.jpg") !important;
+        background-attachment: fixed !important;
+        background-position: top !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
+}
+
 *:focus {
     border-color: rgba(126, 239, 104, 0) !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(126, 239, 104, 0) !important;

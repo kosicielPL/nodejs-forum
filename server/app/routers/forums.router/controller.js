@@ -165,7 +165,13 @@ const init = (app, data) => {
                         .then((resultPost) => {
                             // res.send(resultThread);
                             // res.send(resultPost);
-                            res.redirect('/forums/thread/' + thread + '/#' + resultPost.id);
+                            const url = '/forums/thread/' + thread + '/#' + resultPost.id;
+                            app.io.emit('new-post', {
+                                user: 'Xpload',
+                                thread: resultThread[0].title,
+                                url: url,
+                            });
+                            res.redirect(url);
                         });
                 });
         },
@@ -193,11 +199,13 @@ const init = (app, data) => {
                         })
                         .then((resultThread) => {
                             // res.send(resultThread);
-                            app.io.emit('newthread', {
+                            const url = '/forums/thread/' + resultThread.id;
+                            app.io.emit('new-thread', {
                                 user: 'Xpload',
                                 forum: resultForum[0].name,
+                                url: url,
                             });
-                            res.redirect('/forums/thread/' + resultThread.id);
+                            res.redirect(url);
                         });
                 });
         },

@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    background: url('/img/huge_blurred.jpg') !important;
+    background: url('/img/huge.jpg') !important;
     background-color: #191919;
     background-attachment: fixed !important;
     background-position: top !important;
@@ -39,31 +39,17 @@ body {
     /*min-height: 100vh;*/
 }
 
-.forum-header-container {
-    background: #000;
-}
-
-@media (min-width: 768px) {
-    .forum-header-container {
-        background-image: url("/img/huge.jpg") !important;
-        background-attachment: fixed !important;
-        background-position: top !important;
-        background-repeat: no-repeat !important;
-        background-size: cover !important;
-    }
-}
-
 .forum-header {
     /*position: absolute;
     width: 100%;
     z-index: 100;*/
-    background: rgba(255, 255, 255, 0.05);
+    /*background: rgba(255, 255, 255, 0.05);*/
     /*background-image: url("/img/huge_blurred.jpg");
     background-attachment: fixed;
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;*/
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 3px #000;
     /*background: #ccc;*/
 }
@@ -145,7 +131,7 @@ body {
     margin-right: 15px;
 }
 
-.logo-parallax {
+/*.logo-parallax {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 3px #000;
 }
@@ -164,7 +150,7 @@ body {
         background-repeat: no-repeat;
         background-size: cover;
     }
-}
+}*/
 
 .logo-text-container {
     height: 100%;

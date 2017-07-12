@@ -21,83 +21,12 @@ block logotext
   | #{forum.name}
 
 block content
-  div.container.forum-body
-    h2= thread.title
-    //- div.row.thread-controls
-    //-   a(href="#post-reply").btn.btn-reply-thread POST REPLY
-
-    if currentPage <= 1
-      - date =  new Date(thread.dateUpdated)
-      div.container.post-container.original-post
-        div.sidebar.post-left-part
-          div.post-avatar-container
-            img(src="/img/avatar.gif").post-avatar
-          div.post-author-container
-            div.post-author-name Xpload
-            div.post-author-title User
-            div.post-author-posts 257 posts
-          span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
-        div.post-right-part.container-fluid
-          div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
-          div.row.post-text !{thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
-
-    each post in posts
-      - date =  new Date(post.dateUpdated)
-      div(id=post._id).container.post-container
-        div.sidebar.post-left-part
-          div.post-avatar-container
-            img(src="/img/avatar.gif").post-avatar
-          div.post-author-container
-            div.post-author-name Xpload
-            div.post-author-title User
-            div.post-author-posts 257 posts
-          span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
-        div.post-right-part.container-fluid
-          div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
-          div.row.post-text !{post.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
-          
-
-    div.row.forum-pagination
-      div.pagination
-
-        //- first page
-        if currentPage > 3
-          a(href='/forums/thread/' + thread._id + '/1').page-item 1
-
-        //- previous page
-        if currentPage > 3
-          span.page-item ...
-
-        //- page - 2
-        if currentPage > 2
-          a(href='/forums/thread/' + thread._id + '/' + (currentPage - 2)).page-item= currentPage - 2
-
-        //- page - 1
-        if currentPage > 1
-          a(href='/forums/thread/' + thread._id + '/' + (currentPage - 1)).page-item= currentPage - 1
-
-        //- current page
-        if threadsCount > 0
-          span.page-item.active= currentPage
-
-        //- page + 1
-        if totalPages > currentPage
-          a(href='/forums/thread/' + thread._id + '/' + (currentPage + 1)).page-item= currentPage + 1
-
-        //- page + 2
-        if totalPages > currentPage + 1
-          a(href='/forums/thread/' + thread._id + '/' + (currentPage + 2)).page-item= currentPage + 2
-
-        //- next page
-        if totalPages > currentPage + 2
-          span.page-item ...
-
-        //- last page
-        if totalPages > currentPage + 2
-          a(href='/forums/thread/' + thread._id + '/' + totalPages).page-item= totalPages
-
-    h2#post-reply Post reply
-    div.container.post-container.original-post
+  h2= thread.title
+  //- div.row.thread-controls
+  //-   a(href="#post-reply").btn.btn-reply-thread POST REPLY
+  if currentPage <= 1
+    - date =  new Date(thread.dateUpdated)
+    div.container-fluid.post-container.original-post
       div.sidebar.post-left-part
         div.post-avatar-container
           img(src="/img/avatar.gif").post-avatar
@@ -105,12 +34,69 @@ block content
           div.post-author-name Xpload
           div.post-author-title User
           div.post-author-posts 257 posts
+        span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
       div.post-right-part.container-fluid
-        div.row.new-post-content
-          form(action='/forums/' + thread._id +'/new-post', method='post')
-            div.form-group
-              textarea(rows='10', name='content')#new-post-content.form-control
-              small.form-text.text-muted Minimum length: 
-                span#content-min-length
-            div.form-group
-              button(disabled).btn.btn-reply-thread.pull-right#new-post-button POST REPLY
+        div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
+        div.row.post-text !{thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
+  each post in posts
+    - date =  new Date(post.dateUpdated)
+    div(id=post._id).container-fluid.post-container
+      div.sidebar.post-left-part
+        div.post-avatar-container
+          img(src="/img/avatar.gif").post-avatar
+        div.post-author-container
+          div.post-author-name Xpload
+          div.post-author-title User
+          div.post-author-posts 257 posts
+        span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
+      div.post-right-part.container-fluid
+        div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
+        div.row.post-text !{post.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
+        
+  div.row.forum-pagination
+    div.pagination
+      //- first page
+      if currentPage > 3
+        a(href='/forums/thread/' + thread._id + '/1').page-item 1
+      //- previous page
+      if currentPage > 4
+        span.page-item ...
+      //- page - 2
+      if currentPage > 2
+        a(href='/forums/thread/' + thread._id + '/' + (currentPage - 2)).page-item= currentPage - 2
+      //- page - 1
+      if currentPage > 1
+        a(href='/forums/thread/' + thread._id + '/' + (currentPage - 1)).page-item= currentPage - 1
+      //- current page
+      if threadsCount > 0
+        span.page-item.active= currentPage
+      //- page + 1
+      if totalPages > currentPage
+        a(href='/forums/thread/' + thread._id + '/' + (currentPage + 1)).page-item= currentPage + 1
+      //- page + 2
+      if totalPages > currentPage + 1
+        a(href='/forums/thread/' + thread._id + '/' + (currentPage + 2)).page-item= currentPage + 2
+      //- next page
+      if totalPages > currentPage + 3
+        span.page-item ...
+      //- last page
+      if totalPages > currentPage + 2
+        a(href='/forums/thread/' + thread._id + '/' + totalPages).page-item= totalPages
+  h2#post-reply Post reply
+  div.container-fluid.post-container.original-post
+    div.sidebar.post-left-part
+      div.post-avatar-container
+        img(src="/img/avatar.gif").post-avatar
+      div.post-author-container
+        div.post-author-name Xpload
+        div.post-author-title User
+        div.post-author-posts 257 posts
+    div.post-right-part.container-fluid
+      div.row.new-post-content
+        form(action='/forums/' + thread._id +'/new-post', method='post')
+          div.form-group
+            textarea(rows='10', name='content')#new-post-content.form-control
+            small.form-text.text-muted Minimum length: 
+              span#content-min-length
+          div.form-group
+            button(disabled).btn.btn-reply-thread.pull-right#new-post-button POST REPLY

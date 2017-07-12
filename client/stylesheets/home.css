@@ -5,26 +5,37 @@
 }
 
 .forum {
-    color: bisque;
+    color: rgba(206, 99, 99, 0.6);
 }
 
 .news-container .title {
-    color: purple;
+    color: #fff;
     font-size: 18px;
 }
 
 .news-container .content {
-    color: red;
+    color: #fff;
 }
 
 .news-container .info {
-    color: cyan;
+    color: rgba(255, 255, 255, 0.4);
     font-size: 12px;
     padding-bottom: 20px;
     display: block;
 }
 
-
-.forum + .news-container{
+.forum+.news-container {
     margin-bottom: 40px;
+}
+
+.sidenav {
+    color: #fff;
+    /*background: purple;*/
+}
+
+@media (min-width: 768px) {
+    .sidenav {
+        margin-left: 0px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
 }

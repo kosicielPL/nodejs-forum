@@ -1,14 +1,25 @@
 .forum-footer {
     text-align: center;
     color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.11);
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.1);*/
+    /*border-top: 1px solid rgba(255, 255, 255, 0.11);*/
     /* DON'T FIX ME!!! BORDERS WILL DISAPPEAR!!! */
-    box-shadow: 0 0 3px #000;
-    z-index: 100;
-    height: 300px;
+    /*box-shadow: 0 0 3px #000;*/
+    /*z-index: 100;*/
+    padding-top: 70px;
+    padding-bottom: 70px;
 }
 
+.social-icons {
+    padding-top: 55px;
+    padding-bottom: 50px;
+    text-align: center;
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 3px #000;
+}
+
+/*
 @media (max-width: 767px) {
     .forum-footer {
         background: rgba(0, 0, 0, 0.6);
@@ -17,23 +28,22 @@
 
 @media (min-width: 768px) {
     .forum-footer {
-        /*background: purple;*/
         background-image: url("/img/huge.jpg");
         background-attachment: fixed;
         background-position: top;
         background-repeat: no-repeat;
         background-size: cover;
     }
-}
+}*/
 
-.forum-footer ul.social-network {
+.social-icons ul.social-network {
     list-style: none;
     display: block;
     margin-left: 0 !important;
     padding: 0;
 }
 
-.forum-footer ul.social-network li {
+.social-icons ul.social-network li {
     display: inline;
     margin: 0 5px;
 }
@@ -41,41 +51,41 @@
 
 /* footer social icons */
 
-.forum-footer .social-network a.icoRss:hover {
+.social-icons .social-network a.icoRss:hover {
     background-color: #F56505;
 }
 
-.forum-footer .social-network a.icoFacebook:hover {
+.social-icons .social-network a.icoFacebook:hover {
     background-color: #3B5998;
 }
 
-.forum-footer .social-network a.icoTwitter:hover {
+.social-icons .social-network a.icoTwitter:hover {
     background-color: #33ccff;
 }
 
-.forum-footer .social-network a.icoGoogle:hover {
+.social-icons .social-network a.icoGoogle:hover {
     background-color: #BD3518;
 }
 
-.forum-footer .social-network a.icoVimeo:hover {
+.social-icons .social-network a.icoVimeo:hover {
     background-color: #0590B8;
 }
 
-.forum-footer .social-network a.icoLinkedin:hover {
+.social-icons .social-network a.icoLinkedin:hover {
     background-color: #007bb7;
 }
 
-.forum-footer .social-network a.icoRss:hover i,
-.forum-footer .social-network a.icoFacebook:hover i,
-.forum-footer .social-network a.icoTwitter:hover i,
-.forum-footer .social-network a.icoGoogle:hover i,
-.forum-footer .social-network a.icoVimeo:hover i,
-.forum-footer .social-network a.icoLinkedin:hover i {
+.social-icons .social-network a.icoRss:hover i,
+.social-icons .social-network a.icoFacebook:hover i,
+.social-icons .social-network a.icoTwitter:hover i,
+.social-icons .social-network a.icoGoogle:hover i,
+.social-icons .social-network a.icoVimeo:hover i,
+.social-icons .social-network a.icoLinkedin:hover i {
     color: #fff;
 }
 
-.forum-footer a.socialIcon:hover,
-.forum-footer .socialHoverClass {
+.social-icons a.socialIcon:hover,
+.social-icons .socialHoverClass {
     color: #44BCDD;
 }
 
@@ -120,7 +130,7 @@
     transition: all 0.8s;
 }
 
-.forum-footer a {
+.social-circle a {
     background-color: #383838;
 }
 
