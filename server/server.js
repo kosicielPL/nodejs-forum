@@ -5,7 +5,7 @@ const port = normalizePort(process.env.PORT || config.server.port);
 Promise.resolve()
     .then(() => require('../db').init(config))
     .then((db)=>require('../data').init(db))
-    .then((data) => require('./app').init(data))
+    .then((data) => require('./app').init(data, config.options))
     .then((app) => {
         app.set('port', port);
         const server = http.createServer(app);

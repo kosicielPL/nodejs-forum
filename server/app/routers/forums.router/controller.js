@@ -1,6 +1,6 @@
 const ObjectId = require('mongodb').ObjectID;
 
-const init = (app, data) => {
+const init = (app, data, config) => {
     const controller = {
         generateAllForumsView(req, res) {
             return data.categories.getAllForumsInCategories()
@@ -16,12 +16,16 @@ const init = (app, data) => {
         },
 
         generateSingleForumView(req, res) {
-            const threadsPerPage = 8;
+            let threadsPerPage = config.forums.forumView.threadsPerPage;
             const forumName = req.params.forum;
             let page = req.params.page;
 
-            if (typeof page === 'undefined') {
+            if (page < 1 || typeof page === 'undefined') {
                 page = 1;
+            }
+
+            if (threadsPerPage < 1 || typeof threadsPerPage === 'undefined') {
+                threadsPerPage = 1;
             }
 
             return data.forums
@@ -67,12 +71,16 @@ const init = (app, data) => {
         },
 
         generateSingleThreadView(req, res) {
-            const postsPerPage = 10;
+            let postsPerPage = config.forums.threadView.postsPerPage;
             const threadId = req.params.thread;
             let page = req.params.page;
 
-            if (typeof page === 'undefined') {
+            if (page < 1 || typeof page === 'undefined') {
                 page = 1;
+            }
+
+            if (postsPerPage < 1 || typeof postsPerPage === 'undefined') {
+                postsPerPage = 1;
             }
 
             if (threadId.length !== 24) {

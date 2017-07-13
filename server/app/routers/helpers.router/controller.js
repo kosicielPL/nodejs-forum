@@ -1,4 +1,4 @@
-const init = (data) => {
+const init = (data, config) => {
     const controller = {
         generateMenuStructure(req, res) {
             return data.categories
@@ -11,7 +11,13 @@ const init = (data) => {
         },
 
         generateNewestThreads(req, res) {
-            const threadsToDisplay = 5;
+            let threadsToDisplay = config.home.newThreadsToDisplay;
+
+            if (threadsToDisplay < 1 ||
+                typeof threadsToDisplay === 'undefined') {
+                threadsToDisplay = 1;
+            }
+
             data.threads
                 .getNewestN(threadsToDisplay)
                 .catch((error) => {

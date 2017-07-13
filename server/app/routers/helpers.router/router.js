@@ -1,8 +1,8 @@
 const express = require('express');
 
-module.exports = (data) => {
+module.exports = (data, config) => {
     const router = new express.Router();
-    const controller = require('./controller').init(data);
+    const controller = require('./controller').init(data, config);
 
     router.get('/forums-structure', (req, res) => {
         return controller.generateMenuStructure(req, res);

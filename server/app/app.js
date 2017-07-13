@@ -7,7 +7,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-const init = (data) => {
+const init = (data, config) => {
     const app = express();
 
     // view engine setup
@@ -28,7 +28,7 @@ const init = (data) => {
         path.join(__dirname, '../../node_modules')
         ));
 
-    require('./routes.js')(app, data);
+    require('./routes.js')(app, data, config);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
