@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const mocha = require('gulp-mocha');
+const exit = require('gulp-exit');
 const istanbul = require('gulp-istanbul');
 
 gulp.task('pre-test', () => {
@@ -20,7 +21,8 @@ gulp.task('test:unit', ['pre-test'], () => {
         .pipe(mocha({
             reporter: 'list',
         }))
-        .pipe(istanbul.writeReports());
+        .pipe(istanbul.writeReports())
+        .pipe(exit());
 });
 
 gulp.task('test:integration', ['pre-test'], () => {
@@ -28,7 +30,8 @@ gulp.task('test:integration', ['pre-test'], () => {
         .pipe(mocha({
             reporter: 'list',
         }))
-        .pipe(istanbul.writeReports());
+        .pipe(istanbul.writeReports())
+        .pipe(exit());
 });
 
 gulp.task('test:all', ['pre-test'], () => {
@@ -39,5 +42,6 @@ gulp.task('test:all', ['pre-test'], () => {
         .pipe(mocha({
             reporter: 'list',
         }))
-        .pipe(istanbul.writeReports());
+        .pipe(istanbul.writeReports())
+        .pipe(exit());
 });

@@ -17,6 +17,8 @@ block logotext
   | ICICLES, BABY
 
 block content
+  if categories.length <= 0
+    h2 No categories exist at the moment :'(
   each category in categories
     if category.forums.length > 0
       div.row
