@@ -38,6 +38,12 @@ block content
   div.container-fluid
     each thread in threads
       - date =  new Date(thread.dateUpdated)
+      -
+        if(thread.posts){
+          posts = thread.posts.length
+        } else {
+          posts = 0
+        }
       - if(thread.content.length > 200) thread.content = thread.content.substring(0,200) + '...';
       a(href="/forums/thread/" + thread._id, title= thread.content).thread-row-container
         div.row.thread-row.grid        
@@ -52,13 +58,13 @@ block content
                 div
                   span.thread-row-comment
                     span.glyphicon.glyphicon-comment
-                    |  152   &nbsp;&nbsp;&nbsp;
+                    |  #{posts}   &nbsp;&nbsp;&nbsp;
                   span.thread-row-author   Xpload
                   span.thread-row-date.pull-right= date.toDateString()
           div.col-sm-2.hidden-xs.thread-row-author Xpload
           div.col-sm-2.hidden-xs.thread-row-comment
             span.glyphicon.glyphicon-comment
-            |  152
+            |   #{posts}
           div.col-sm-2.hidden-xs.thread-row-date= date.toDateString()
   //- div.row.thread-controls
   //-     div.col-xs-6.thread-controls-left

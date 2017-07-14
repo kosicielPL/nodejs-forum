@@ -54,8 +54,7 @@ class ThreadsData extends BaseData {
         }
 
         let result = this.collection
-            .aggregate([
-                {
+            .aggregate([{
                     '$sort': {
                         dateCreated: -1,
                     },
@@ -91,6 +90,24 @@ class ThreadsData extends BaseData {
                 forum: new ObjectId(forumId),
             })
             .count();
+
+        return result;
+    }
+
+    addPost(threadId, postId) {
+        const result = this.collection
+            .updateOne({
+                _id: new ObjectId(threadId),
+            }, {
+                '$push': {
+                    posts: new ObjectId(postId),
+                },
+                '$set': {
+                    dateUpdated: new Date(),
+                },
+            }, {
+                upsert: true,
+            });
 
         return result;
     }

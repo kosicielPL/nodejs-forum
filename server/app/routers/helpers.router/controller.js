@@ -4,7 +4,7 @@ const init = (data, config) => {
             return data.categories
                 .getStructure()
                 .then((result) => {
-                    res.render('mobileMenuStructure', {
+                    return res.render('mobileMenuStructure', {
                         structure: result,
                     });
                 });
@@ -18,7 +18,7 @@ const init = (data, config) => {
                 threadsToDisplay = 1;
             }
 
-            data.threads
+            return data.threads
                 .getNewestN(threadsToDisplay)
                 .catch((error) => {
                     res.send(error); // ADD 404 ERROR PAGE

@@ -8,6 +8,7 @@ const init = (app, data, config) => {
                     return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((result) => {
+                    // return res.send(result);
                     return res.render('forum/allForums', {
                         title: 'Forums',
                         categories: result,
@@ -176,15 +177,24 @@ const init = (app, data, config) => {
                             res.send(error);
                         })
                         .then((resultPost) => {
-                            // res.send(resultThread);
-                            // res.send(resultPost);
-                            const url = '/forums/thread/' + thread + '/#' + resultPost.id;
-                            app.io.emit('new-post', {
-                                user: 'Xpload',
-                                thread: resultThread[0].title,
-                                url: url,
-                            });
-                            return res.redirect(url);
+                            data.threads
+                                .addPost(resultThread[0]._id, resultPost.id)
+                                .then(() => {
+                                    // res.send(resultThread);
+                                    // res.send(resultPost);
+                                    const url =
+                                        '/forums/thread/' +
+                                        thread +
+                                        '/#' +
+                                        resultPost.id;
+
+                                    app.io.emit('new-post', {
+                                        user: 'Xpload',
+                                        thread: resultThread[0].title,
+                                        url: url,
+                                    });
+                                    return res.redirect(url);
+                                });
                         });
                 });
         },
@@ -196,6 +206,7 @@ const init = (app, data, config) => {
             const thread = {
                 title: title,
                 content: content,
+                posts: [],
                 dateCreated: new Date(),
                 dateUpdated: new Date(),
             };
