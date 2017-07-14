@@ -25,6 +25,39 @@
     display: block;
 }
 
+.news-container .author {
+    color: #fff;
+}
+
+.news-container .author:hover {
+    color: #ccc;
+}
+
+.news-container .author,
+.news-container .author:hover,
+.news-container .author:visited {
+    text-decoration: none;
+}
+
+.news-container .link {
+    color: #999;
+}
+
+.news-container .link:hover {
+    color: #ccc;
+}
+
+.news-container .link,
+.news-container .link:hover,
+.news-container .link:visited {
+    text-decoration: none;
+}
+
+.news-container .content {
+    color: #fff;
+    text-align: justify;
+}
+
 .forum+.news-container {
     margin-bottom: 40px;
 }
@@ -64,6 +97,7 @@
     font-size: 16px;
     padding-top: 10px;
 }
+
 .latest-thread-row .date {
     font-size: 12px;
 }
@@ -73,6 +107,6 @@
     color: rgba(255, 255, 255, 0.6);
 }
 
-.news-container+.news-container{
+.news-container+.news-container {
     margin-top: 60px;
 }

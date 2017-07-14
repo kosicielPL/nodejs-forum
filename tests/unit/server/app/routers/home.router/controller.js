@@ -4,6 +4,7 @@ const {
 const {
     init,
 } = require('../../../../../../server/app/routers/home.router/controller');
+const config = require('../../../../../../server/config');
 
 describe('home router', () => {
     let data = null;
@@ -22,7 +23,7 @@ describe('home router', () => {
             },
         };
 
-        controller = init(app, data);
+        controller = init(app, data, config.options);
         req = require('../../../../req-res').getRequestMock();
         res = require('../../../../req-res').getResponseMock();
     });

@@ -3,15 +3,16 @@ const http = require('http');
 const port = normalizePort(process.env.PORT || config.server.port);
 
 Promise.resolve()
-    .then(() => require('../db').init(config))
-    .then((db)=>require('../data').init(db))
+    .then(() => require('../db').init(config.database))
+    .then((db) => require('../data').init(db))
     .then((data) => require('./app').init(data, config.options))
     .then((app) => {
         app.set('port', port);
         const server = http.createServer(app);
-        require('./socketio').init(server).then((io) => {
-            app.io = io;
-        });
+        require('./socketio').init(server)
+            .then((io) => {
+                app.io = io;
+            });
         // app.io.attach(server);
         server.listen(port, () => {
             console.log('Listening on port: ' + port);

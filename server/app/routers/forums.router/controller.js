@@ -5,10 +5,10 @@ const init = (app, data, config) => {
         generateAllForumsView(req, res) {
             return data.categories.getAllForumsInCategories()
                 .catch((error) => {
-                    res.send(error); // ADD 404 ERROR PAGE
+                    return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((result) => {
-                    res.render('forum/allForums', {
+                    return res.render('forum/allForums', {
                         title: 'Forums',
                         categories: result,
                     });
@@ -31,11 +31,11 @@ const init = (app, data, config) => {
             return data.forums
                 .getByCriteria('internalName', forumName)
                 .catch((error) => {
-                    res.send(error); // ADD 404 ERROR PAGE
+                    return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((forum) => {
                     if (forum.length <= 0) {
-                        res.render('error', {
+                        return res.render('error', {
                             title: 'Error 404',
                             message: 'Forum not found',
                             error: {
@@ -45,11 +45,13 @@ const init = (app, data, config) => {
                     }
                     Promise
                         .all([
-                            data.threads.getInForum(forum[0]._id, threadsPerPage, page),
-                            data.threads.getCountInForum(forum[0]._id),
+                            data.threads
+                            .getInForum(forum[0]._id, threadsPerPage, page),
+                            data.threads
+                            .getCountInForum(forum[0]._id),
                         ])
                         .catch((err) => {
-                            res.send(err);
+                            return res.send(err);
                         })
                         .then((result) => {
                             // res.send(result);
@@ -58,7 +60,7 @@ const init = (app, data, config) => {
                             if (page > totalPages && page > 1) {
                                 res.send('page doesnt exist'); // FIX ME LATER
                             }
-                            res.render('forum/singleForum', {
+                            return res.render('forum/singleForum', {
                                 title: forum[0].name,
                                 forum: forum[0],
                                 threads: result[0],
@@ -84,7 +86,7 @@ const init = (app, data, config) => {
             }
 
             if (threadId.length !== 24) {
-                res.render('error', {
+                return res.render('error', {
                     title: 'Error 404',
                     message: 'Invalid thread ID',
                     error: {
@@ -96,11 +98,11 @@ const init = (app, data, config) => {
             return data.threads
                 .getById(threadId)
                 .catch((error) => {
-                    res.send(error); // ADD 404 ERROR PAGE
+                    return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((thread) => {
                     if (thread.length <= 0) {
-                        res.render('error', {
+                        return res.render('error', {
                             title: 'Error 404',
                             message: 'Thread not found',
                             error: {
@@ -110,22 +112,25 @@ const init = (app, data, config) => {
                     }
                     Promise
                         .all([
-                            data.posts.getInThread(thread[0]._id, page, postsPerPage),
-                            data.posts.getCountInThread(thread[0]._id),
-                            data.forums.getById(thread[0].forum),
+                            data.posts
+                            .getInThread(thread[0]._id, page, postsPerPage),
+                            data.posts
+                            .getCountInThread(thread[0]._id),
+                            data.forums
+                            .getById(thread[0].forum),
                         ])
                         .catch((error) => {
-                            res.send(error);
+                            return res.send(error);
                         })
                         .then((result) => {
                             let totalPages = result[1] / postsPerPage;
                             totalPages = Math.ceil(totalPages);
 
                             if (page > totalPages && page > 1) {
-                                res.send('page doesnt exist'); // FIX ME LATER
+                                return res.send('page doesnt exist');
                             }
 
-                            res.render('forum/thread', {
+                            return res.render('forum/thread', {
                                 title: thread[0].title,
                                 thread: thread[0],
                                 posts: result[0],
@@ -141,10 +146,10 @@ const init = (app, data, config) => {
         generateNewThreadView(req, res) {
             return data.forums.getByCriteria('internalName', req.params.forum)
                 .catch((error) => {
-                    res.send(error); // ADD 404 ERROR PAGE
+                    return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((forum) => {
-                    res.render('forum/newThread', {
+                    return res.render('forum/newThread', {
                         title: 'Creating new thread',
                         forum: forum[0],
                     });
@@ -163,7 +168,7 @@ const init = (app, data, config) => {
 
             return data.threads.getById(thread)
                 .catch((error) => {
-                    res.send(error); // ADD 404 ERROR PAGE
+                    return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((resultThread) => { // ADD CHECK IF THREAD EXISTS
                     data.posts.create(post)
@@ -179,7 +184,7 @@ const init = (app, data, config) => {
                                 thread: resultThread[0].title,
                                 url: url,
                             });
-                            res.redirect(url);
+                            return res.redirect(url);
                         });
                 });
         },
@@ -197,13 +202,13 @@ const init = (app, data, config) => {
 
             return data.forums.getByCriteria('internalName', forum)
                 .catch((error) => {
-                    res.send(error); // ADD 404 ERROR PAGE
+                    return res.send(error); // ADD 404 ERROR PAGE
                 })
                 .then((resultForum) => { // ADD CHECK IF FORUM EXISTS
                     thread.forum = resultForum[0].id;
                     data.threads.create(thread)
                         .catch((error) => {
-                            res.send(error);
+                            return res.send(error);
                         })
                         .then((resultThread) => {
                             // res.send(resultThread);
@@ -213,7 +218,7 @@ const init = (app, data, config) => {
                                 forum: resultForum[0].name,
                                 url: url,
                             });
-                            res.redirect(url);
+                            return res.redirect(url);
                         });
                 });
         },

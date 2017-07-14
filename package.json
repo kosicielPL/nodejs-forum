@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./server",
-    "test": "gulp test:unit",
+    "test": "gulp test:all",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha tests/**/*.js -- -R spec"
   },
   "dependencies": {

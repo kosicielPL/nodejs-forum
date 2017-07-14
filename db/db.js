@@ -3,11 +3,11 @@ const {
 } = require('mongodb');
 
 const init = (config) => {
-    const host = config.database.host;
-    const port = config.database.port;
-    const dbName = config.database.dbName;
-    const username = config.database.username;
-    const password = config.database.password;
+    const host = config.host;
+    const port = config.port;
+    const dbName = config.dbName;
+    const username = config.username;
+    const password = config.password;
 
     let connectionString = 'mongodb://';
 
