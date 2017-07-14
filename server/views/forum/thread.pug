@@ -21,11 +21,15 @@ block logotext
   | #{forum.name}
 
 block content
-  h2= thread.title
+  h2.thread-title= thread.title
   //- div.row.thread-controls
   //-   a(href="#post-reply").btn.btn-reply-thread POST REPLY
   if currentPage <= 1
-    - date =  new Date(thread.dateUpdated)
+    -
+      dateTime =  new Date(thread.dateCreated)
+      date = new Intl.DateTimeFormat('bg-BG').format(dateTime)
+      time = dateTime.getHours() + ':' + dateTime.getMinutes()
+
     div.container-fluid.post-container.original-post
       div.sidebar.post-left-part
         div.post-avatar-container
@@ -34,12 +38,16 @@ block content
           div.post-author-name Xpload
           div.post-author-title User
           div.post-author-posts 257 posts
-        span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
+        span.pull-right.post-date.visible-sm.visible-xs &nbsp; #{date}
+        span.pull-right.post-date.visible-sm.visible-xs= time
       div.post-right-part.container-fluid
-        div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
+        div.row.post-date.hidden-xs.hidden-sm= 'Posted on ' + date + ' at ' + time
         div.row.post-text !{thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
   each post in posts
-    - date =  new Date(post.dateUpdated)
+    -
+      dateTime =  new Date(post.dateCreated)
+      date = new Intl.DateTimeFormat('bg-BG').format(dateTime)
+      time = dateTime.getHours() + ':' + dateTime.getMinutes()
     div(id=post._id).container-fluid.post-container
       div.sidebar.post-left-part
         div.post-avatar-container
@@ -48,9 +56,10 @@ block content
           div.post-author-name Xpload
           div.post-author-title User
           div.post-author-posts 257 posts
-        span.pull-right.post-date.visible-sm.visible-xs= date.toDateString()
+        span.pull-right.post-date.visible-sm.visible-xs &nbsp; #{date}
+        span.pull-right.post-date.visible-sm.visible-xs= time
       div.post-right-part.container-fluid
-        div.row.post-date.hidden-xs.hidden-sm= date.toDateString()
+        div.row.post-date.hidden-xs.hidden-sm= 'Posted on ' + date + ' at ' + time
         div.row.post-text !{post.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
         
   div.row.forum-pagination
@@ -95,7 +104,7 @@ block content
       div.row.new-post-content
         form(action='/forums/' + thread._id +'/new-post', method='post')
           div.form-group
-            textarea(rows='10', name='content')#new-post-content.form-control
+            textarea(name='content', maxlength="5000")#new-post-content.form-control
             small.form-text.text-muted Minimum length: 
               span#content-min-length
           div.form-group

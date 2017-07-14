@@ -10,6 +10,8 @@
 }
 
 #new-thread-content {
+    overflow: hidden;
+    min-height: 200px;
     font-size: 16px;
     color: #000;
     background: rgba(255, 255, 255, 0.8);

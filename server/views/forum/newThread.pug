@@ -45,9 +45,9 @@ block content
             form(action='/forums/' + forum.internalName + '/new-thread', method='post')
               div.form-group.has-feedback.has-feedback-left
                 span.glyphicon.glyphicon-pencil.form-control-feedback
-                input(type='text', placeholder='Thread name', name='title')#new-thread-name.form-control
+                input(type='text', maxlength="80", placeholder='Thread name', name='title')#new-thread-name.form-control
               div.form-group
-                textarea(rows='15', name='content')#new-thread-content.form-control
+                textarea(name='content', maxlength="5000")#new-thread-content.form-control
                 small.form-text.text-muted Title minimum length: 
                   span#title-min-length
                 small.form-text.text-muted , Content minimum length: 
