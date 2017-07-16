@@ -12,7 +12,9 @@ $(document).ready(function() {
     function loadForumStructure() {
         const host = window.location.hostname;
         const protocol = location.protocol;
-        const url = protocol + '//' + host + '/helpers/newest-threads';
+        const url = protocol + '//' + host +
+            (location.port ? ':' + location.port : '') +
+            '/helpers/newest-threads';
 
         $.ajax({
             url: url,

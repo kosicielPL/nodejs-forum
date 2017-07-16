@@ -61,7 +61,9 @@ $(document).ready(function() {
     function loadForumStructure() {
         const host = window.location.hostname;
         const protocol = location.protocol;
-        const url = protocol + '//' + host + '/helpers/forums-structure';
+        const url = protocol + '//' + host +
+            (location.port ? ':' + location.port : '') +
+            '/helpers/forums-structure';
 
         $.ajax({
             url: url,
