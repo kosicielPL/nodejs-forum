@@ -8,6 +8,7 @@
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha tests/**/*.js -- -R spec"
   },
   "dependencies": {
+    "bbcode-parser": "^1.0.10",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",

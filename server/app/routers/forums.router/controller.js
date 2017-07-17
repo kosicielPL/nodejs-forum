@@ -9,7 +9,7 @@ const init = (app, data, config) => {
                 })
                 .then((result) => {
                     // return res.send(result);
-                    return res.render('forum/allForums', {
+                    return res.render('forum/categories', {
                         title: 'Forums',
                         categories: result,
                     });
@@ -61,7 +61,7 @@ const init = (app, data, config) => {
                             if (page > totalPages && page > 1) {
                                 res.send('page doesnt exist'); // FIX ME LATER
                             }
-                            return res.render('forum/singleForum', {
+                            return res.render('forum/forum', {
                                 title: forum[0].name,
                                 forum: forum[0],
                                 threads: result[0],

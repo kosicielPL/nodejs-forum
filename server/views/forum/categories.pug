@@ -1,7 +1,7 @@
 extends ../layout
 
 block styles
-  link(rel='stylesheet', href='/stylesheets/forum/forum-all-forums.css')
+  link(rel='stylesheet', href='/stylesheets/forum/categories.css')
 
 block currentPageCategory
   -var selected = 'forums';
@@ -25,8 +25,8 @@ block content
         h3= category.name
         each forum in category.forums
           div.col-sm-6
-            div.forum-card-container
-              a(href="/forums/" + forum.internalName)
+            a(href="/forums/" + forum.internalName)
+              div.forum-card-container
                 div.row.forum-card
                   div.col-lg-2.col-xs-3.forum-card-image-container
                     img(src="../img/" + forum.image).img-responsive.img-rounded.forum-card-image

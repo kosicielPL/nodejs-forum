@@ -19,18 +19,19 @@ block logotext
 block content
   div.col-md-8
     div.row
-      if forums.length <= 0
+      if !forums
         h2 Nothing important to display yet :'(
-      each forum in forums
-        - date = new Date(forum.thread.dateCreated)
-        div.news-container
-          h5.title= forum.thread.title
-          h5.forum= forum.name
-          span.info posted by 
-            a(href='/users/profile/xpload').author Xpload
-            |  on #{date.toDateString()}
-          p.content !{forum.thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
-          span.pull-right
-            a(href="/forums/thread/" + forum.thread._id).link Read more
+      else
+        each forum in forums
+          - date = new Date(forum.thread.dateCreated)
+          div.news-container
+            h5.title= forum.thread.title
+            h5.forum= forum.name
+            span.info posted by 
+              a(href='/users/profile/xpload').author Xpload
+              |  on #{date.toDateString()}
+            p.content !{forum.thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
+            span.pull-right
+              a(href="/forums/thread/" + forum.thread._id).link Read more
   div.col-md-4
     div.row.sidenav

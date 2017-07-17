@@ -1,8 +1,8 @@
 extends ../layout
 
 block styles
-  link(rel='stylesheet', href='/stylesheets/forum/forum-single-forum.css')
-  link(rel='stylesheet', href='/stylesheets/forum/forum-pagination.css')
+  link(rel='stylesheet', href='/stylesheets/forum/forum.css')
+  link(rel='stylesheet', href='/stylesheets/forum/pagination.css')
 
 block currentPageCategory
   -var selected = 'forums';
@@ -41,7 +41,7 @@ block content
         date =  new Date(thread.dateUpdated)
         today = new Date()
         difference = Math.floor(Math.abs(today - date) / (60 * 1000)) //in minutes
-        console.log(difference)
+
         if(difference < 1){
           date = 'just now'
         } else if (difference < 2){
@@ -66,7 +66,7 @@ block content
       - if(thread.content.length > 200) thread.content = thread.content.substring(0,200) + '...';
       a(href="/forums/thread/" + thread._id, title= thread.content).thread-row-container
         div.row.thread-row.grid
-          div.col-sm-6
+          div.col-sm-7
             div.container-fluid
               div.row
                 span.thread-row-icon.glyphicon.glyphicon-file
@@ -81,7 +81,7 @@ block content
                   span.thread-row-author   Xpload
                   span.thread-row-date.pull-right= date
           div.col-sm-2.hidden-xs.thread-row-author Xpload
-          div.col-sm-2.hidden-xs.thread-row-comment
+          div.col-sm-1.hidden-xs.thread-row-comment
             span.glyphicon.glyphicon-comment
             |   #{posts}
           div.col-sm-2.hidden-xs.thread-row-date= date
