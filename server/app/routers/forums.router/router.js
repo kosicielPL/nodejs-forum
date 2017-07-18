@@ -20,7 +20,7 @@ module.exports = (app, data, config) => {
     });
 
     // post new post in thread lol
-    router.post('/:thread/new-post', (req, res) => {
+    router.post('/thread/:thread/new-post', (req, res) => {
         return controller.createNewPost(req, res);
     });
 

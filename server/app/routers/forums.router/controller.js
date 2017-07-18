@@ -41,12 +41,13 @@ const init = (app, data, config) => {
                             },
                         });
                     }
+                    forum = forum[0];
 
                     return Promise.all([
                             data.threads
-                            .getInForum(forum[0]._id, threadsPerPage, page),
+                            .getInForum(forum._id, threadsPerPage, page),
                             data.threads
-                            .getCountInForum(forum[0]._id),
+                            .getCountInForum(forum._id),
                         ])
                         .then(([threads, threadsCount]) => {
                             let totalPages = threadsCount / threadsPerPage;
@@ -59,8 +60,8 @@ const init = (app, data, config) => {
                             }
 
                             return res.render('forum/forum', {
-                                title: forum[0].name,
-                                forum: forum[0],
+                                title: forum.name,
+                                forum: forum,
                                 threads: threads,
                                 currentPage: page * 1,
                                 totalPages: totalPages * 1,
@@ -198,23 +199,31 @@ const init = (app, data, config) => {
                             return res.send(error);
                         })
                         .then((resultPost) => {
-                            data.threads
-                                .addPost(resultThread._id, resultPost.id)
+                            return data.threads
+                                .addPost(
+                                    resultThread._id,
+                                    resultPost.id
+                                )
                                 .catch((error) => {
                                     return res.send(error);
                                 })
                                 .then(() => {
+                                    const postsPerPage =
+                                        config
+                                        .forums
+                                        .threadView
+                                        .postsPerPage;
+                                    const totalPages = Math.ceil(
+                                        (resultThread.posts.length + 1) /
+                                        postsPerPage
+                                    );
                                     const url =
                                         '/forums/thread/' +
                                         threadId +
+                                        '/' +
+                                        totalPages +
                                         '/#' +
                                         resultPost.id;
-
-                                    app.io.emit('new-post', {
-                                        user: 'Xpload',
-                                        thread: resultThread.title,
-                                        url: url,
-                                    });
 
                                     return res.redirect(url);
                                 });
@@ -273,7 +282,6 @@ const init = (app, data, config) => {
                                 forum: resultForum[0].name,
                                 url: url,
                             });
-
                             return res.redirect(url);
                         });
                 });

@@ -25,7 +25,7 @@ class BaseData {
         return result;
     }
 
-    getById(id) { // FIX ME SENPAI can't figure findOne return
+    getById(id) {
         const result = this.collection
             .findOne({
                 _id: new ObjectId(id),
@@ -79,10 +79,6 @@ class BaseData {
         }
 
         return name;
-    }
-
-    static generateObjectId(id) {
-        return new ObjectId(id);
     }
 }
 

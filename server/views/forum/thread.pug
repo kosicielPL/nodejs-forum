@@ -22,8 +22,6 @@ block logotext
 
 block content
   h2.thread-title= thread.title
-  //- div.row.thread-controls
-  //-   a(href="#post-reply").btn.btn-reply-thread POST REPLY
   if currentPage <= 1
     -
       dateTime =  new Date(thread.dateCreated)
@@ -102,7 +100,7 @@ block content
         div.post-author-posts 257 posts
     div.post-right-part.container-fluid
       div.row.new-post-content
-        form(action='/forums/' + thread._id +'/new-post', method='post')
+        form(action='/forums/thread/' + thread._id +'/new-post', method='post')
           div.form-group
             textarea(name='content', maxlength="5000")#new-post-content.form-control
             small.form-text.text-muted Minimum length: 
