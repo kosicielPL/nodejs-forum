@@ -163,8 +163,19 @@ const init = (app, data, config) => {
                 });
         },
 
-        createNewPost(req, res) {
+        async createNewPost(req, res) {
             const content = req.body.content;
+            const threadId = req.params.thread;
+
+            if (threadId.length !== 24) {
+                return res.render('error', {
+                    title: 'Error 404',
+                    message: 'Invalid thread id',
+                    error: {
+                        status: 404,
+                    },
+                });
+            }
 
             if (content.length > config.forums.post.maximumLength) {
                 return res.send('post too long');
@@ -172,63 +183,52 @@ const init = (app, data, config) => {
                 return res.send('post too short');
             }
 
-            const threadId = data.generateObjectId(req.params.thread);
-            const post = {
-                thread: threadId,
-                content: content,
-                dateCreated: new Date(),
-                dateUpdated: new Date(),
-            };
+            let thread = null;
+            try {
+                thread = await data.threads.getById(threadId);
+            } catch (error) {
+                return res.send(error);
+            }
 
-            return data.threads.getById(threadId)
-                .catch((error) => {
-                    return res.send(error);
-                })
-                .then((resultThread) => {
-                    if (resultThread === null) {
-                        return res.render('error', {
-                            title: 'Error 404',
-                            message: 'Thread not found',
-                            error: {
-                                status: 404,
-                            },
-                        });
-                    }
-                    return data.posts.create(post)
-                        .catch((error) => {
-                            return res.send(error);
-                        })
-                        .then((resultPost) => {
-                            return data.threads
-                                .addPost(
-                                    resultThread._id,
-                                    resultPost.id
-                                )
-                                .catch((error) => {
-                                    return res.send(error);
-                                })
-                                .then(() => {
-                                    const postsPerPage =
-                                        config
-                                        .forums
-                                        .threadView
-                                        .postsPerPage;
-                                    const totalPages = Math.ceil(
-                                        (resultThread.posts.length + 1) /
-                                        postsPerPage
-                                    );
-                                    const url =
-                                        '/forums/thread/' +
-                                        threadId +
-                                        '/' +
-                                        totalPages +
-                                        '/#' +
-                                        resultPost.id;
-
-                                    return res.redirect(url);
-                                });
-                        });
+            if (thread === null) {
+                return res.render('error', {
+                    title: 'Error 404',
+                    message: 'Thread not found',
+                    error: {
+                        status: 404,
+                    },
                 });
+            }
+
+            let createdPost = null;
+            try {
+                createdPost = await data.posts.create({
+                    thread: thread._id,
+                    content: content,
+                    dateCreated: new Date(),
+                    dateUpdated: new Date(),
+                });
+            } catch (error) {
+                res.send(error);
+            }
+
+            try {
+                await data.threads.addPost(
+                    thread._id,
+                    createdPost.id
+                );
+            } catch (error) {
+                res.send(error);
+            }
+
+            const postsPerPage = config.forums.threadView.postsPerPage;
+            const totalPages = Math.ceil(
+                (thread.posts.length + 1) / postsPerPage
+            );
+            const url = '/forums/thread/' + threadId + '/' +
+                totalPages + '/#' + createdPost.id;
+
+            return res.redirect(url);
         },
 
         createNewThread(req, res) {
