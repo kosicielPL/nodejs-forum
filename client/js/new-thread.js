@@ -5,7 +5,7 @@ const content = '#new-thread-content';
 const button = '#new-thread-button';
 const titleMinLengthContainer = '#title-min-length';
 const contentMinLengthContainer = '#content-min-length';
-const titleMinLength = 3;
+const titleMinLength = 5;
 const contentMinLength = 5;
 
 $(document).ready(() => {

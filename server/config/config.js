@@ -22,6 +22,14 @@ const options = {
         threadView: {
             postsPerPage: 10,
         },
+        thread: {
+            titleMinimumLength: 5,
+            titleMaximumLength: 80,
+        },
+        post: {
+            minimumLength: 5,
+            maximumLength: 5000,
+        },
     },
 };
 

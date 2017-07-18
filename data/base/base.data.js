@@ -26,23 +26,10 @@ class BaseData {
     }
 
     getById(id) { // FIX ME SENPAI can't figure findOne return
-        let result = this.collection
-            .find({
+        const result = this.collection
+            .findOne({
                 _id: new ObjectId(id),
-            })
-            .toArray();
-
-        // if (result !== null) {
-        //     result = result[0];
-        // }
-
-        if (this.ModelClass.toViewModel) {
-            result = result.then((models) => {
-                return models
-                    .map((model) =>
-                        this.ModelClass.toViewModel(model));
             });
-        }
 
         return result;
     }
@@ -80,7 +67,8 @@ class BaseData {
         return this.validator.isValid(model);
     }
 
-    _getCollectionName() { // FIX ME: IM UGLY
+    // FIX ME: IM UGLY
+    _getCollectionName() {
         let name = this.ModelClass.name.toLowerCase() + 's';
         const symbolBeforeLast = name.length - 2;
 
@@ -91,6 +79,10 @@ class BaseData {
         }
 
         return name;
+    }
+
+    static generateObjectId(id) {
+        return new ObjectId(id);
     }
 }
 
