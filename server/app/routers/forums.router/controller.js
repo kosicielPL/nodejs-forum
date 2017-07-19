@@ -235,6 +235,15 @@ const init = (app, data, config) => {
             const title = req.body.title;
             const content = req.body.content;
 
+            if (!title) {
+                res.send(req.body);
+                return res.send('we need a title');
+            }
+
+            if (!content) {
+                return res.send('we need a content');
+            }
+
             if (title.length > config.forums.thread.titleMaximumLength) {
                 return res.send('thread title too long');
             } else if (title.length < config.forums.thread.titleMinimumLength) {
