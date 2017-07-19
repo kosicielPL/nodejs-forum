@@ -87,7 +87,6 @@ require('./db').init(config.database)
         const categories = db.collection('categories');
         const forums = db.collection('forums');
 
-
         categories
             .find()
             .count()
@@ -126,20 +125,27 @@ function populate(categories, forums) {
     const forumQueue = [];
 
     categoryEntries.forEach((category) => {
-        const catDbEntry = {
+        const dbCategory = {
             _id: new ObjectId(),
             name: category.name,
             priority: category.priority,
-            forums: [],
+            forums: category.forums,
         };
 
         category.forums.forEach((forum) => {
-            forum._id = new ObjectId();
-            catDbEntry.forums.push(forum._id);
-            forum.category = catDbEntry._id;
-            forumQueue.push(forums.insertOne(forum));
+            const dbForum = {
+                _id: new ObjectId(),
+                name: forum.name,
+                internalName: forum.internalName,
+                description: forum.description,
+                image: forum.image,
+                priority: forum.priority,
+                category: dbCategory._id,
+            }
+            forumQueue.push(forums.insertOne(dbForum));
         });
-        categoryQueue.push(categories.insertOne(catDbEntry));
+
+        categoryQueue.push(categories.insertOne(dbCategory));
     });
 
     return new Promise((resolve, reject) => {

@@ -47,16 +47,6 @@ class PostsData extends BaseData {
         return result;
     }
 
-    getCountInThread(threadId) {
-        const result = this.collection
-            .find({
-                thread: new ObjectId(threadId),
-            })
-            .count();
-
-        return result;
-    }
-
     _isModelValid(model) {
         // custom validation 
         return super._isModelValid(model);

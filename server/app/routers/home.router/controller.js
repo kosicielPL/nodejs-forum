@@ -1,6 +1,6 @@
 const init = (app, data, config) => {
     const controller = {
-        generateHomeView(req, res) {
+        async generateHomeView(req, res) {
             let adminThreadsToDisplay = config.home.adminThreadsToDisplay;
 
             if (adminThreadsToDisplay < 1 ||
@@ -8,15 +8,13 @@ const init = (app, data, config) => {
                 adminThreadsToDisplay = 1;
             }
 
-            return data.forums
-                .getAdminContent(adminThreadsToDisplay)
-                .catch((error) => {})
-                .then((result) => {
-                    return res.render('home', {
-                        title: 'Big Test Icicles',
-                        forums: result,
-                    });
-                });
+            const adminThreads =
+                await data.forums.getAdminContent(adminThreadsToDisplay);
+
+            return res.render('home', {
+                title: 'Big Test Icicles',
+                forums: adminThreads,
+            });
         },
     };
 

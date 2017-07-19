@@ -84,16 +84,6 @@ class ThreadsData extends BaseData {
         return result;
     }
 
-    getCountInForum(forumId) {
-        const result = this.collection
-            .find({
-                forum: new ObjectId(forumId),
-            })
-            .count();
-
-        return result;
-    }
-
     addPost(threadId, postId) {
         const result = this.collection
             .updateOne({
@@ -105,8 +95,6 @@ class ThreadsData extends BaseData {
                 '$set': {
                     dateUpdated: new Date(),
                 },
-            }, {
-                upsert: true,
             });
 
         return result;

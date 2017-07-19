@@ -19,7 +19,7 @@ block logotext
 block content
   div.col-md-8
     div.row
-      if !forums
+      if forums.length <= 0
         h2 Nothing important to display yet :'(
       else
         each forum in forums

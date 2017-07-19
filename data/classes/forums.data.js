@@ -1,5 +1,6 @@
 const BaseData = require('../base/base.data');
 const Forum = require('../../models/forum.model');
+const ObjectId = require('mongodb').ObjectID;
 
 class ForumsData extends BaseData {
     constructor(db) {
@@ -51,6 +52,19 @@ class ForumsData extends BaseData {
                         this.ModelClass.toViewModel(model));
             });
         }
+
+        return result;
+    }
+
+    addThread(forumId, threadId) {
+        const result = this.collection
+            .updateOne({
+                _id: new ObjectId(forumId),
+            }, {
+                '$push': {
+                    threads: new ObjectId(threadId),
+                },
+            });
 
         return result;
     }
