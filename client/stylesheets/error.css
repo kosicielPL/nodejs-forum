@@ -1,0 +1,16 @@
+.error-container {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.error-container>div{
+    text-align: center;
+    display: inline-block;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.error-image {
+    margin: 0 auto;
+}

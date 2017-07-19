@@ -1,11 +1,15 @@
 extends layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/error.css')
+
 block logotext
   | ERROR #{error.status}
 
 block content
-  center
-    img(src="/img/error.png").img.img-responsive
-    h1 Ooops! #{message}
-    if(error.stack)
-      pre #{error.stack}
+  div.container-fluid.error-container
+    div
+      img(src="/img/error.png").img.img-responsive.error-image
+      h1 Ooops! #{message}
+    //- if(error.stack)
+    //-   pre #{error.stack}

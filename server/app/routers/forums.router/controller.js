@@ -183,14 +183,10 @@ const init = (app, data, config) => {
                 return res.send('post too short');
             }
 
-            let thread = null;
-            try {
-                thread = await data.threads.getById(threadId);
-            } catch (error) {
-                return res.send(error);
-            }
+            let dbThread = null;
+            dbThread = await data.threads.getById(threadId);
 
-            if (thread === null) {
+            if (dbThread === null) {
                 return res.render('error', {
                     title: 'Error 404',
                     message: 'Thread not found',
@@ -201,29 +197,21 @@ const init = (app, data, config) => {
             }
 
             let createdPost = null;
-            try {
-                createdPost = await data.posts.create({
-                    thread: thread._id,
-                    content: content,
-                    dateCreated: new Date(),
-                    dateUpdated: new Date(),
-                });
-            } catch (error) {
-                res.send(error);
-            }
+            createdPost = await data.posts.create({
+                thread: dbThread._id,
+                content: content,
+                dateCreated: new Date(),
+                dateUpdated: new Date(),
+            });
 
-            try {
-                await data.threads.addPost(
-                    thread._id,
-                    createdPost.id
-                );
-            } catch (error) {
-                res.send(error);
-            }
+            await data.threads.addPost(
+                dbThread._id,
+                createdPost.id
+            );
 
             const postsPerPage = config.forums.threadView.postsPerPage;
             const totalPages = Math.ceil(
-                (thread.posts.length + 1) / postsPerPage
+                (dbThread.posts.length + 1) / postsPerPage
             );
             const url = '/forums/thread/' + threadId + '/' +
                 totalPages + '/#' + createdPost.id;
@@ -231,7 +219,7 @@ const init = (app, data, config) => {
             return res.redirect(url);
         },
 
-        createNewThread(req, res) {
+        async createNewThread(req, res) {
             const title = req.body.title;
             const content = req.body.content;
 
@@ -241,7 +229,7 @@ const init = (app, data, config) => {
             }
 
             if (!content) {
-                return res.send('we need a content');
+                return res.send('we need content');
             }
 
             if (title.length > config.forums.thread.titleMaximumLength) {
@@ -254,46 +242,38 @@ const init = (app, data, config) => {
                 return res.send('thread content too short');
             }
 
-            const forum = req.params.forum;
-            const thread = {
+            const reqForum = req.params.forum;
+
+            const dbForum =
+                await data.forums.getByCriteria('internalName', reqForum);
+
+            if (dbForum.length <= 0) {
+                return res.render('error', {
+                    title: 'Error 404',
+                    message: 'Forum not found',
+                    error: {
+                        status: 404,
+                    },
+                });
+            }
+
+            const dbThread = await data.threads.create({
                 title: title,
                 content: content,
                 posts: [],
+                forum: dbForum[0]._id,
                 dateCreated: new Date(),
                 dateUpdated: new Date(),
-            };
+            });
 
-            return data.forums
-                .getByCriteria('internalName', forum)
-                .catch((error) => {
-                    return res.send(error);
-                })
-                .then((resultForum) => {
-                    if (resultForum.length <= 0) {
-                        return res.render('error', {
-                            title: 'Error 404',
-                            message: 'Forum not found',
-                            error: {
-                                status: 404,
-                            },
-                        });
-                    }
-                    thread.forum = resultForum[0].id;
-                    return data.threads
-                        .create(thread)
-                        .catch((error) => {
-                            return res.send(error);
-                        })
-                        .then((resultThread) => {
-                            const url = '/forums/thread/' + resultThread.id;
-                            app.io.emit('new-thread', {
-                                user: 'Xpload',
-                                forum: resultForum[0].name,
-                                url: url,
-                            });
-                            return res.redirect(url);
-                        });
-                });
+            const url = '/forums/thread/' + dbThread.id;
+            app.io.emit('new-thread', {
+                user: 'Xpload',
+                forum: dbForum[0].name,
+                url: url,
+            });
+
+            return res.redirect(url);
         },
     };
 
