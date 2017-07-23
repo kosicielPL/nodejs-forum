@@ -25,7 +25,7 @@ const init = (app, data, config) => {
 
             let dbForum =
                 await data.forums.getByCriteria('internalName', forumName);
-
+            return res.send(dbForum);
             if (!dbForum || dbForum.length <= 0) {
                 return res.render('error', {
                     title: 'Error 404',
