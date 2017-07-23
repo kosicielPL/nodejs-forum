@@ -1,7 +1,7 @@
 const database = {
-    host: '95.87.202.12',
+    host: 'localhost',
     port: 27017,
-    dbName: 'forum_test',
+    dbName: 'forum',
     username: '',
     password: '',
 };
