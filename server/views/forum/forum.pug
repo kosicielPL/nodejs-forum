@@ -29,7 +29,7 @@ block content
     div.col-xs-6.thread-controls-right
       button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
         span.glyphicon.glyphicon-search
-  if threads.length <= 0
+  if threads && threads.length <= 0
     div.container.text-center
       h2 This forums contains no threads :'(
       h2 But hey!
