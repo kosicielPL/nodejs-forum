@@ -141,6 +141,7 @@ function populate(categories, forums) {
                 image: forum.image,
                 priority: forum.priority,
                 category: dbCategory._id,
+                threads: [],
             }
             forumQueue.push(forums.insertOne(dbForum));
         });
