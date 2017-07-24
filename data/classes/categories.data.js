@@ -6,36 +6,6 @@ class CategoriesData extends BaseData {
         super(db, Category, Category);
     }
 
-    getAllForumsInCategories() {
-        let result = this.collection
-            .aggregate([{
-                    '$sort': {
-                        'priority': 1,
-                        'forums.priority': 1,
-                    },
-                },
-                {
-                    '$lookup': {
-                        from: 'forums',
-                        localField: '_id',
-                        foreignField: 'category',
-                        as: 'forums',
-                    },
-                },
-            ])
-            .toArray();
-
-        if (this.ModelClass.toViewModel) {
-            result = result.then((models) => {
-                return models
-                    .map((model) =>
-                        this.ModelClass.toViewModel(model));
-            });
-        }
-
-        return result;
-    }
-
     getStructure() {
         const result = this.collection
             .aggregate([{

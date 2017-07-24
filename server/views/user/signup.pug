@@ -1,5 +1,11 @@
 extends ../layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/user/signup.css')
+
+block scripts
+  script(src='/js/user/signup.js')
+
 block navigationMenu
   li Users
   li.active Sign up
@@ -9,4 +15,43 @@ block logotext
 
 block content
   center
-    h2 sign up page
+    form(action="").form-signup.form-horizontal
+      div.form-group
+        label(for="signup-username").control-label.col-lg-4 Username:
+        div.col-lg-8
+          input(type="username", placeholder = "Username", required, autofocus)#signup-username.form-control
+          small.form-text.text-muted 3-20 letters and numbers
+      div.form-group
+        label(for="signup-email").control-label.col-lg-4 Email:
+        div.col-lg-8
+          input(type="email", placeholder = "Email", required)#signup-email.form-control
+      div.form-group
+        label(for="signup-firstname").control-label.col-lg-4 First name:
+        div.col-lg-8
+          input(type="text", placeholder = "First name", required)#signup-firstname.form-control
+      div.form-group
+        label(for="signup-lastname").control-label.col-lg-4 Last name:
+        div.col-lg-8
+          input(type="text", placeholder = "Last name", required)#signup-lastname.form-control
+      div.form-group
+        label(for="signup-password").control-label.col-lg-4 Password: 
+        div.col-lg-8
+          input(type="password", placeholder = "Password", required)#signup-password.form-control
+          small.form-text.text-muted 3-20 symbols
+          input(type="password", placeholder = "Confirm password", required)#signup-password-confirm.form-control
+          small.form-text.text-muted 
+            //- input(type="password", placeholder = "Repeat password", required)#signup-password-repeat.form-control
+      div.form-group        
+        label(for="signup-avatar").control-label.col-lg-4 Avatar:
+        div.col-lg-8
+          div.input-group
+            label.input-group-btn
+              span.btn.btn-default Browse... 
+                input(type="file", style="display: none;", accept="image/*")
+            input(type="text", readonly, placeholder="No avatar selected")#avatar-text.form-control
+          center
+            div#avatar-preview
+              img(src="/img/avatars/default.png").img.img-responsive
+      div.form-group
+        div.col-lg-offset-4.col-lg-10
+          button(type="submit").btn.btn-default Sign up

@@ -1,5 +1,8 @@
 extends ../layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/user/login.css')
+
 block navigationMenu
   li Users
   li.active Log in
@@ -9,4 +12,14 @@ block logotext
 
 block content
   center
-    h2 log in page
+    form.form-login
+      div.form-group
+        label(for="login-email")
+        input(type="email", placeholder = "Email", required, autofocus)#login-email.form-control
+        label(for="login-password")
+        input(type="password", placeholder = "Password", required)#login-password.form-control
+        div.checkbox
+          label
+            input(type="checkbox")
+            |  Remember me
+        button(type="submit").btn.btn-default.pull-right Login

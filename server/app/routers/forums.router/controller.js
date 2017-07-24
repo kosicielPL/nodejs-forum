@@ -2,7 +2,7 @@ const init = (app, data, config) => {
     const controller = {
         async generateAllForumsView(req, res) {
             const dbCategories =
-                await data.categories.getAllForumsInCategories();
+                await data.categories.getAll();
 
             return res.render('forum/categories', {
                 title: 'Forums',

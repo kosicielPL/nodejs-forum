@@ -1,0 +1,13 @@
+.form-login {
+    max-width: 350px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-login label {
+    color: #fff;
+}
