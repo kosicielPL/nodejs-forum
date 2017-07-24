@@ -17,6 +17,10 @@ module.exports = (data) => {
         return controller.generateSignupView(req, res);
     });
 
+    router.post('/signup', (req, res) => {
+        return controller.signup(req, res);
+    });
+
     router.get('/login', (req, res) => {
         return controller.generateLoginView(req, res);
     });

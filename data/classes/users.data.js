@@ -6,6 +6,19 @@ class UsersData extends BaseData {
         super(db, User, User);
     }
 
+    checkUsername(username) {
+        const result = this.collection
+            .find({
+                username: {
+                    '$regex': '^' + username + '$',
+                    '$options': 'i',
+                }
+            })
+            .count();
+
+        return result;
+    }
+
     _isModelValid(model) {
         // custom validation 
         return super._isModelValid(model);

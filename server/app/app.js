@@ -2,7 +2,10 @@
 
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+const flash = require('express-flash');
 const favicon = require('serve-favicon');
+const fileUpload = require('express-fileupload');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -16,17 +19,27 @@ const init = (data, config) => {
 
     app.use(favicon(path.join(__dirname, '../../client', 'favicon.ico')));
     app.use(logger('dev'));
+    app.use(fileUpload());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true,
     }));
     app.use(cookieParser());
+    app.use(flash());
+    app.use(session({
+        secret: 'zob do grob',
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            secure: true,
+        }
+    }));
     app.use('/', express.static(
         path.join(__dirname, '../../client')
-        ));
+    ));
     app.use('/lib/', express.static(
         path.join(__dirname, '../../node_modules')
-        ));
+    ));
 
     require('./routes.js')(app, data, config);
 
