@@ -1,6 +1,6 @@
 const init = (app, data, config) => {
     const controller = {
-        async generateAllForumsView(req, res) {
+        async generateAllForumsView(req, res, next) {
             const dbCategories =
                 await data.categories.getAll();
 
@@ -10,7 +10,7 @@ const init = (app, data, config) => {
             });
         },
 
-        async generateSingleForumView(req, res) {
+        async generateSingleForumView(req, res, next) {
             let threadsPerPage = config.forums.forumView.threadsPerPage;
             const forumName = req.params.forum;
             let page = req.params.page;
@@ -64,7 +64,7 @@ const init = (app, data, config) => {
             });
         },
 
-        async generateSingleThreadView(req, res) {
+        async generateSingleThreadView(req, res, next) {
             let postsPerPage = config.forums.threadView.postsPerPage;
             const threadId = req.params.thread;
             let page = req.params.page;
@@ -127,7 +127,7 @@ const init = (app, data, config) => {
             });
         },
 
-        async generateNewThreadView(req, res) {
+        async generateNewThreadView(req, res, next) {
             const dbForum = await data.forums
                 .getByCriteria('internalName', req.params.forum);
 
@@ -141,7 +141,7 @@ const init = (app, data, config) => {
             });
         },
 
-        async createNewPost(req, res) {
+        async createNewPost(req, res, next) {
             const content = req.body.content;
             const threadId = req.params.thread;
 
@@ -197,7 +197,7 @@ const init = (app, data, config) => {
             return res.redirect(url);
         },
 
-        async createNewThread(req, res) {
+        async createNewThread(req, res, next) {
             const title = req.body.title;
             const content = req.body.content;
 

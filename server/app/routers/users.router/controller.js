@@ -26,7 +26,7 @@ const init = (data) => {
 
             const usernameTaken = await data.users.checkUsername(username);
 
-            if (usernameTaken > 0) {
+            if (usernameTaken.length > 0) {
                 return res.send('username is taken');
             }
 
@@ -79,6 +79,10 @@ const init = (data) => {
             }
 
             return res.redirect('/');
+        },
+
+        login(req, res) {
+
         },
     };
 

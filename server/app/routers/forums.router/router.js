@@ -5,33 +5,33 @@ module.exports = (app, data, config) => {
     const controller = require('./controller').init(app, data, config);
 
     // all forums
-    router.get('/', (req, res) => {
-        return controller.generateAllForumsView(req, res);
+    router.get('/', (req, res, next) => {
+        return controller.generateAllForumsView(req, res, next);
     });
 
     // get page for new thread in forum
-    router.get('/:forum/new-thread', (req, res) => {
-        return controller.generateNewThreadView(req, res);
+    router.get('/:forum/new-thread', (req, res, next) => {
+        return controller.generateNewThreadView(req, res, next);
     });
 
     // post new thread in forum
-    router.post('/:forum/new-thread', (req, res) => {
-        return controller.createNewThread(req, res);
+    router.post('/:forum/new-thread', (req, res, next) => {
+        return controller.createNewThread(req, res, next);
     });
 
     // post new post in thread lol
-    router.post('/thread/:thread/new-post', (req, res) => {
-        return controller.createNewPost(req, res);
+    router.post('/thread/:thread/new-post', (req, res, next) => {
+        return controller.createNewPost(req, res, next);
     });
 
     // view thread
-    router.get('/thread/:thread/:page?', (req, res) => {
-        return controller.generateSingleThreadView(req, res);
+    router.get('/thread/:thread/:page?', (req, res, next) => {
+        return controller.generateSingleThreadView(req, res, next);
     });
 
     // single forum
-    router.get('/:forum/:page?', (req, res) => {
-        return controller.generateSingleForumView(req, res);
+    router.get('/:forum/:page?', (req, res, next) => {
+        return controller.generateSingleForumView(req, res, next);
     });
 
     return router;

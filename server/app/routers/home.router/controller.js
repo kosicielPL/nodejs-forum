@@ -1,6 +1,6 @@
 const init = (app, data, config) => {
     const controller = {
-        async generateHomeView(req, res) {
+        async generateHomeView(req, res, next) {
             let adminThreadsToDisplay = config.home.adminThreadsToDisplay;
 
             if (adminThreadsToDisplay < 1 ||

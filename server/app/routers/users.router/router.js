@@ -1,29 +1,36 @@
 const express = require('express');
+const passport = require('passport');
 
 module.exports = (data) => {
     const router = new express.Router();
     const controller = require('./controller').init(data);
 
     /* GET users listing. */
-    // router.get('/', function(req, res, next) {
+    // router.get('/', function(req, res, next, next) {
     //     res.send('test');
     // });
 
-    router.get('/profile/:user', (req, res) => {
-        return controller.generateProfileView(req, res);
+    router.get('/profile/:user', (req, res, next) => {
+        return controller.generateProfileView(req, res, next);
     });
 
-    router.get('/signup', (req, res) => {
-        return controller.generateSignupView(req, res);
+    router.get('/signup', (req, res, next) => {
+        return controller.generateSignupView(req, res, next);
     });
 
-    router.post('/signup', (req, res) => {
-        return controller.signup(req, res);
+    router.post('/signup', (req, res, next) => {
+        return controller.signup(req, res, next);
     });
 
-    router.get('/login', (req, res) => {
-        return controller.generateLoginView(req, res);
+    router.get('/login', (req, res, next) => {
+        return controller.generateLoginView(req, res, next);
     });
+
+    router.post('/login', passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/users/login',
+        failureFlash: true,
+    }));
 
     return router;
 };

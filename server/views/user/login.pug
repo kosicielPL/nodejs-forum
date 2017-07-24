@@ -12,12 +12,12 @@ block logotext
 
 block content
   center
-    form.form-login
+    form(action="/users/login", method="POST").form-login
       div.form-group
-        label(for="login-email")
-        input(type="email", placeholder = "Email", required, autofocus)#login-email.form-control
+        label(for="login-username")
+        input(type="username", placeholder = "Username", required, autofocus, name="username")#login-username.form-control
         label(for="login-password")
-        input(type="password", placeholder = "Password", required)#login-password.form-control
+        input(type="password", placeholder = "Password", required, name="password")#login-password.form-control
         div.checkbox
           label
             input(type="checkbox")

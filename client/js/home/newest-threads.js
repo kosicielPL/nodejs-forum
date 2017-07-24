@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     const newestThreadsContainer = '.sidenav';
+    let speed = 0;
 
     socket.on('new-thread', (msg) => {
         loadForumStructure();
@@ -24,10 +25,11 @@ $(document).ready(function() {
             timeout: 5000,
             async: true,
             success: (data) => {
-                $(newestThreadsContainer).stop().fadeOut(400, function() {
+                $(newestThreadsContainer).stop().fadeOut(speed, function() {
                     $(newestThreadsContainer).html(data);
-                    $(newestThreadsContainer).stop().fadeIn(400);
+                    $(newestThreadsContainer).stop().fadeIn(speed);
                 });
+                speed = 400;
             },
             error: (xhr, status, error) => {
                 this.tryCount++;

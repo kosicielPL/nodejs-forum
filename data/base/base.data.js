@@ -34,6 +34,11 @@ class BaseData {
         return result;
     }
 
+    filterBy(props) {
+        return this.collection.find(props)
+            .toArray();
+    }
+
     getByCriteria(field, value) {
         let result = this.collection
             .find({

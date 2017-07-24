@@ -5,8 +5,8 @@ module.exports = (app, data, config) => {
     const controller = require('./controller').init(app, data, config);
 
     /* GET home page. */
-    router.get('/', (req, res) => {
-        return controller.generateHomeView(req, res);
+    router.get('/', (req, res, next) => {
+        return controller.generateHomeView(req, res, next);
     });
 
     return router;
