@@ -1,10 +1,10 @@
 const express = require('express');
 
-const init = (data, config) => {
+const init = (data, config, connectionString) => {
     const app = express();
 
     require('./setup/app').applyTo(app);
-    require('./setup/auth').applyTo(app, data);
+    require('./setup/auth').applyTo(app, data, connectionString);
     require('./routes.js')(app, data, config);
 
     // catch 404 and forward to error handler

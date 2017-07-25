@@ -12,7 +12,7 @@ block logotext
 
 block content
   center
-    form(action="/users/login", method="POST").form-login
+    form(action="/login", method="POST").form-login
       div.form-group
         label(for="login-username")
         input(type="username", placeholder = "Username", required, autofocus, name="username")#login-username.form-control
@@ -20,6 +20,6 @@ block content
         input(type="password", placeholder = "Password", required, name="password")#login-password.form-control
         div.checkbox
           label
-            input(type="checkbox")
+            input(type="checkbox", checked, name="rememberme")
             |  Remember me
         button(type="submit").btn.btn-info.pull-right Login

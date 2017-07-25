@@ -21,8 +21,8 @@ const applyTo = (app) => {
     app.use(bodyParser.urlencoded({
         extended: true,
     }));
-    app.use(cookieParser('zob do grob'));
-    app.use(flash());
+    app.use(cookieParser());
+    // app.use(flash());
     app.use('/', express.static(
         path.join(__dirname, '../../../../client')
     ));

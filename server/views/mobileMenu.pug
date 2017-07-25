@@ -11,24 +11,27 @@ div.mobile-menu-container
         span.caret
       div#mobile-submenu-forum.mobile-submenu.collapse
         img(src='/img/loading.gif').img.img-responsive
-    li.mobile-menu-item
-      a(href="/users/profile/xpload")
-        span.glyphicon.glyphicon-user 
-        | PROFILE
-    li.mobile-menu-item
-      a(href="/settings")
-        span.glyphicon.glyphicon-cog
-        | SETTINGS
-    li.mobile-menu-item
-      a(href="/users/signup")
-        span.glyphicon.glyphicon-pencil
-        | SIGN UP
-    li.mobile-menu-item
-      a(href="/users/login")
-        span.glyphicon.glyphicon-log-in
-        | LOGIN
-    li.mobile-menu-item
-      a(href="#")
-        span.glyphicon.glyphicon-log-out
-        | LOGOUT
+    if isLoggedIn
+      li.mobile-menu-item
+        a(href="/users/profile/xpload")
+          span.glyphicon.glyphicon-user 
+          | PROFILE
+      li.mobile-menu-item
+        a(href="/settings")
+          span.glyphicon.glyphicon-cog
+          | SETTINGS
+      li.divider
+      li.mobile-menu-item
+        a(href="/logout")
+          span.glyphicon.glyphicon-log-out
+          | LOGOUT
+    else
+      li.mobile-menu-item
+        a(href="/login")
+          span.glyphicon.glyphicon-log-in
+          | LOGIN
+      li.mobile-menu-item
+        a(href="/signup")
+          span.glyphicon.glyphicon-pencil
+          | SIGN UP
 

@@ -1,10 +1,11 @@
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const {
     Strategy,
 } = require('passport-local');
 
-const applyTo = (app, data) => {
+const applyTo = (app, data, connectionString) => {
     passport.use(new Strategy((username, password, done) => {
         data.users.checkPassword(username, password)
             .then(() => {
@@ -20,11 +21,15 @@ const applyTo = (app, data) => {
 
     app.use(session({
         secret: 'zob do grob',
+        cookie: {
+            maxAge: 3600000,
+            secure: false,
+        },
+        store: new MongoStore({
+            url: connectionString,
+        }),
         resave: true,
         saveUninitialized: true,
-        // cookie: {
-        //     secure: true,
-        // },
     }));
 
     app.use(passport.initialize());
@@ -48,6 +53,14 @@ const applyTo = (app, data) => {
 
         next();
     });
+
+    // pass user object to all views
+    function userView(req, res, next) {
+        res.locals.user = req.user;
+        next();
+    }
+
+    app.use(userView);
 };
 
 module.exports = {

@@ -1,3 +1,4 @@
+//- h1= user.username
 header.forum-header-container.blurred
   div.container-fluid.forum-header
     nav.row.nav-first-row
@@ -17,41 +18,41 @@ header.forum-header-container.blurred
               else
                 a(href=val)= key
           li.visible-xs.header-mobile
-            //- a.btn.mobile-menu-open-btn
-            //-     span.glyphicon.glyphicon-menu-hamburger
-            //-     |  MENU
             button.btn.btn-large.mobile-menu-toggle-btn
               span.glyphicon.glyphicon-menu-hamburger
-            //- a(href="#").glyphicon.glyphicon-menu-hamburger
-            //-     |  PHONE MENU
-
 
         ul.nav.navbar-nav.navbar-right.hidden-xs
           li.dropdown
-            a(href="#",data-toggle="dropdown").dropdown-toggle My account
-              span.caret
+            if isLoggedIn
+              a(href="#",data-toggle="dropdown").dropdown-toggle= user.username
+                span.caret
+            else
+              a(href="#",data-toggle="dropdown").dropdown-toggle My account
+                span.caret
             ul.dropdown-menu
-              li
-                a(href="/users/profile/xpload")
-                  span.glyphicon.glyphicon-user
-                  |Profile
-              li
-                a(href="/settings/")
-                  span.glyphicon.glyphicon-cog
-                  |Settings
-              li
-                a(href="/users/signup")
-                  span.glyphicon.glyphicon-pencil
-                  |Sign up
-              li
-                a(href="/users/login")
-                  span.glyphicon.glyphicon-log-in
-                  |Log in
-              li.divider
-              li
-                a(href="#")
-                  span.glyphicon.glyphicon-log-out
-                  |Log out
+              if isLoggedIn
+                li
+                  a(href="/users/profile/xpload")
+                    span.glyphicon.glyphicon-user
+                    |Profile
+                li
+                  a(href="/settings/")
+                    span.glyphicon.glyphicon-cog
+                    |Settings
+                li.divider
+                li
+                  a(href="/logout")
+                    span.glyphicon.glyphicon-log-out
+                    |Log out
+              else
+                li
+                  a(href="/login")
+                    span.glyphicon.glyphicon-log-in
+                    |Log in
+                li
+                  a(href="/signup")
+                    span.glyphicon.glyphicon-pencil
+                    |Sign up
 
           li
             a(href="#")

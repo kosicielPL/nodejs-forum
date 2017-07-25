@@ -14,23 +14,5 @@ module.exports = (data) => {
         return controller.generateProfileView(req, res, next);
     });
 
-    router.get('/signup', (req, res, next) => {
-        return controller.generateSignupView(req, res, next);
-    });
-
-    router.post('/signup', (req, res, next) => {
-        return controller.signup(req, res, next);
-    });
-
-    router.get('/login', (req, res, next) => {
-        return controller.generateLoginView(req, res, next);
-    });
-
-    router.post('/login', passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/users/login',
-        failureFlash: true,
-    }));
-
     return router;
 };
