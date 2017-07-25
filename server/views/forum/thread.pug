@@ -30,7 +30,7 @@ block content
 
     div.container-fluid.post-container.original-post
       div.sidebar.post-left-part
-        div.post-avatar-container
+        div.post-avatar
           img(src="/img/avatar.gif").post-avatar
         div.post-author-container
           div.post-author-name Xpload
@@ -48,7 +48,7 @@ block content
       time = dateTime.getHours() + ':' + dateTime.getMinutes()
     div(id=post._id).container-fluid.post-container
       div.sidebar.post-left-part
-        div.post-avatar-container
+        div.post-avatar
           img(src="/img/avatar.gif").post-avatar
         div.post-author-container
           div.post-author-name Xpload
@@ -89,21 +89,22 @@ block content
       //- last page
       if totalPages > currentPage + 2
         a(href='/forums/thread/' + thread._id + '/' + totalPages).page-item= totalPages
-  h2#post-reply Post reply
-  div.container-fluid.post-container.original-post
-    div.sidebar.post-left-part
-      div.post-avatar-container
-        img(src="/img/avatar.gif").post-avatar
-      div.post-author-container
-        div.post-author-name Xpload
-        div.post-author-title User
-        div.post-author-posts 257 posts
-    div.post-right-part.container-fluid
-      div.row.new-post-content
-        form(action='/forums/thread/' + thread._id +'/new-post', method='post')
-          div.form-group
-            textarea(name='content', maxlength="5000")#new-post-content.form-control
-            small.form-text.text-muted Minimum length: 
-              span#content-min-length
-          div.form-group
-            button(disabled).btn.btn-reply-thread.pull-right#new-post-button POST REPLY
+  if isLoggedIn
+    h2#post-reply Post reply
+    div.container-fluid.post-container.original-post
+      div.sidebar.post-left-part
+        div.post-avatar
+          img(src="/img/avatars/users/" + user.avatar)
+        div.post-author-container
+          div.post-author-name= user.username
+          div.post-author-title= user.role.capitalize()
+          div.post-author-posts= (user.posts ? user.posts.length : 0) + ' posts'
+      div.post-right-part.container-fluid
+        div.row.new-post-content
+          form(action='/forums/thread/' + thread._id +'/new-post', method='post')
+            div.form-group
+              textarea(name='content', maxlength="5000")#new-post-content.form-control
+              small.form-text.text-muted Minimum length: 
+                span#content-min-length
+            div.form-group
+              button(disabled).btn.btn-reply-thread.pull-right#new-post-button POST REPLY

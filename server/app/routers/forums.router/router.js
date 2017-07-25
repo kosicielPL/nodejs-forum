@@ -11,16 +11,34 @@ module.exports = (app, data, config) => {
 
     // get page for new thread in forum
     router.get('/:forum/new-thread', (req, res, next) => {
+        if (!req.user) {
+            return Promise.resolve()
+                .then(() => {
+                    return res.redirect('/login');
+                    });
+            }
         return controller.generateNewThreadView(req, res, next);
     });
 
     // post new thread in forum
     router.post('/:forum/new-thread', (req, res, next) => {
+        if (!req.user) {
+            return Promise.resolve()
+                .then(() => {
+                    return res.redirect('/login');
+                    });
+            }
         return controller.createNewThread(req, res, next);
     });
 
     // post new post in thread lol
     router.post('/thread/:thread/new-post', (req, res, next) => {
+        if (!req.user) {
+            return Promise.resolve()
+                .then(() => {
+                    return res.redirect('/login');
+                    });
+            }
         return controller.createNewPost(req, res, next);
     });
 

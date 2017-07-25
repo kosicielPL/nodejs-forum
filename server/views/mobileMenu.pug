@@ -13,7 +13,7 @@ div.mobile-menu-container
         img(src='/img/loading.gif').img.img-responsive
     if isLoggedIn
       li.mobile-menu-item
-        a(href="/users/profile/xpload")
+        a(href="/users/profile/" + user.username)
           span.glyphicon.glyphicon-user 
           | PROFILE
       li.mobile-menu-item

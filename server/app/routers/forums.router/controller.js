@@ -238,6 +238,8 @@ const init = (app, data, config) => {
             const dbThread = await data.threads.create({
                 title: title,
                 content: content,
+                author: req.user.username,
+                authorId: data.generateObjectId(req.user._id),
                 posts: [],
                 forum: dbForum[0]._id,
                 dateCreated: new Date(),

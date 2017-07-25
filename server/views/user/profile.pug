@@ -2,11 +2,19 @@ extends ../layout
 
 block navigationMenu
   li Users
-  li.active= user
+  li.active= targetUser.username
 
 block logotext
-  | #{user}'s profile
+  | #{targetUser.username}'s profile
 
 block content
   center
-    h2 profile page for #{user}
+    h2 username: #{targetUser.username}
+    h2 name: #{targetUser.firstName} #{targetUser.lastName}
+    h2 email: #{targetUser.email}
+    h2 role: #{targetUser.role}
+    h2 avatar: #{targetUser.avatar}
+    if targetUser.avatar.length > 0
+      img(src="/img/avatars/users/" + targetUser.avatar).img.img-responsive
+    else
+      img(src="/img/avatars/default.png").img.img-responsive

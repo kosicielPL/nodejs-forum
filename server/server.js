@@ -10,7 +10,10 @@ if (dbConf.password.length > 0 && dbConf.username.length > 0) {
 }
 
 connectionString += dbConf.host + ':' + dbConf.port + '/' + dbConf.dbName;
-console.log(connectionString);
+
+console.log('Conneting to MongoDB at: ' + dbConf.host + ":" + dbConf.port);
+console.log('Selected database: ' + dbConf.dbName);
+
 Promise.resolve()
     .then(() => require('../db').init(connectionString))
     .then((db) => require('../data').init(db))

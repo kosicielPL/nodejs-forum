@@ -17,9 +17,9 @@ const init = (data) => {
         async signup(req, res) {
             const username = req.body.username;
 
-            const usernameTaken = await data.users.checkUsername(username);
+            const usernameTaken = await data.users.findByUsername(username);
 
-            if (usernameTaken.length > 0) {
+            if (usernameTaken) {
                 return res.send('username is taken');
             }
 

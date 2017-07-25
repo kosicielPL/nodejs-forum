@@ -32,7 +32,7 @@ header.forum-header-container.blurred
             ul.dropdown-menu
               if isLoggedIn
                 li
-                  a(href="/users/profile/xpload")
+                  a(href="/users/profile/" + user.username)
                     span.glyphicon.glyphicon-user
                     |Profile
                 li
@@ -53,12 +53,6 @@ header.forum-header-container.blurred
                   a(href="/signup")
                     span.glyphicon.glyphicon-pencil
                     |Sign up
-
-          li
-            a(href="#")
-
-          li
-            a(href="#")
 
       div.col-md-1
     div.row.hidden-xs

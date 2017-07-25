@@ -6,6 +6,9 @@ const contentMinLengthContainer = '#content-min-length';
 const contentMinLength = 5;
 
 $(document).ready(() => {
+    if($(content).length <= 0){
+        return;
+    }
     resizeTextarea();
     $(contentMinLengthContainer).text(contentMinLength);
 

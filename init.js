@@ -82,7 +82,16 @@ const categoryEntries = [{
     },
 ];
 
-require('./db').init(config.database)
+const dbConf = config.database;
+let connectionString = 'mongodb://';
+
+if (dbConf.password.length > 0 && dbConf.username.length > 0) {
+    connectionString += dbConf.username + ':' + dbConf.password + '@';
+}
+
+connectionString += dbConf.host + ':' + dbConf.port + '/' + dbConf.dbName;
+
+require('./db').init(connectionString)
     .then((db) => {
         const categories = db.collection('categories');
         const forums = db.collection('forums');
@@ -142,6 +151,7 @@ function populate(categories, forums) {
                 priority: forum.priority,
                 category: dbCategory._id,
                 threads: [],
+                admin: (forum.admin ? forum.admin : false),
             }
             forumQueue.push(forums.insertOne(dbForum));
         });
