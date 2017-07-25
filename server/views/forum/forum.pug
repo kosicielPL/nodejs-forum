@@ -25,7 +25,8 @@ block content
         button(type="submit").btn.btn-default Search
   div.row.thread-controls
     div.col-xs-6.thread-controls-left
-      a(href="/forums/" + forum.internalName + "/new-thread").btn.btn-new-thread NEW THREAD
+      if !forum.admin || (isLoggedIn && user.role === 'admin')
+        a(href="/forums/" + forum.internalName + "/new-thread").btn.btn-new-thread NEW THREAD
     div.col-xs-6.thread-controls-right
       button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
         span.glyphicon.glyphicon-search
@@ -59,7 +60,7 @@ block content
         }
       -
         if (thread.posts){
-          posts = thread.posts.length
+          posts = thread.posts.length - 1
         } else {
           posts = 0
         }

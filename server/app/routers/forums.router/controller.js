@@ -135,6 +135,11 @@ const init = (app, data, config) => {
                 return res.send('Forum not found');
             }
 
+            if (dbForum[0].admin === true &&
+                req.user.role !== 'admin') {
+                return res.redirect('/');
+            }
+
             return res.render('forum/newThread', {
                 title: 'Creating new thread',
                 forum: dbForum[0],
@@ -253,25 +258,25 @@ const init = (app, data, config) => {
     return controller;
 };
 
-async function createNewPostInDb(data, author, content, thread, isOriginal){
-            let createdPost = {
-                thread: thread._id,
-                content: content,
-                dateCreated: new Date(),
-                dateUpdated: new Date(),
-                author: author._id,
-            };
+async function createNewPostInDb(data, author, content, thread, isOriginal) {
+    let createdPost = {
+        thread: thread._id,
+        content: content,
+        dateCreated: new Date(),
+        dateUpdated: new Date(),
+        author: author._id,
+    };
 
-            if(isOriginal){
-                createdPost.original = true;
-            }
+    if (isOriginal) {
+        createdPost.original = true;
+    }
 
-            createdPost = await data.posts.create(createdPost);
+    createdPost = await data.posts.create(createdPost);
 
-            await data.threads.addPost(thread._id, createdPost.id);
-            await data.users.addPost(author._id, createdPost.id);
+    await data.threads.addPost(thread._id, createdPost.id);
+    await data.users.addPost(author._id, createdPost.id);
 
-            return createdPost;
+    return createdPost;
 }
 module.exports = {
     init,

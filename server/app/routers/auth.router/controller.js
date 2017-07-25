@@ -74,12 +74,14 @@ const init = (data) => {
                 return res.send(error);
             }
 
-            return res.redirect('/');
+            return res.redirect('/login');
         },
 
         login(req, res) {
             passport.authenticate('local', function(err, user, info) {
                 if (err) {
+                    req.flash('error', err.message);
+                    // return res.send(req.flash());
                     return res.redirect('/login');
                 }
 
@@ -87,13 +89,13 @@ const init = (data) => {
                     return res.redirect('/');
                 }
                 // req / res held in closure
-                req.logIn(user, function(err) {
-                    if (err) {
+                return req.logIn(user, function(error) {
+                    if (error) {
+                        req.flash("info", "Email queued");
                         return res.redirect('/login');
                     }
                     if (req.body.rememberme !== 'rememberme') {
                         req.session.cookie.expires = false;
-                        // req.session.cookie.maxAge = 0;
                     }
                     return res.redirect('/');
                 });

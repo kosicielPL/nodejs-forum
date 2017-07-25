@@ -3,12 +3,11 @@ div.container-fluid
 each thread in newestThreads
   - date =  new Date(thread.dateCreated)
   - if(thread.content.length > 50) thread.content = thread.content.substring(0,50) + '...';
-  - console.log(thread)
   a(href="/forums/thread/" + thread._id).latest-thread-row
     div.container-fluid
       div.row
         div.col-xs-3
-          div.latest-thread-avatar
+          div.avatar.latest-thread-avatar
             if thread.author.avatar.length > 3
               img(src="/img/avatars/users/" + thread.author.avatar)
             else

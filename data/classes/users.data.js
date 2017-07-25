@@ -46,11 +46,11 @@ class UsersData extends BaseData {
             .findByUsername(username)
             .then((user) => {
                 if (!user) {
-                    throw new Error('Invalid user');
+                    throw new Error('User \"' + username + '\" doesn\' exist!');
                 }
 
                 if (user.password !== password) {
-                    throw new Error('Invalid password');
+                    throw new Error('The provided password is incorrect!');
                 }
 
                 return true;

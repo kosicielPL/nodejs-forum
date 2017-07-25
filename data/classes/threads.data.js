@@ -73,7 +73,7 @@ class ThreadsData extends BaseData {
                 {
                     '$lookup': {
                         from: 'users',
-                        localField: 'authorId',
+                        localField: 'author',
                         foreignField: '_id',
                         as: 'author',
                     },

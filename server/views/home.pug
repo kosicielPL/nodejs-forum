@@ -28,7 +28,7 @@ block content
             h5.title= forum.thread.title
             h5.forum= forum.name
             span.info posted by 
-              a(href='/users/profile/xpload').author Xpload
+              a(href="/users/profile/" + forum.thread.authorName).author= forum.thread.authorName
               |  on #{date.toDateString()}
             p.content !{forum.thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
             span.pull-right

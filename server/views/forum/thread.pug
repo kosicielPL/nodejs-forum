@@ -29,14 +29,15 @@ block content
       time = dateTime.getHours() + ':' + dateTime.getMinutes()
     div(id=post._id).container-fluid.post-container(class=post.original ? "original-post" : "")
       div.sidebar.post-left-part
-        div.post-avatar
+        div.avatar.post-avatar
           if post.author.avatar.length > 3
             img(src="/img/avatars/users/" + post.author.avatar)
           else
             img(src="/img/avatars/default.png")
         div.post-author-container
-          div.post-author-name= post.author.username
-          div.post-author-title= post.author.role.capitalize()
+          div
+            a(href="/users/profile/" + post.author.username).post-author-name= post.author.username
+          div.post-author-title(class=(post.author.role === 'admin' ? "admin" : ""))= post.author.role.capitalize()
           div.post-author-posts= (post.author.posts ? post.author.posts.length : 0) + ' posts'
         span.pull-right.post-date.visible-sm.visible-xs &nbsp; #{date}
         span.pull-right.post-date.visible-sm.visible-xs= time
@@ -77,14 +78,14 @@ block content
     h2#post-reply Post reply
     div.container-fluid.post-container.original-post
       div.sidebar.post-left-part
-        div.post-avatar
+        div.avatar.post-avatar
           if user.avatar.length > 3
             img(src="/img/avatars/users/" + user.avatar)
           else
             img(src="/img/avatars/default.png")
         div.post-author-container
           div.post-author-name= user.username
-          div.post-author-title= user.role.capitalize()
+          div.post-author-title(class=(user.role === 'admin' ? "admin" : ""))= user.role.capitalize()
           div.post-author-posts= (user.posts ? user.posts.length : 0) + ' posts'
       div.post-right-part.container-fluid
         div.row.new-post-content

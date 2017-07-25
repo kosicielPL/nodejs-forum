@@ -23,15 +23,15 @@ block content
   h2 New thread
   div.container-fluid.thread-container
     div.sidebar.thread-left-part
-      div.thread-avatar
+      div.avatar.thread-avatar
         if user.avatar.length > 3
           img(src="/img/avatars/users/" + user.avatar)
         else
           img(src="/img/avatars/default.png")
       div.thread-author-container
         div.thread-author-name= user.username
-        div.thread-author-title= user.role.capitalize()
-        div.thread-author-threads= (user.posts ? user.posts.length : 0) + ' posts'
+        div.thread-author-title(class=(user.role === 'admin' ? "admin" : ""))= user.role.capitalize()
+        div.thread-author-posts= (user.posts ? user.posts.length : 0) + ' posts'
     div.thread-right-part.container-fluid
       div.row.new-thread-content
         form(action='/forums/' + forum.internalName + '/new-thread', method='post')

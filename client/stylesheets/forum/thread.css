@@ -53,16 +53,6 @@
 .post-avatar {
     width: 80px;
     height: 80px;
-    display: inline-block;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 3px #000;
-}
-
-.post-avatar > img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
 }
 
 .post-author-container {
@@ -71,17 +61,26 @@
     vertical-align: top;
 }
 
-.post-author-name {
+.post-author-name,
+.post-author-name:visited  {
+    color: #fff;
+    text-decoration: none;
     font-size: 16px;
 }
 
-.post-author-title {}
+a.post-author-name:hover,
+a.post-author-name:focus{
+    color: #ddd;
+    text-decoration: none;
+}
+
+.post-author-title {
+    font-size: 14px;
+}
 
 .post-author-posts {
     color: rgba(255, 255, 255, 0.6);
 }
-
-.post-left-part-container {}
 
 .post-mobile-date {
     text-align: right;

@@ -13,6 +13,7 @@ block logotext
 block content
   center
     form(action="/login", method="POST").form-login
+      != messages()
       div.form-group
         label(for="login-username")
         input(type="username", placeholder = "Username", required, autofocus, name="username")#login-username.form-control
