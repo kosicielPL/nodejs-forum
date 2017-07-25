@@ -1,5 +1,4 @@
 const express = require('express');
-const passport = require('passport');
 
 module.exports = (data) => {
     const router = new express.Router();
@@ -17,11 +16,9 @@ module.exports = (data) => {
         return controller.generateLoginView(req, res, next);
     });
 
-    router.post('/login', passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true,
-    }));
+    router.post('/login', (req, res, next) => {
+        return controller.login(req, res, next);
+    });
 
     router.get('/logout', (req, res, next) => {
         return controller.logout(req, res, next);

@@ -1,3 +1,5 @@
+const passport = require('passport');
+
 const init = (data) => {
     const controller = {
         generateSignupView(req, res) {
@@ -73,7 +75,26 @@ const init = (data) => {
         },
 
         login(req, res) {
+            passport.authenticate('local', function(err, user, info) {
+                if (err) {
+                    return res.redirect('/login');
+                }
 
+                if (!user) {
+                    return res.redirect('/');
+                }
+                // req / res held in closure
+                req.logIn(user, function(err) {
+                    if (err) {
+                        return res.redirect('/login');
+                    }
+                    if (req.body.rememberme !== 'rememberme') {
+                        req.session.cookie.expires = false;
+                        // req.session.cookie.maxAge = 0;
+                    }
+                    return res.redirect('/');
+                });
+            })(req, res);
         },
 
         logout(req, res) {
