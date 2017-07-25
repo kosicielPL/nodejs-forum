@@ -4,8 +4,7 @@ const init = (data) => {
             const targetUsername = req.params.user;
             const targetUser = await data.users.findByUsername(targetUsername);
 
-            if(!targetUser){
-                
+            if (!targetUser) {
                 return res.render('error', {
                     title: 'Error 404',
                     message: 'User not found',

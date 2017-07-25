@@ -1,20 +1,45 @@
 extends ../layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/user/profile.css')
+
 block navigationMenu
   li Users
   li.active= targetUser.username
 
-block logotext
-  | #{targetUser.username}'s profile
+block logotext  
 
 block content
-  center
-    h2 username: #{targetUser.username}
-    h2 name: #{targetUser.firstName} #{targetUser.lastName}
-    h2 email: #{targetUser.email}
-    h2 role: #{targetUser.role}
-    h2 avatar: #{targetUser.avatar}
-    if targetUser.avatar.length > 0
-      img(src="/img/avatars/users/" + targetUser.avatar).img.img-responsive
-    else
-      img(src="/img/avatars/default.png").img.img-responsive
+  h2 
+    | #{targetUser.username}'s profile
+
+  if targetUser.avatar.length > 0
+    img(src="/img/avatars/users/" + targetUser.avatar).img.img-responsive.pull-left
+  else
+    img(src="/img/avatars/default.png").img.img-responsive.pull-left
+    
+  .table-responsive
+    table.table.user-info
+      tr
+        td username 
+        td #{targetUser.username}
+        td 
+          a.btn.btn-default.btn-sm.pull-right(type="button")
+            span.glyphicon.glyphicon-edit
+      tr
+        td name 
+        td #{targetUser.firstName} #{targetUser.lastName}
+        td 
+          a.btn.btn-default.btn-sm.pull-right(type="button")
+            span.glyphicon.glyphicon-edit
+      tr
+        td email 
+        td #{targetUser.email}
+        td 
+          a.btn.btn-default.btn-sm.pull-right(type="button")
+            span.glyphicon.glyphicon-edit
+      tr 
+        td role 
+        td(colspan="2") #{targetUser.role}
+
+
