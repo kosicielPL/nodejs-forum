@@ -58,3 +58,4 @@ typings/
 .env
 
 client/img/avatars/users/
+server/config
