@@ -33,6 +33,18 @@ class PostsData extends BaseData {
                 {
                     '$limit': resultsPerPage,
                 },
+                {
+                    '$lookup': {
+                        from: 'users',
+                        localField: 'author',
+                        foreignField: '_id',
+                        as: 'author',
+                    },
+                },
+                {
+                    '$unwind': '$author',
+                },
+
             ])
             .toArray();
 

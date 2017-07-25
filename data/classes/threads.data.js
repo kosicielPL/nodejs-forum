@@ -70,6 +70,17 @@ class ThreadsData extends BaseData {
                         as: 'forum',
                     },
                 },
+                {
+                    '$lookup': {
+                        from: 'users',
+                        localField: 'authorId',
+                        foreignField: '_id',
+                        as: 'author',
+                    },
+                },
+                {
+                    '$unwind': '$author',
+                },
             ])
             .toArray();
 

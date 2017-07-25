@@ -115,7 +115,7 @@ const init = (app, data, config) => {
                     threadId
                 );
             }
-
+            // return res.send(dbPosts);
             return res.render('forum/thread', {
                 title: dbThread.title,
                 thread: dbThread,
@@ -174,18 +174,7 @@ const init = (app, data, config) => {
                 });
             }
 
-            let createdPost = null;
-            createdPost = await data.posts.create({
-                thread: dbThread._id,
-                content: content,
-                dateCreated: new Date(),
-                dateUpdated: new Date(),
-            });
-
-            await data.threads.addPost(
-                dbThread._id,
-                createdPost.id
-            );
+            const createdPost = await createNewPostInDb(data, req.user, content, dbThread);
 
             const postsPerPage = config.forums.threadView.postsPerPage;
             const totalPages = Math.ceil(
@@ -238,15 +227,17 @@ const init = (app, data, config) => {
             const dbThread = await data.threads.create({
                 title: title,
                 content: content,
-                author: req.user.username,
-                authorId: data.generateObjectId(req.user._id),
+                authorName: req.user.username,
+                author: data.generateObjectId(req.user._id),
                 posts: [],
                 forum: dbForum[0]._id,
                 dateCreated: new Date(),
                 dateUpdated: new Date(),
             });
 
+            const createdPost = await createNewPostInDb(data, req.user, content, dbThread, true);
             await data.forums.addThread(dbForum[0]._id, dbThread._id);
+            await data.users.addThread(req.user._id, dbThread._id);
 
             const url = '/forums/thread/' + dbThread.id;
             app.io.emit('new-thread', {
@@ -262,6 +253,26 @@ const init = (app, data, config) => {
     return controller;
 };
 
+async function createNewPostInDb(data, author, content, thread, isOriginal){
+            let createdPost = {
+                thread: thread._id,
+                content: content,
+                dateCreated: new Date(),
+                dateUpdated: new Date(),
+                author: author._id,
+            };
+
+            if(isOriginal){
+                createdPost.original = true;
+            }
+
+            createdPost = await data.posts.create(createdPost);
+
+            await data.threads.addPost(thread._id, createdPost.id);
+            await data.users.addPost(author._id, createdPost.id);
+
+            return createdPost;
+}
 module.exports = {
     init,
 };

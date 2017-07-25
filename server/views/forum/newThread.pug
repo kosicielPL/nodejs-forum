@@ -21,36 +21,26 @@ block logotext
 
 block content
   h2 New thread
-  div.container-fluid.new-thread-container
-    table
-      tr
-        td.hidden-sm.hidden-xs.new-thread-left-part
-          div.new-thread-left-part-container
-            div.new-thread-avatar-container
-              img(src="/img/avatar.gif").new-thread-avatar
-            div.new-thread-author-container
-              div.new-thread-author-name Xpload
-              div.new-thread-author-title User
-              div.new-thread-author-posts 257 posts
-        td.container.right-part
-          div.row.visible-xs.visible-sm
-            div.new-thread-left-part-container
-              div.new-thread-avatar-container
-                img(src="/img/avatar.gif").new-thread-avatar
-              div.new-thread-author-container
-                div.new-thread-author-name Xpload
-                div.new-thread-author-title User
-                div.new-thread-author-posts 257 posts
-          div.row.new-thread-content
-            form(action='/forums/' + forum.internalName + '/new-thread', method='post')
-              div.form-group.has-feedback.has-feedback-left
-                span.glyphicon.glyphicon-pencil.form-control-feedback
-                input(type='text', maxlength="80", placeholder='Thread name', name='title')#new-thread-name.form-control
-              div.form-group
-                textarea(name='content', maxlength="5000")#new-thread-content.form-control
-                small.form-text.text-muted Title minimum length: 
-                  span#title-min-length
-                small.form-text.text-muted , Content minimum length: 
-                  span#content-min-length
-              div.form-group
-                button(disabled).btn.btn-create-thread.pull-right#new-thread-button CREATE THREAD
+  div.container-fluid.thread-container
+    div.sidebar.thread-left-part
+      div.thread-avatar
+        if user.avatar.length > 3
+          img(src="/img/avatars/users/" + user.avatar)
+        else
+          img(src="/img/avatars/default.png")
+      div.thread-author-container
+        div.thread-author-name= user.username
+        div.thread-author-title= user.role.capitalize()
+        div.thread-author-threads= (user.posts ? user.posts.length : 0) + ' posts'
+    div.thread-right-part.container-fluid
+      div.row.new-thread-content
+        form(action='/forums/' + forum.internalName + '/new-thread', method='post')
+          div.form-group.has-feedback.has-feedback-left
+            span.glyphicon.glyphicon-pencil.form-control-feedback
+            input(type='text', maxlength="80", placeholder='Thread name', name='title')#new-thread-name.form-control
+          div.form-group
+            textarea(name='content', maxlength="5000")#new-thread-content.form-control
+            small.form-text.text-muted Minimum length: 
+              span#content-min-length
+          div.form-group
+            button(disabled).btn.btn-create-thread.pull-right#new-thread-button CREATE THREAD

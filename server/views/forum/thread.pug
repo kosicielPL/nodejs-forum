@@ -22,38 +22,22 @@ block logotext
 
 block content
   h2.thread-title= thread.title
-  if currentPage <= 1
-    -
-      dateTime =  new Date(thread.dateCreated)
-      date = new Intl.DateTimeFormat('bg-BG').format(dateTime)
-      time = dateTime.getHours() + ':' + dateTime.getMinutes()
-
-    div.container-fluid.post-container.original-post
-      div.sidebar.post-left-part
-        div.post-avatar
-          img(src="/img/avatar.gif").post-avatar
-        div.post-author-container
-          div.post-author-name Xpload
-          div.post-author-title User
-          div.post-author-posts 257 posts
-        span.pull-right.post-date.visible-sm.visible-xs &nbsp; #{date}
-        span.pull-right.post-date.visible-sm.visible-xs= time
-      div.post-right-part.container-fluid
-        div.row.post-date.hidden-xs.hidden-sm= 'Posted on ' + date + ' at ' + time
-        div.row.post-text !{thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
   each post in posts
     -
       dateTime =  new Date(post.dateCreated)
       date = new Intl.DateTimeFormat('bg-BG').format(dateTime)
       time = dateTime.getHours() + ':' + dateTime.getMinutes()
-    div(id=post._id).container-fluid.post-container
+    div(id=post._id).container-fluid.post-container(class=post.original ? "original-post" : "")
       div.sidebar.post-left-part
         div.post-avatar
-          img(src="/img/avatar.gif").post-avatar
+          if post.author.avatar.length > 3
+            img(src="/img/avatars/users/" + post.author.avatar)
+          else
+            img(src="/img/avatars/default.png")
         div.post-author-container
-          div.post-author-name Xpload
-          div.post-author-title User
-          div.post-author-posts 257 posts
+          div.post-author-name= post.author.username
+          div.post-author-title= post.author.role.capitalize()
+          div.post-author-posts= (post.author.posts ? post.author.posts.length : 0) + ' posts'
         span.pull-right.post-date.visible-sm.visible-xs &nbsp; #{date}
         span.pull-right.post-date.visible-sm.visible-xs= time
       div.post-right-part.container-fluid
@@ -94,7 +78,10 @@ block content
     div.container-fluid.post-container.original-post
       div.sidebar.post-left-part
         div.post-avatar
-          img(src="/img/avatars/users/" + user.avatar)
+          if user.avatar.length > 3
+            img(src="/img/avatars/users/" + user.avatar)
+          else
+            img(src="/img/avatars/default.png")
         div.post-author-container
           div.post-author-name= user.username
           div.post-author-title= user.role.capitalize()

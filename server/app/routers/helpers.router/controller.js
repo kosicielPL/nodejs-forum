@@ -19,7 +19,6 @@ const init = (data, config) => {
 
             const newestThreads =
                 await data.threads.getNewestN(threadsToDisplay);
-
             return res.render('newestThreads', {
                 newestThreads: newestThreads,
             });

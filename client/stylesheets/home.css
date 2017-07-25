@@ -111,3 +111,18 @@
 .news-container+.news-container {
     margin-top: 60px;
 }
+
+.latest-thread-avatar {
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 3px #000;
+}
+
+.latest-thread-avatar > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

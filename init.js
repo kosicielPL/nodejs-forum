@@ -91,90 +91,62 @@ if (dbConf.password.length > 0 && dbConf.username.length > 0) {
 
 connectionString += dbConf.host + ':' + dbConf.port + '/' + dbConf.dbName;
 
-require('./db').init(connectionString)
-    .then((db) => {
+const init = {
+    async run() {
+        const db = await require('./db').init(connectionString);
         const categories = db.collection('categories');
         const forums = db.collection('forums');
 
-        categories
-            .find()
-            .count()
-            .then((count) => {
-                console.log('Found ' + count + ' categories.');
-                if (count <= 0) {
-                    populate(categories, forums);
-                } else {
-                    Promise.all([
-                            db.collection('categories').drop(),
-                            db.collection('forums').drop(),
-                            db.collection('threads').drop(),
-                            db.collection('posts').drop(),
-                        ])
-                        .catch(() => {
+        await this.dropDatabase(db);
+        await this.populate(categories, forums);
 
-                        })
-                        .then(() => {
-                            console.log('Collections dropped...');
-                            populate(categories, forums)
-                                .then(() => {
-                                    console.log(' > ALL DONE!');
-                                    process.exit(1);
-                                });
-                        });
+        console.log('ALL DONE!');
+        await db.close();
+        process.exit(1);
+    },
 
-                    return;
-                }
-            });
+    async dropDatabase(db) {
+        console.log('Dropping database: ' + dbConf.dbName);
+        await db.dropDatabase();
+        console.log('Done!');
+    },
 
-        return;
-    });
+    async populate(categories, forums) {
+        console.log('Creating categories with forums...');
+        for (let i = 0; i < categoryEntries.length; i++) {
+            const category = categoryEntries[i];
+            console.log(' -> ' + category.name);
 
-function populate(categories, forums) {
-    const categoryQueue = [];
-    const forumQueue = [];
-
-    categoryEntries.forEach((category) => {
-        const dbCategory = {
-            _id: new ObjectId(),
-            name: category.name,
-            priority: category.priority,
-            forums: category.forums,
-        };
-
-        category.forums.forEach((forum) => {
-            const dbForum = {
+            const dbCategory = {
                 _id: new ObjectId(),
-                name: forum.name,
-                internalName: forum.internalName,
-                description: forum.description,
-                image: forum.image,
-                priority: forum.priority,
-                category: dbCategory._id,
-                threads: [],
-                admin: (forum.admin ? forum.admin : false),
+                name: category.name,
+                priority: category.priority,
+                forums: category.forums,
+            };
+
+            await categories.insertOne(dbCategory);
+
+            for (let j = 0; j < category.forums.length; j++) {
+                const forum = category.forums[j];
+                console.log('   -> ' + forum.name);
+
+                const dbForum = {
+                    _id: new ObjectId(),
+                    name: forum.name,
+                    internalName: forum.internalName,
+                    description: forum.description,
+                    image: forum.image,
+                    priority: forum.priority,
+                    category: dbCategory._id,
+                    threads: [],
+                    admin: (forum.admin ? forum.admin : false),
+                };
+
+                await forums.insertOne(dbForum);
             }
-            forumQueue.push(forums.insertOne(dbForum));
-        });
+        }
+        console.log('Done!');
+    },
+};
 
-        categoryQueue.push(categories.insertOne(dbCategory));
-    });
-
-    return new Promise((resolve, reject) => {
-        console.log(' > Creating categories...');
-        Promise
-            .all(categoryQueue)
-            .catch((error) => {
-                console.log(error);
-            })
-            .then(() => {
-                console.log(' > Done!');
-                console.log(' > Creating forums...');
-                Promise
-                    .all(forumQueue)
-                    .then((result) => {
-                        console.log(' > Done!');
-                        resolve();
-                    });
-            });
-    });
-}
+init.run();

@@ -1,5 +1,6 @@
 const BaseData = require('../base/base.data');
 const User = require('../../models/user.model');
+const ObjectId = require('mongodb').ObjectID;
 
 class UsersData extends BaseData {
     constructor(db) {
@@ -14,6 +15,32 @@ class UsersData extends BaseData {
             .then(([user]) => user);
     }
 
+    addPost(userId, postId){
+        const result = this.collection
+            .updateOne({
+                _id: new ObjectId(userId),
+            }, {
+                '$push': {
+                    posts: new ObjectId(postId),
+                },
+            });
+
+        return result;
+    }
+
+    addThread(userId, threadId){
+        const result = this.collection
+            .updateOne({
+                _id: new ObjectId(userId),
+            }, {
+                '$push': {
+                    threads: new ObjectId(threadId),
+                },
+            });
+
+        return result;
+    }
+    
     checkPassword(username, password) {
         return this
             .findByUsername(username)

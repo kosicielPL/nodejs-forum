@@ -64,8 +64,11 @@ const init = (data) => {
                     email: email,
                     firstName: firstName,
                     lastName: lastName,
+                    dateJoined: new Date(),
                     avatar: avatarFileName,
                     role: 'user',
+                    posts: [],
+                    threads: [],
                 });
             } catch (error) {
                 return res.send(error);
