@@ -12,5 +12,9 @@ module.exports = (data, config) => {
         return controller.generateNewestThreads(req, res);
     });
 
+    router.get('/checkusername', (req, res) => {
+        return controller.checkusername(req, res);
+    });
+
     return router;
 };

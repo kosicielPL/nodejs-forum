@@ -179,7 +179,8 @@ const init = (app, data, config) => {
                 });
             }
 
-            const createdPost = await createNewPostInDb(data, req.user, content, dbThread);
+            const createdPost =
+                await createNewPostInDb(data, req.user, content, dbThread);
 
             const postsPerPage = config.forums.threadView.postsPerPage;
             const totalPages = Math.ceil(
@@ -219,6 +220,12 @@ const init = (app, data, config) => {
             const dbForum =
                 await data.forums.getByCriteria('internalName', reqForum);
 
+
+            if (dbForum[0].admin === true &&
+                req.user.role !== 'admin') {
+                return res.redirect('/');
+            }
+
             if (dbForum.length <= 0) {
                 return res.render('error', {
                     title: 'Error 404',
@@ -240,7 +247,7 @@ const init = (app, data, config) => {
                 dateUpdated: new Date(),
             });
 
-            const createdPost = await createNewPostInDb(data, req.user, content, dbThread, true);
+            await createNewPostInDb(data, req.user, content, dbThread, true);
             await data.forums.addThread(dbForum[0]._id, dbThread._id);
             await data.users.addThread(req.user._id, dbThread._id);
 

@@ -8,14 +8,16 @@ class UsersData extends BaseData {
     }
 
     findByUsername(username) {
+        const regex = '^' + username + '$'; // exact match
+
         return this
             .filterBy({
-                username: new RegExp(username, 'i')
+                username: new RegExp(regex, 'i'),
             })
             .then(([user]) => user);
     }
 
-    addPost(userId, postId){
+    addPost(userId, postId) {
         const result = this.collection
             .updateOne({
                 _id: new ObjectId(userId),
@@ -28,7 +30,7 @@ class UsersData extends BaseData {
         return result;
     }
 
-    addThread(userId, threadId){
+    addThread(userId, threadId) {
         const result = this.collection
             .updateOne({
                 _id: new ObjectId(userId),
@@ -40,7 +42,7 @@ class UsersData extends BaseData {
 
         return result;
     }
-    
+
     checkPassword(username, password) {
         return this
             .findByUsername(username)

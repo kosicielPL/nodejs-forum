@@ -24,6 +24,19 @@ const init = (data, config) => {
                 newestThreads: newestThreads,
             });
         },
+
+        async checkusername(req, res) {
+            const username = req.query.username;
+            const usernameTaken = await data.users.findByUsername(username);
+
+            if (usernameTaken) {
+                res.writeHead(400, 'Username \"' +
+                    usernameTaken.username + '\" is taken.');
+                return res.send();
+            }
+
+            return res.sendStatus(200);
+        }
     };
 
     return controller;

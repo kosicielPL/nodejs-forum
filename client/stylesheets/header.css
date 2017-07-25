@@ -330,3 +330,22 @@ input:not([type=checkbox]) {
     width: 100%;
     object-fit: cover;
 }
+
+.has-error .control-label {
+    color: #fff;
+}
+
+.has-success .control-label {
+    color: #fff;
+}
+.form-control-feedback{
+    z-index: 100 !important;
+}
+
+.has-success .help-block {
+    color: #66c469;
+}
+
+.has-error .help-block {
+    color: #dd5858;
+}
