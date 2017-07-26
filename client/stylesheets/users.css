@@ -14,3 +14,28 @@
     text-decoration: none;
     color: #fff;
 }
+
+.userCard {
+    height: 100px;
+    padding: 10px;
+    margin: 10px;
+    background: rgba(255,255,255, 0.1);
+    border: rgba(255,255,255, 0.1);
+    border-radius: 3px;
+}
+
+.userCard img {
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(255,255,255, 0.2);
+}
+
+.userCard h4 {
+    margin-top: 28px;
+}
+
+.userCard:hover, 
+.userCard:active,
+.userCard:focus {
+    background: rgba(255,255,255, 0.2);
+}

@@ -4,7 +4,8 @@ block styles
   link(rel='stylesheet', href='/stylesheets/user/profile.css')
 
 block navigationMenu
-  li Users
+  li 
+    a(href='/users') Users
   li.active= targetUser.username
 
 block logotext  
