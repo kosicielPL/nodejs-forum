@@ -24,9 +24,9 @@ block content
   h2.thread-title= thread.title
   each post in posts
     -
-      dateTime =  new Date(post.dateCreated)
-      date = new Intl.DateTimeFormat('bg-BG').format(dateTime)
-      time = dateTime.getHours() + ':' + dateTime.getMinutes()
+      date = utils.dateFormat("D/M/YYYY", post.dateCreated)
+      time = utils.dateFormat("HH:mm", post.dateCreated)
+      
     div(id=post._id, class=post.original ? "original-post" : "").container-fluid.post-container
       div.sidebar.post-left-part
         div.avatar.post-avatar
@@ -43,7 +43,7 @@ block content
         span.pull-right.post-date.visible-sm.visible-xs= time
       div.post-right-part.container-fluid
         div.row.post-date.hidden-xs.hidden-sm= 'Posted on ' + date + ' at ' + time
-        div.row.post-text !{post.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
+        div.row.post-text!= utils.prepareThreadContent(post.content)
         
   div.row.forum-pagination
     div.pagination
