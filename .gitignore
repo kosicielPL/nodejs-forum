@@ -59,3 +59,4 @@ typings/
 
 client/img/avatars/users/
 server/config
+package-lock.json
