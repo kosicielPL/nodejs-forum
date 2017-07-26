@@ -11,10 +11,18 @@ div.mobile-menu-container
         span.caret
       div#mobile-submenu-forum.mobile-submenu.collapse
         img(src='/img/loading.gif').img.img-responsive
+      li.mobile-menu-item
+        a(href="/users")
+          span.glyphicon.glyphicon-globe
+          | USERS
+      li.mobile-menu-item
+        a(href="/about")
+          span.glyphicon.glyphicon-book
+          | ABOUT
     if isLoggedIn
       li.mobile-menu-item
         a(href="/users/profile/" + user.username)
-          span.glyphicon.glyphicon-user 
+          span.glyphicon.glyphicon-user
           | PROFILE
       li.mobile-menu-item
         a(href="/settings")
