@@ -2,12 +2,13 @@ extends layout
 
 block styles
   link(rel='stylesheet', href='/stylesheets/users.css')
+  link(rel='stylesheet', href='/lib/animate.css/animate.min.css')
 
 block currentPageCategory
   -var selected = 'users';
   
 block navigationMenu
-  li Users
+  li.active= 'Users'
 
 block logotext
   | Users
@@ -15,7 +16,15 @@ block logotext
 block content
   div.container-fluid.users-container
     each user in allUsers
-        div.col-lg-2.col-md-3.col-sm-6.col-xs-12
-            a(href='profile/' + user.username)
-                | #{user.username}
+        div.col-lg-4.col-md-4.col-sm-6.col-xs-12.animated.bounceIn
+          a(href='/users/profile/' + user.username)
+            div.userCard
+              div.avatar.profilePic.pull-left
+                if user.avatar.length > 3
+                  img(src="/img/avatars/users/" + user.avatar).img.img-responsive
+                else
+                  img(src="/img/avatars/default.png").img.img-responsive
+              div.profileName
+                h4
+                  | #{user.username}
 //- will make it in alphabetical order if i figure out how

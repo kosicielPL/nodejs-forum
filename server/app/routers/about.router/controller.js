@@ -6,6 +6,7 @@ const init = (data) => {
             const allPosts = await data.posts.getAll();
 
             return res.render('about', {
+                title: 'About',
                 users: allUsers.length,
                 threads: allThreads.length,
                 posts: allPosts.length,

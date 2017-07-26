@@ -14,3 +14,27 @@
     text-decoration: none;
     color: #fff;
 }
+
+.userCard {
+    height: 100px;
+    padding: 10px;
+    margin: 10px;
+    background: rgba(255,255,255, 0.1);
+    border: 1px solid rgba(255,255,255, 0.1);
+    border-radius: 3px;
+}
+
+.profilePic {
+    width: 80px;
+    height: 80px;
+}
+
+.userCard h4 {
+    margin-top: 28px;
+}
+
+.userCard:hover, 
+.userCard:active,
+.userCard:focus {
+    background: rgba(255,255,255, 0.2);
+}

@@ -1,5 +1,4 @@
 /* globals process */
-
 const config = require('./config');
 const http = require('http');
 const port = normalizePort(process.env.PORT || config.server.port);
@@ -20,7 +19,8 @@ console.log('Selected database: '.gray + dbConf.dbName);
 Promise.resolve()
     .then(() => require('../db').init(connectionString))
     .then((db) => require('../data').init(db))
-    .then((data) => require('./app').init(data, config.options, connectionString))
+    .then((data) => require('./app')
+    .init(data, config.options, connectionString))
     .then((app) => {
         app.set('port', port);
         const server = http.createServer(app);
