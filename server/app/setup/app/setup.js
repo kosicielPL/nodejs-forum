@@ -7,19 +7,42 @@ const fileUpload = require('express-fileupload');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const colors = require('colors');
 
 const applyTo = (app, config) => {
     // view engine setup
     app.set('views', path.join(__dirname, '../../../views'));
     app.set('view engine', 'pug');
 
+    logger.token('user', function getUser(req) {
+        return (req.user ? req.user.username : 'Annonymous');
+    });
+
+    app.use(logger(
+        ':user'.yellow +
+        ' @ ' +
+        ':remote-addr'.gray +
+        ' -> ' +
+        ':method'.magenta +
+        ' ' +
+        ':url'.gray +
+        ' ' +
+        ':status'.yellow +
+        ' in '.gray +
+        ':response-time ms'));
+
     app.use(favicon(path.join(__dirname, '../../../../client', 'favicon.ico')));
-    app.use(logger('dev'));
     app.use(fileUpload());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
         extended: true,
     }));
+    app.use(helmet());
+    app.disable('x-powered-by');
+    // app.use(helmet.noCache());
+    app.use(helmet.frameguard());
+    app.use(helmet.xssFilter());
     app.use(cookieParser());
     app.use('/', express.static(
         path.join(__dirname, '../../../../client')

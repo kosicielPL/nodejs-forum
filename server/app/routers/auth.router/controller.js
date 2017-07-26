@@ -1,10 +1,12 @@
 const passport = require('passport');
+const countries = require('.././../utils/countries');
 
 const init = (data) => {
     const controller = {
         generateSignupView(req, res) {
             return res.render('user/signup', {
                 title: 'Sign up',
+                countries: countries,
             });
         },
 
@@ -40,6 +42,12 @@ const init = (data) => {
 
             const firstName = req.body.firstname;
             const lastName = req.body.lastname;
+            const country = req.body.country;
+
+            if (countries.indexOf(country) < 0) {
+                return res.send('invalid country!');
+            }
+
             const avatar = req.files.avatar;
             let avatarFileName = '';
 
@@ -64,6 +72,7 @@ const init = (data) => {
                     email: email,
                     firstName: firstName,
                     lastName: lastName,
+                    country: country,
                     dateJoined: new Date(),
                     avatar: avatarFileName,
                     role: 'user',
@@ -74,6 +83,7 @@ const init = (data) => {
                 return res.send(error);
             }
 
+            req.flash('success', 'Account ' + username + ' created. You may now login.');
             return res.redirect('/login');
         },
 

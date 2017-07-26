@@ -22,7 +22,8 @@ const applyTo = (app, data, connectionString) => {
     app.use(session({
         secret: 'zob do grob',
         cookie: {
-            maxAge: 3600000,
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
             secure: false,
         },
         store: new MongoStore({

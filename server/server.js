@@ -1,6 +1,9 @@
+/* globals process */
+
 const config = require('./config');
 const http = require('http');
 const port = normalizePort(process.env.PORT || config.server.port);
+const colors = require('colors');
 
 const dbConf = config.database;
 let connectionString = 'mongodb://';
@@ -11,8 +14,8 @@ if (dbConf.password.length > 0 && dbConf.username.length > 0) {
 
 connectionString += dbConf.host + ':' + dbConf.port + '/' + dbConf.dbName;
 
-console.log('Conneting to MongoDB at: ' + dbConf.host + ":" + dbConf.port);
-console.log('Selected database: ' + dbConf.dbName);
+console.log('Database connection: '.gray + 'mongodb://' + dbConf.host + ":" + dbConf.port);
+console.log('Selected database: '.gray + dbConf.dbName);
 
 Promise.resolve()
     .then(() => require('../db').init(connectionString))
@@ -27,7 +30,8 @@ Promise.resolve()
             });
         // app.io.attach(server);
         server.listen(port, () => {
-            console.log('Listening on port: ' + port);
+            const startMessage = 'Listening on port: ' + port;
+            console.log(startMessage.green);
         });
     });
 

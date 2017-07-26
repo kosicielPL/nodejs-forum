@@ -101,7 +101,7 @@ block content
           span(aria-hidden="true").glyphicon.form-control-feedback
           div.help-block.with-errors
             //- input(type="password", placeholder = "Repeat password", required)#signup-password-repeat.form-control
-      div.form-group
+      div.form-group#avatar
         label(for="signup-avatar").control-label.col-md-4.col-sm-3.col-xs-12 Avatar:
         div.input-group.col-md-4.col-sm-6.col-xs-10
           div.input-group
@@ -114,8 +114,31 @@ block content
               placeholder="No avatar selected"
               )#avatar-text.form-control
           center
-            div#avatar-preview
-              img(src="/img/avatars/default.png").img.img-responsive
+            div.avatar#avatar-preview
+              img(src="/img/avatars/default.png")
+      div.form-group.has-feedback
+        label(for="signup-password").control-label.col-md-4.col-sm-3.col-xs-12 Country: 
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          select(
+            required,
+            name="country"
+            )#country.form-control
+            option(selected="selected", disabled)
+            each country in countries
+              option= country
+          div.help-block.with-errors
+      div.form-group.has-feedback
+        label(for="signup-password").control-label.col-md-4.col-sm-3.col-xs-12 Time zone: 
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          select(
+            required,
+            name="timezone"
+            )#timezone.form-control
+            option(selected="selected", disabled)
+            option(value="1") 1
+            option(value="2") 2
+            option(value="3") 3
+          div.help-block.with-errors
       div.form-group
         div.col-md-4.col-sm-3.col-xs-12
         button(type="submit").btn.btn-info Sign up

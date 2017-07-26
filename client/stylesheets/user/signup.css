@@ -4,7 +4,6 @@
     }
 }  */
 
-
  .form-signup label {
      color: #fff;
  }
@@ -21,23 +20,15 @@
  }
 
  #avatar-preview {
-     display: inline-block;
      margin-top: 20px;
      margin-bottom: 20px;
      width: 200px;
      height: 200px;
-     border: 1px solid rgba(255, 255, 255, 0.2);
-     box-shadow: 0 0 3px #000;
-     background: rgba(0, 0, 0, 0.4);
-     padding: 1px;
-     overflow: hidden;
      /* background: url('/img/avatars/default.png');
     background-repeat: no-repeat;
     background-size: contain; */
  }
 
- #avatar-preview img {
-     height: 100%;
-     width: 100%;
-     object-fit: cover;
+ #avatar .btn {
+     border-radius: 0px;
  }

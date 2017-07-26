@@ -1,9 +1,9 @@
 #new-thread-name,
 #new-thread-name:focus {
     outline: none !important;
-    background: rgba(255, 255, 255, 0);
+    background: rgba(255, 255, 255, 0) !important;
     border: 0px;
-    color: #fff;
+    color: #fff !important;
     font-size: 18px;
     padding-left: 40px;
     width: 100%;

@@ -27,7 +27,7 @@ block content
       dateTime =  new Date(post.dateCreated)
       date = new Intl.DateTimeFormat('bg-BG').format(dateTime)
       time = dateTime.getHours() + ':' + dateTime.getMinutes()
-    div(id=post._id).container-fluid.post-container(class=post.original ? "original-post" : "")
+    div(id=post._id, class=post.original ? "original-post" : "").container-fluid.post-container
       div.sidebar.post-left-part
         div.avatar.post-avatar
           if post.author.avatar.length > 3

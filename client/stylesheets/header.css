@@ -200,17 +200,19 @@ body {
 }
 
 input:not([type=checkbox]):focus,
-textarea:focus {
+textarea:focus,
+select:focus {
     border-color: rgba(126, 239, 104, 0) !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset, 0 0 8px rgba(126, 239, 104, 0) !important;
     outline: 0 none !important;
     -webkit-appearance: none !important;
 }
 
-input:not([type=checkbox]) {
-    border-radius: 0px;
-    background: rgba(255, 255, 255, 0.8);
-    color: #000;
+input:not([type=checkbox]),
+select {
+    border-radius: 0px !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: #000 !important;
 }
 
 .has-feedback-left input.form-control {
