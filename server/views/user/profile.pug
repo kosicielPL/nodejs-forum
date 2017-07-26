@@ -12,6 +12,9 @@ block logotext
 block content
   h2 
     | #{targetUser.username}'s profile
+    a.btn.btn-default.btn-sm.pull-right(href="/users/profile/" + targetUser.username +"/settings")
+      span.glyphicon.glyphicon-cog 
+      | &nbsp;Settings
 
   if targetUser.avatar.length > 0
     img(src="/img/avatars/users/" + targetUser.avatar).img.img-responsive.pull-left
@@ -23,23 +26,16 @@ block content
       tr
         td username 
         td #{targetUser.username}
-        td 
-          a.btn.btn-default.btn-sm.pull-right(type="button")
-            span.glyphicon.glyphicon-edit
       tr
         td name 
         td #{targetUser.firstName} #{targetUser.lastName}
-        td 
-          a.btn.btn-default.btn-sm.pull-right(type="button")
-            span.glyphicon.glyphicon-edit
       tr
         td email 
         td #{targetUser.email}
-        td 
-          a.btn.btn-default.btn-sm.pull-right(type="button")
-            span.glyphicon.glyphicon-edit
       tr 
         td role 
-        td(colspan="2") #{targetUser.role}
+        td #{targetUser.role}
+    
+    .clearfix
 
 
