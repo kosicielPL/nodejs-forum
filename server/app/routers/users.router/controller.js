@@ -1,5 +1,13 @@
 const init = (data) => {
     const controller = {
+        async generateUsersView(req, res) {
+            const allUsers = await data.users.getAll();
+
+            return res.render('users', {
+                allUsers: allUsers,
+            });
+        },
+
         async generateProfileView(req, res) {
             const targetUsername = req.params.user;
             const targetUser = await data.users.findByUsername(targetUsername);

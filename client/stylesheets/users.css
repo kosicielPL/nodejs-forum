@@ -1,0 +1,16 @@
+.users-container {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.users-container a {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.users-container a:hover, 
+.users-container a:active,
+.users-container a:focus{
+    text-decoration: none;
+    color: #fff;
+}
