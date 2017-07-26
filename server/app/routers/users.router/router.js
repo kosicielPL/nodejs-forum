@@ -5,10 +5,9 @@ module.exports = (data) => {
     const router = new express.Router();
     const controller = require('./controller').init(data);
 
-    /* GET users listing. */
-    // router.get('/', function(req, res, next, next) {
-    //     res.send('test');
-    // });
+    router.get('/', function(req, res, next) {
+        return controller.generateUsersView(req, res, next);
+    });
 
     router.get('/profile/:user', (req, res, next) => {
         return controller.generateProfileView(req, res, next);
