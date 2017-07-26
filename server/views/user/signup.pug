@@ -15,6 +15,7 @@ block logotext
   | Sign up
 
 block content
+  - const regex = new RegExp(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)
   center
     form(action="/signup", method="POST", encType="multipart/form-data" data-toggle="validator").form-signup.form-horizontal
       div.form-group.has-feedback
@@ -39,7 +40,8 @@ block content
             type="email",
             placeholder="Email",
             required, name="email",
-            data-error="Email format is invalid!"
+            data-error="Email format is invalid!",
+            pattern= "^[^@\s]+@[^@\s]+\.[^@\s]+$"
             )#signup-email.form-control
           span(aria-hidden="true").glyphicon.form-control-feedback
           div.help-block.with-errors
@@ -116,28 +118,28 @@ block content
           center
             div.avatar#avatar-preview
               img(src="/img/avatars/default.png")
-      div.form-group.has-feedback
+      div.form-group
         label(for="signup-password").control-label.col-md-4.col-sm-3.col-xs-12 Country: 
         div.input-group.col-md-4.col-sm-6.col-xs-10
           select(
             required,
             name="country"
             )#country.form-control
-            option(selected="selected", disabled)
+            //- option(selected="selected", disabled)
             each country in countries
               if country === 'Bulgaria'
                 option(selected)= country
               else
                 option= country
           div.help-block.with-errors
-      div.form-group.has-feedback
+      div.form-group
         label(for="signup-password").control-label.col-md-4.col-sm-3.col-xs-12 Time zone: 
         div.input-group.col-md-4.col-sm-6.col-xs-10
           select(
             required,
             name="timezone"
             )#timezone.form-control
-            option(selected="selected", disabled)
+            //- option(selected="selected", disabled)
             each timezone in timezones
               if timezone.pretty === 'GMT +03:00'
                 option(value=timezone.zone, selected)= timezone.pretty
