@@ -1,0 +1,21 @@
+.about-container {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.about-container h2 {
+    font-size: 20px;
+}
+
+.mini-container {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    background: rgba(255,255,255, 0.1);
+}
+
+.mini-container:hover {
+    background: rgba(255,255,255, 0.12);
+}
