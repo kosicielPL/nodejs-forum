@@ -60,6 +60,12 @@ const applyTo = (app, config) => {
     });
 
     app.use((req, res, next) => {
+        const timezone = (req.user ? req.user.timezone : 'Europe/Sofia');
+        res.locals.utils = require('../../utils').init(timezone);
+        next();
+    });
+
+    app.use((req, res, next) => {
         res.locals.messages = require('express-messages')(req, res);
         next();
     });

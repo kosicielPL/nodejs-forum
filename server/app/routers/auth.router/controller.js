@@ -1,5 +1,6 @@
 const passport = require('passport');
 const countries = require('.././../utils/countries');
+const timezones = require('.././../utils/timezones');
 
 const init = (data) => {
     const controller = {
@@ -7,6 +8,7 @@ const init = (data) => {
             return res.render('user/signup', {
                 title: 'Sign up',
                 countries: countries,
+                timezones: timezones,
             });
         },
 
@@ -43,6 +45,7 @@ const init = (data) => {
             const firstName = req.body.firstname;
             const lastName = req.body.lastname;
             const country = req.body.country;
+            const timezone = req.body.timezone;
 
             if (countries.indexOf(country) < 0) {
                 return res.send('invalid country!');
@@ -78,6 +81,7 @@ const init = (data) => {
                     role: 'user',
                     posts: [],
                     threads: [],
+                    timezone: timezone,
                 });
             } catch (error) {
                 return res.send(error);
