@@ -9,6 +9,7 @@
     "coverage:integration": "istanbul cover node_modules/mocha/bin/_mocha test/integration/**/*.js -- -R spec"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "bbcode-parser": "^1.0.10",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",

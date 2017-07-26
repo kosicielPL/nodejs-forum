@@ -14,7 +14,7 @@ if (dbConf.password.length > 0 && dbConf.username.length > 0) {
 
 connectionString += dbConf.host + ':' + dbConf.port + '/' + dbConf.dbName;
 
-console.log('Database connection: '.gray + 'mongodb://' + dbConf.host + ":" + dbConf.port);
+console.log('Database connection: '.gray + 'mongodb://' + dbConf.host + ':'+ dbConf.port);
 console.log('Selected database: '.gray + dbConf.dbName);
 
 Promise.resolve()
