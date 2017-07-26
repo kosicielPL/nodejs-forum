@@ -19,11 +19,11 @@ block content
         div.col-lg-4.col-md-4.col-sm-6.col-xs-12.animated.bounceIn
           a(href='/users/profile/' + user.username)
             div.userCard
-              div.profilePic
+              div.avatar.profilePic.pull-left
                 if user.avatar.length > 3
-                  img(src="/img/avatars/users/" + user.avatar).img.img-responsive.pull-left
+                  img(src="/img/avatars/users/" + user.avatar).img.img-responsive
                 else
-                  img(src="/img/avatars/default.png").img.img-responsive.pull-left
+                  img(src="/img/avatars/default.png").img.img-responsive
               div.profileName
                 h4
                   | #{user.username}

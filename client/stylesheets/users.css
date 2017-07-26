@@ -24,10 +24,9 @@
     border-radius: 3px;
 }
 
-.userCard img {
+.profilePic {
     width: 80px;
     height: 80px;
-    border: 1px solid rgba(255,255,255, 0.2);
 }
 
 .userCard h4 {
