@@ -4,6 +4,7 @@ const init = (data) => {
             const allUsers = await data.users.getAll();
 
             return res.render('users', {
+                title: 'Users',
                 allUsers: allUsers,
             });
         },
