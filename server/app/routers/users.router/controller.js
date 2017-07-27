@@ -3,9 +3,38 @@ const init = (data) => {
         async generateUsersView(req, res) {
             const allUsers = await data.users.getAll();
 
+            let result = allUsers;
+            const page = parseInt(req.params.page, 10) || 1;
+            const size = 12;
+
+            let totalPages = allUsers.length / size;
+            totalPages = Math.ceil(totalPages);
+
+            if (page > totalPages && page > 1) {
+                return res.redirect(
+                    '/users/1'
+                );
+            }
+
+            result.sort(function(a, b) {
+                const nameA = a.username.toLowerCase();
+                const nameB = b.username.toLowerCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            result = result.slice((page - 1) * size, page * size);
+
             return res.render('users', {
                 title: 'Users',
-                allUsers: allUsers,
+                allUsers: result,
+                currentPage: page * 1,
+                totalPages: totalPages * 1,
             });
         },
 
