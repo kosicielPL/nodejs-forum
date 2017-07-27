@@ -34,6 +34,15 @@
     overflow: hidden;
 }
 
+.forum-card-image-container {
+    min-width: 50px;
+    max-width: 80px;
+}
+
+.forum-card-image-container>img {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .forum-card {
     padding: 5px;
     vertical-align: middle;
