@@ -14,6 +14,8 @@ const init = (app, data, config) => {
             let threadsPerPage = config.forums.forumView.threadsPerPage;
             const forumName = req.params.forum;
             let page = req.params.page;
+            const search = req.query.search;
+            let isSearched = false;
 
             if (page < 1 || typeof page === 'undefined') {
                 page = 1;
@@ -38,10 +40,17 @@ const init = (app, data, config) => {
 
             dbForum = dbForum[0];
 
-            const dbThreads =
+            let dbThreads =
                 await data.threads.getInForum(
                     dbForum._id, threadsPerPage, page
                 );
+
+            if (search) {
+                dbThreads = dbThreads.filter((thread) => {
+                    return thread.title.toLowerCase().includes(search);
+                });
+                isSearched = true;
+            }
 
             const dbThreadsCount = dbForum.threads.length;
 
@@ -61,6 +70,8 @@ const init = (app, data, config) => {
                 currentPage: page * 1,
                 totalPages: totalPages * 1,
                 threadsCount: dbThreadsCount * 1,
+                isSearched: isSearched,
+                searchedContent: search,
             });
         },
 
@@ -240,7 +251,7 @@ const init = (app, data, config) => {
 
             const url = '/forums/thread/' + dbThread.id;
             app.io.emit('new-thread', {
-                user: 'Xpload',
+                user: req.user.username,
                 forum: dbForum[0].name,
                 url: url,
             });

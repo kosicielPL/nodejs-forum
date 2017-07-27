@@ -32,10 +32,12 @@ block content
         span.glyphicon.glyphicon-search
   if threads && threads.length <= 0
     div.container.text-center
-      h2 This forums contains no threads :'(
-      h2 But hey!
-      h2 You can be the first one to post here
-  
+      if isSearched
+        h2 We found nothing about '#{searchedContent}'
+      else
+        h2 This forums contains no threads :'(
+        h2 But hey!
+        h2 You can be the first one to post here
   div.container-fluid
     each thread in threads
       -
