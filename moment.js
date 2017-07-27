@@ -40,10 +40,10 @@
 
 const passwordHash = require('password-hash');
 
-const hashed = passwordHash.generate('admin');
+const hashed = passwordHash.generate('123456');
 const compared =
     passwordHash.verify(
         'admin',
         'sha1$f052f6db$1$58535c1ad07b653d45450b6f010ffee3c7d718bf'
     );
-console.log(compared);
+console.log(hashed);
