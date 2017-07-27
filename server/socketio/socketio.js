@@ -4,9 +4,10 @@ const init = (server) => {
 
     io.on('connection', (socket) => {
         const cookie = socket.handshake.headers.cookie;
-
-        if (io.clients.indexOf(cookie) === -1) {
-            io.clients.push(cookie);
+        const uniqueIdentifier = cookie.split(';')[0]; // session cookie
+        
+        if (io.clients.indexOf(uniqueIdentifier) === -1) {
+            io.clients.push(uniqueIdentifier);
         }
 
         socket.join('online-people');
@@ -22,7 +23,7 @@ const init = (server) => {
         });
 
         socket.on('disconnect', () => {
-            const index = io.clients.indexOf(cookie);
+            const index = io.clients.indexOf(uniqueIdentifier);
 
             if (index !== -1) {
                 io.clients.splice(index, 1);
