@@ -13,5 +13,9 @@ module.exports = (data) => {
         return controller.generateProfileView(req, res, next);
     });
 
+    router.get('/profile/:user/settings', (req, res, next) => {
+        return controller.generateSettingsView(req, res, next);
+    });
+
     return router;
 };

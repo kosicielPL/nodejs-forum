@@ -1,0 +1,163 @@
+extends ../layout
+
+block styles
+  link(rel='stylesheet', href='/stylesheets/user/signup.css')
+  link(rel='stylesheet', href='/stylesheets/user/profile.css')
+
+block scripts
+  //- script(src='/js/user/signup.js')
+  script(src='/js/user/settings.js')
+  script(src='/lib/bootstrap-validator/dist/validator.js')
+
+block navigationMenu
+  li Users 
+  li= targetUser.username
+  li.active Settings
+
+block content
+  h2 
+    | #{targetUser.username}'s profile settings
+  .table-responsive
+    table.table.user-info
+      tr
+        td 
+          label(for="settings-username") username 
+        td
+          span#settings-username-placeholder.show #{targetUser.username}
+          span#settings-username-input.hide
+            input.form-control(
+              data-remote="/helpers/checkusername"
+              type="username"
+              placeholder= targetUser.username
+              maxlength="15"
+              name="username"
+              data-minlength="4"
+              pattern="^[a-zA-Z0-9]*$"
+              autofocus
+              required) 
+            span(aria-hidden="true").glyphicon.form-control-feedback
+        td 
+          a#settings-username-btn.btn.btn-default.btn-sm.pull-right(focusable="false")
+            span.glyphicon.glyphicon-edit
+      tr
+        td name 
+        td #{targetUser.firstName} #{targetUser.lastName}
+          a.btn.btn-default.btn-sm.pull-right
+            span.glyphicon.glyphicon-edit
+      tr
+        td email 
+        td #{targetUser.email}
+          a.btn.btn-default.btn-sm.pull-right
+            span.glyphicon.glyphicon-edit
+      tr 
+        td role 
+        td #{targetUser.role}
+          a.btn.btn-default.btn-sm.pull-right
+            span.glyphicon.glyphicon-edit
+  center
+    form(action="/signup", method="POST", encType="multipart/form-data" data-toggle="validator").form-signup.form-horizontal
+      //- USERNAME INPUT
+      div.form-group.has-feedback
+        label(for="signup-username").control-label.col-md-4.col-sm-3.col-xs-12 Username:
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          input(
+            data-remote="/helpers/checkusername",
+            type="username",
+            placeholder = targetUser.username,
+            maxlength="15",
+            data-minlength="4",
+            pattern="^[a-zA-Z0-9]*$",
+            required, autofocus,
+            name="username"
+            )#signup-username.form-control
+          span(aria-hidden="true").glyphicon.form-control-feedback
+          div.with-errors
+
+      div.form-group.has-feedback
+        label(for="signup-email").control-label.col-md-4.col-sm-3.col-xs-12 Email:
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          input(
+            type="email",
+            placeholder="Email",
+            required, name="email",
+            data-error="Email format is invalid!",
+            pattern= "^[^@\s]+@[^@\s]+\.[^@\s]+$"
+            )#signup-email.form-control
+          span(aria-hidden="true").glyphicon.form-control-feedback
+          div.help-block.with-errors
+      div.form-group.has-feedback
+        label(for="signup-firstname").control-label.col-md-4.col-sm-3.col-xs-12 First name:
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          input(
+            type="text",
+            maxlength="20",
+            data-minlength="2",
+            pattern="^[a-zA-Z]*$",
+            placeholder="First name",
+            required,
+            name="firstname"
+            )#signup-firstname.form-control
+          span(aria-hidden="true").glyphicon.form-control-feedback
+          div.help-block.with-errors
+      div.form-group.has-feedback
+        label(for="signup-lastname").control-label.col-md-4.col-sm-3.col-xs-12 Last name:
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          input(
+            type="text",
+            maxlength="20",
+            data-minlength="2",
+            pattern="^[a-zA-Z]*$",
+            placeholder="Last name",
+            required,
+            name="lastname"
+            )#signup-lastname.form-control
+          span(aria-hidden="true").glyphicon.form-control-feedback
+          div.help-block.with-errors
+        
+      div.form-group.has-feedback
+        label(for="signup-password").control-label.col-md-4.col-sm-3.col-xs-12 Password: 
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          input(
+            type="password",
+            maxlength="20",
+            data-minlength="4",
+            placeholder = "Password",
+            required,
+            name="password"
+            )#signup-password.form-control
+          span(aria-hidden="true").glyphicon.form-control-feedback
+          div.help-block.with-errors
+      div.form-group.has-feedback
+        div.col-md-4.col-sm-3.col-xs-12
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          input(
+            type="password",
+            maxlength="20",
+            data-minlength="4",
+            placeholder = "Confirm password",
+            required,
+            name="passwordconfirm",
+            data-match="#signup-password",
+            data-match-error="Whoops, these don't match"
+            )#signup-password-confirm.form-control
+          span(aria-hidden="true").glyphicon.form-control-feedback
+          div.help-block.with-errors
+            //- input(type="password", placeholder = "Repeat password", required)#signup-password-repeat.form-control
+      div.form-group#avatar
+        label(for="signup-avatar").control-label.col-md-4.col-sm-3.col-xs-12 Avatar:
+        div.input-group.col-md-4.col-sm-6.col-xs-10
+          div.input-group
+            label.input-group-btn
+              span.btn.btn-default Browse... 
+                input(type="file", style="display: none;", accept="image/*", name="avatar")
+            input(
+              type="text",
+              readonly,
+              placeholder="No avatar selected"
+              )#avatar-text.form-control
+          center
+            div.avatar#avatar-preview
+              img(src="/img/avatars/default.png")
+      div.form-group
+        div.col-md-4.col-sm-3.col-xs-12
+        button(type="submit").btn.btn-info Sign up
