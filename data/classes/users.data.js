@@ -53,22 +53,6 @@ class UsersData extends BaseData {
         return result;
     }
 
-    checkPassword(username, password) {
-        return this
-            .findByUsername(username)
-            .then((user) => {
-                if (!user) {
-                    throw new Error('User \"' + username + '\" doesn\' exist!');
-                }
-
-                if (user.password !== password) {
-                    throw new Error('The provided password is incorrect!');
-                }
-
-                return true;
-            });
-    }
-
     _isModelValid(model) {
         // custom validation 
         return super._isModelValid(model);

@@ -20,6 +20,7 @@ const init = (data, config) => {
 
         async signup(req, res) {
             const validate = require('../../validator').init(config, data);
+            const hash = require('../../hasher').init();
 
             const username = req.body.username;
             const email = req.body.email;
@@ -63,7 +64,7 @@ const init = (data, config) => {
             try {
                 await data.users.create({
                     username: username,
-                    password: password,
+                    password: hash.password(password),
                     email: email,
                     firstName: firstName,
                     lastName: lastName,
