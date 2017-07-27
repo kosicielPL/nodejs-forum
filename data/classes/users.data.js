@@ -17,6 +17,16 @@ class UsersData extends BaseData {
             .then(([user]) => user);
     }
 
+    findByEmail(email) {
+        const regex = '^' + email + '$'; // exact match
+
+        return this
+            .filterBy({
+                email: new RegExp(regex, 'i'),
+            })
+            .then(([user]) => user);
+    }
+
     addPost(userId, postId) {
         const result = this.collection
             .updateOne({
@@ -41,22 +51,6 @@ class UsersData extends BaseData {
             });
 
         return result;
-    }
-
-    checkPassword(username, password) {
-        return this
-            .findByUsername(username)
-            .then((user) => {
-                if (!user) {
-                    throw new Error('User \"' + username + '\" doesn\' exist!');
-                }
-
-                if (user.password !== password) {
-                    throw new Error('The provided password is incorrect!');
-                }
-
-                return true;
-            });
     }
 
     _isModelValid(model) {

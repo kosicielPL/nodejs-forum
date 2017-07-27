@@ -2,7 +2,7 @@ const passport = require('passport');
 const countries = require('.././../utils/countries');
 const timezones = require('.././../utils/timezones');
 
-const init = (data) => {
+const init = (data, config) => {
     const controller = {
         generateSignupView(req, res) {
             return res.render('user/signup', {
@@ -19,39 +19,32 @@ const init = (data) => {
         },
 
         async signup(req, res) {
+            const validate = require('../../validator').init(config, data);
+            const hash = require('../../hasher').init();
+
             const username = req.body.username;
-
-            const usernameTaken = await data.users.findByUsername(username);
-
-            if (usernameTaken) {
-                return res.send('username is taken');
-            }
-
-            let email = req.body.email;
-            email = email.toLowerCase();
-            const emailTaken = await data.users.getByCriteria('email', email);
-
-            if (emailTaken.length > 0) {
-                return res.send('there is already a user with email: ' + email);
-            }
-
+            const email = req.body.email;
             const password = req.body.password;
             const passwordConfirm = req.body.passwordconfirm;
-
-            if (password !== passwordConfirm) {
-                return res.send('passwords don\'t match!');
-            }
-
             const firstName = req.body.firstname;
             const lastName = req.body.lastname;
+            const avatar = req.files.avatar;
             const country = req.body.country;
             const timezone = req.body.timezone;
 
-            if (countries.indexOf(country) < 0) {
-                return res.send('invalid country!');
+            try {
+                await validate.username(username);
+                await validate.email(email);
+                await validate.passwords(password, passwordConfirm);
+                await validate.firstName(firstName);
+                await validate.lastName(lastName);
+                await validate.country(country, countries);
+                await validate.timezone(timezone, timezones);
+                await validate.avatar(avatar);
+            } catch (error) {
+                return res.send(error.message);
             }
 
-            const avatar = req.files.avatar;
             let avatarFileName = '';
 
             if (avatar) {
@@ -71,7 +64,7 @@ const init = (data) => {
             try {
                 await data.users.create({
                     username: username,
-                    password: password,
+                    password: hash.password(password),
                     email: email,
                     firstName: firstName,
                     lastName: lastName,
@@ -87,7 +80,9 @@ const init = (data) => {
                 return res.send(error);
             }
 
-            req.flash('success', 'Account ' + username + ' created. You may now login.');
+            req.flash('success',
+                'Account \"' + username + '\" created. You may now login.'
+            );
             return res.redirect('/login');
         },
 
@@ -95,17 +90,15 @@ const init = (data) => {
             passport.authenticate('local', function(err, user, info) {
                 if (err) {
                     req.flash('error', err.message);
-                    // return res.send(req.flash());
                     return res.redirect('/login');
                 }
 
                 if (!user) {
                     return res.redirect('/');
                 }
-                // req / res held in closure
-                return req.logIn(user, function(error) {
+
+                return req.login(user, function(error) {
                     if (error) {
-                        req.flash("info", "Email queued");
                         return res.redirect('/login');
                     }
                     if (req.body.rememberme !== 'rememberme') {

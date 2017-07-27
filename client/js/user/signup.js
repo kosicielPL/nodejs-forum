@@ -1,9 +1,5 @@
 /* globals $ */
 
-$(document).ready(() => {
-
-});
-
 $(document).on('change', ':file', function() {
     const input = $(this);
     const numFiles = input.get(0).files ? input.get(0).files.length : 1;

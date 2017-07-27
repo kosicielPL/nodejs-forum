@@ -6,17 +6,18 @@ const {
 } = require('passport-local');
 
 const applyTo = (app, data, connectionString) => {
-    passport.use(new Strategy((username, password, done) => {
-        data.users.checkPassword(username, password)
-            .then(() => {
-                return data.users.findByUsername(username);
-            })
-            .then((user) => {
-                done(null, user);
-            })
-            .catch((err) => {
-                done(err);
-            });
+    passport.use(new Strategy(async(username, password, done) => {
+        const hash = require('../../hasher').init();
+
+        const user = await data.users.findByUsername(username);
+
+        if (user) {
+            if (hash.compare(password, user.password)) {
+                return done(null, user);
+            }
+            return done(new Error('Invalid password'));
+        }
+        return done(new Error('Username \"' + username + '\" username'));
     }));
 
     app.use(session({

@@ -96,9 +96,11 @@ const init = {
         const db = await require('./db').init(connectionString);
         const categories = db.collection('categories');
         const forums = db.collection('forums');
+        const users = db.collection('users');
 
         await this.dropDatabase(db);
         await this.populate(categories, forums);
+        await this.createAdmin(users);
 
         console.log('ALL DONE!');
         await db.close();
@@ -145,6 +147,29 @@ const init = {
                 await forums.insertOne(dbForum);
             }
         }
+        console.log('Done!');
+    },
+
+    async createAdmin(users) {
+        console.log('Creating admin user:');
+        console.log(' -> username: \'admin\'');
+        console.log(' -> password: \'admin\'');
+
+        await users.insertOne({
+            'username': 'admin',
+            'password': 'sha1$f052f6db$1$58535c1ad07b653d45450b6f010ffee3c7d718bf',
+            'email': 'admin@bigtesticicles.com',
+            'firstName': 'Admin',
+            'lastName': 'Admin',
+            'country': 'Bulgaria',
+            'dateJoined': new Date(),
+            'avatar': '',
+            'role': 'admin',
+            'posts': [],
+            'threads': [],
+            'timezone': 'Africa/Addis_Ababa',
+        });
+
         console.log('Done!');
     },
 };

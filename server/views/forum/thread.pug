@@ -5,7 +5,8 @@ block styles
   link(rel='stylesheet', href='/stylesheets/forum/pagination.css')
 
 block scripts
-  script(src='/js/new-post.js')
+  script(src='/js/forums/new-post.js')
+  script(src='/lib/bootstrap-validator/dist/validator.js')
 
 block currentPageCategory
   -var selected = 'forums';
@@ -89,10 +90,16 @@ block content
           div.post-author-posts= (user.posts ? user.posts.length : 0) + ' posts'
       div.post-right-part.container-fluid
         div.row.new-post-content
-          form(action='/forums/thread/' + thread._id +'/new-post', method='post')
+          form(action='/forums/thread/' + thread._id +'/new-post', method='post', data-toggle="validator")
             div.form-group
-              textarea(name='content', maxlength="5000")#new-post-content.form-control
-              small.form-text.text-muted Minimum length: 
-                span#content-min-length
+              div.form-input
+                textarea(
+                  name='content',
+                  data-minlength=config.forums.post.minLength,
+                  data-minlength-error="Content must be atleast " + config.forums.post.minLength + " symbols",
+                  maxlength=config.forums.post.maxLength,
+                  required,
+                  )#new-post-content.form-control
+                div.help-block.with-errors
             div.form-group
-              button(disabled).btn.btn-reply-thread.pull-right#new-post-button POST REPLY
+              button(type="submit").btn.btn-reply-thread.pull-right#new-post-button POST REPLY

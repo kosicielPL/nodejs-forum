@@ -17,6 +17,12 @@
     background: rgba(255, 255, 255, 0.8);
 }
 
+.pencil {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+} 
+
 .thread-left-part {
     vertical-align: top;
 }
