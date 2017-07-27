@@ -1,5 +1,9 @@
 extends ../layout
 
+block globals
+  script.
+    var config = !{JSON.stringify(config.users)}
+
 block styles
   link(rel='stylesheet', href='/stylesheets/user/signup.css')
 
@@ -15,7 +19,6 @@ block logotext
   | Sign up
 
 block content
-  - const regex = new RegExp(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)
   center
     form(action="/signup", method="POST", encType="multipart/form-data" data-toggle="validator").form-signup.form-horizontal
       div.form-group.has-feedback
@@ -25,23 +28,28 @@ block content
             data-remote="/helpers/checkusername",
             type="username",
             placeholder = "Username",
-            maxlength="15",
-            data-minlength="4",
-            pattern="^[a-zA-Z0-9]*$",
-            required, autofocus,
-            name="username"
+            maxlength=config.users.username.maxLength,
+            data-minlength=config.users.username.minLength,
+            data-minlength-error="Username must be atleast " + config.users.username.minLength + " symbols",
+            pattern=config.users.username.regex,
+            data-pattern-error=config.users.username.regexError,
+            required,
+            name="username",
+            autofocus
             )#signup-username.form-control
           span(aria-hidden="true").glyphicon.form-control-feedback
-          div.help-block.with-errors Letters and digits only
+          div.help-block.with-errors
       div.form-group.has-feedback
         label(for="signup-email").control-label.col-md-4.col-sm-3.col-xs-12 Email:
         div.input-group.col-md-4.col-sm-6.col-xs-10
           input(
+            data-remote="/helpers/checkemail",
             type="email",
+            pattern=config.users.email.regex,
+            data-pattern-error="Please enter a valid email",
             placeholder="Email",
-            required, name="email",
-            data-error="Email format is invalid!",
-            pattern= "^[^@\s]+@[^@\s]+\.[^@\s]+$"
+            required,
+            name="email",
             )#signup-email.form-control
           span(aria-hidden="true").glyphicon.form-control-feedback
           div.help-block.with-errors
@@ -50,12 +58,14 @@ block content
         div.input-group.col-md-4.col-sm-6.col-xs-10
           input(
             type="text",
-            maxlength="20",
-            data-minlength="2",
+            maxlength=config.users.firstName.maxLength,
+            data-minlength=config.users.firstName.minLength,
+            data-minlength-error="First name must be atleast " + config.users.firstName.minLength + " letters",
             pattern="^[a-zA-Z]*$",
             placeholder="First name",
             required,
-            name="firstname"
+            name="firstname",
+            data-pattern-error="Names can contain only letters"
             )#signup-firstname.form-control
           span(aria-hidden="true").glyphicon.form-control-feedback
           div.help-block.with-errors
@@ -64,12 +74,14 @@ block content
         div.input-group.col-md-4.col-sm-6.col-xs-10
           input(
             type="text",
-            maxlength="20",
-            data-minlength="2",
+            maxlength=config.users.lastName.maxLength,
+            data-minlength=config.users.lastName.minLength,
+            data-minlength-error="Last name must be atleast " + config.users.lastName.minLength + " letters",
             pattern="^[a-zA-Z]*$",
             placeholder="Last name",
             required,
-            name="lastname"
+            name="lastname",
+            data-pattern-error="Names can contain only letters"
             )#signup-lastname.form-control
           span(aria-hidden="true").glyphicon.form-control-feedback
           div.help-block.with-errors
@@ -79,8 +91,9 @@ block content
         div.input-group.col-md-4.col-sm-6.col-xs-10
           input(
             type="password",
-            maxlength="20",
-            data-minlength="4",
+            maxlength=config.users.password.maxLength,
+            data-minlength=config.users.password.minLength,
+            data-minlength-error="Password must be atleast " + config.users.password.minLength + " symbols",
             placeholder = "Password",
             required,
             name="password"
@@ -92,13 +105,14 @@ block content
         div.input-group.col-md-4.col-sm-6.col-xs-10
           input(
             type="password",
-            maxlength="20",
-            data-minlength="4",
+            maxlength=config.users.password.maxLength,
+            data-minlength=config.users.password.minLength,
+            data-minlength-error="Password must be atleast " + config.users.password.minLength + " symbols",
             placeholder = "Confirm password",
             required,
             name="passwordconfirm",
             data-match="#signup-password",
-            data-match-error="Whoops, these don't match"
+            data-match-error="Whoops, passwords don't match"
             )#signup-password-confirm.form-control
           span(aria-hidden="true").glyphicon.form-control-feedback
           div.help-block.with-errors

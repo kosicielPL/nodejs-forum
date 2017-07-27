@@ -17,6 +17,16 @@ class UsersData extends BaseData {
             .then(([user]) => user);
     }
 
+    findByEmail(email) {
+        const regex = '^' + email + '$'; // exact match
+
+        return this
+            .filterBy({
+                email: new RegExp(regex, 'i'),
+            })
+            .then(([user]) => user);
+    }
+
     addPost(userId, postId) {
         const result = this.collection
             .updateOne({

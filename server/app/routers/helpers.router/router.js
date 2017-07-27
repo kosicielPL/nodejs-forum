@@ -13,7 +13,11 @@ module.exports = (data, config) => {
     });
 
     router.get('/checkusername', (req, res) => {
-        return controller.checkusername(req, res);
+        return controller.checkUsername(req, res);
+    });
+
+    router.get('/checkemail', (req, res) => {
+        return controller.checkEmail(req, res);
     });
 
     return router;

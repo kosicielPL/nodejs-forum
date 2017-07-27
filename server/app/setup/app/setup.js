@@ -55,7 +55,7 @@ const applyTo = (app, config) => {
 
     // pass config and flash objects to all views
     app.use((req, res, next) => {
-        res.locals.config = req.config;
+        res.locals.config = config;
         next();
     });
 

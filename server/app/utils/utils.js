@@ -7,9 +7,12 @@ const init = (timezone) => {
             return moment(date).tz(timezone).format(format);
         },
 
-        prepareThreadContent(content){
-            return content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')
-        }
+        prepareThreadContent(content) {
+            return content
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/\n/g, '<br/>');
+        },
     };
 
     return formatter;

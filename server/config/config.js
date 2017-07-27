@@ -15,6 +15,33 @@ const options = {
         adminThreadsToDisplay: 5,
         newThreadsToDisplay: 10,
     },
+    users: {
+        username: {
+            minLength: 4,
+            maxLength: 20,
+            regex: '^[0-9a-zA-Z]*$',
+            regexError: 'Username may contain only letters and digits',
+        },
+        email: {
+            regex: [
+                '[a-z0-9!#$%&\'*+/=?^_\`{|}~-]+(?:\.[a-z0-9!#$%&\'*',
+                '+/=?^_\`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9',
+                '])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?',
+            ].join(''),
+        },
+        password: {
+            minLength: 6,
+            maxLength: 40,
+        },
+        firstName: {
+            minLength: 2,
+            maxLength: 20,
+        },
+        lastName: {
+            minLength: 2,
+            maxLength: 20,
+        },
+    },
     forums: {
         forumView: {
             threadsPerPage: 10,
@@ -23,12 +50,12 @@ const options = {
             postsPerPage: 10,
         },
         thread: {
-            titleMinimumLength: 5,
-            titleMaximumLength: 80,
+            titleMinLength: 5,
+            titleMaxLength: 80,
         },
         post: {
-            minimumLength: 5,
-            maximumLength: 5000,
+            minLength: 5,
+            maxLength: 5000,
         },
     },
 };

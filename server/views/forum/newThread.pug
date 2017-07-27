@@ -4,7 +4,8 @@ block styles
   link(rel='stylesheet', href='/stylesheets/forum/new-thread.css')
 
 block scripts
-  script(src='/js/new-thread.js')
+  script(src='/js/forums/new-thread.js')
+  script(src='/lib/bootstrap-validator/dist/validator.js')
 
 block currentPageCategory
   -var selected = 'forums';
@@ -34,13 +35,28 @@ block content
         div.thread-author-posts= (user.posts ? user.posts.length : 0) + ' posts'
     div.thread-right-part.container-fluid
       div.row.new-thread-content
-        form(action='/forums/' + forum.internalName + '/new-thread', method='post')
+        form(action='/forums/' + forum.internalName + '/new-thread', method='post', data-toggle="validator")
           div.form-group.has-feedback.has-feedback-left
-            span.glyphicon.glyphicon-pencil.form-control-feedback
-            input(type='text', maxlength="80", placeholder='Thread name', name='title')#new-thread-name.form-control
+            span.glyphicon.glyphicon-pencil.pencil
+            div.form-input
+              input(
+                autofocus,
+                type='text',
+                data-minlength=config.forums.thread.titleMinLength,
+                data-minlength-error="Title must be atleast " + config.forums.thread.titleMinLength + " symbols",
+                maxlength=config.forums.thread.titleMaxLength,
+                placeholder='Thread name',
+                required,
+                name='title')#new-thread-name.form-control
+            br
+            div.form-input
+              textarea(
+                name='content',
+                data-minlength=config.forums.post.minLength,
+                data-minlength-error="Content must be atleast " + config.forums.post.minLength + " symbols",
+                maxlength=config.forums.post.maxLength,
+                required,
+            )#new-thread-content.form-control
+            div.help-block.with-errors
           div.form-group
-            textarea(name='content', maxlength="5000")#new-thread-content.form-control
-            small.form-text.text-muted Minimum length: 
-              span#content-min-length
-          div.form-group
-            button(disabled).btn.btn-create-thread.pull-right#new-thread-button CREATE THREAD
+            button(type="submit").btn.btn-create-thread.pull-right#new-thread-button CREATE THREAD

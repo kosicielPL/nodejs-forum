@@ -147,6 +147,7 @@ const init = (app, data, config) => {
         },
 
         async createNewPost(req, res, next) {
+            const validate = require('../../validator').init(config.forums);
             const content = req.body.content;
             const threadId = req.params.thread;
 
@@ -160,10 +161,10 @@ const init = (app, data, config) => {
                 });
             }
 
-            if (content.length > config.forums.post.maximumLength) {
-                return res.send('post too long');
-            } else if (content.length < config.forums.post.minimumLength) {
-                return res.send('post too short');
+            try {
+                await validate.post(content);
+            } catch (error) {
+                res.send(error);
             }
 
             let dbThread = null;
@@ -193,33 +194,19 @@ const init = (app, data, config) => {
         },
 
         async createNewThread(req, res, next) {
+            const validate = require('../../validator').init(config.forums);
             const title = req.body.title;
             const content = req.body.content;
-
-            if (!title) {
-                res.send(req.body);
-                return res.send('we need a title');
-            }
-
-            if (!content) {
-                return res.send('we need content');
-            }
-
-            if (title.length > config.forums.thread.titleMaximumLength) {
-                return res.send('thread title too long');
-            } else if (title.length < config.forums.thread.titleMinimumLength) {
-                return res.send('thread title too short');
-            } else if (content.length > config.forums.post.maximumLength) {
-                return res.send('thread content too long');
-            } else if (content.length < config.forums.post.minimumLength) {
-                return res.send('thread content too short');
-            }
-
             const reqForum = req.params.forum;
+
+            try {
+                await validate.thread(title, content);
+            } catch (error) {
+                res.send(error);
+            }
 
             const dbForum =
                 await data.forums.getByCriteria('internalName', reqForum);
-
 
             if (dbForum[0].admin === true &&
                 req.user.role !== 'admin') {
