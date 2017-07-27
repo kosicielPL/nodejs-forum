@@ -14,6 +14,7 @@ const init = (app, data, config) => {
             let threadsPerPage = config.forums.forumView.threadsPerPage;
             const forumName = req.params.forum;
             let page = req.params.page;
+            const search = req.query.search;
 
             if (page < 1 || typeof page === 'undefined') {
                 page = 1;
@@ -38,10 +39,16 @@ const init = (app, data, config) => {
 
             dbForum = dbForum[0];
 
-            const dbThreads =
+            let dbThreads =
                 await data.threads.getInForum(
                     dbForum._id, threadsPerPage, page
                 );
+
+            if (search) {
+                dbThreads = dbThreads.filter((thread) => {
+                    return thread.title.toLowerCase().includes(search);
+                });
+            }
 
             const dbThreadsCount = dbForum.threads.length;
 
