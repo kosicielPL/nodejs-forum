@@ -240,7 +240,7 @@ const init = (app, data, config) => {
 
             const url = '/forums/thread/' + dbThread.id;
             app.io.emit('new-thread', {
-                user: 'Xpload',
+                user: req.user.username,
                 forum: dbForum[0].name,
                 url: url,
             });
