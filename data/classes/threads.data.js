@@ -7,6 +7,18 @@ class ThreadsData extends BaseData {
         super(db, Thread, Thread);
     }
 
+    findByTitle(title) {
+        const result = this.collection
+            .find({
+                title: {
+                    $regex: '(?i).*' + title + '.*',
+                },
+            })
+            .toArray();
+
+        return result;
+    }
+
     getInForum(forumId, resultsPerPage, page) {
         if (page < 1) {
             page = 1;
@@ -18,22 +30,22 @@ class ThreadsData extends BaseData {
 
         let result = this.collection
             .aggregate([{
-                    '$match': {
-                        forum: new ObjectId(forumId),
-                    },
+                '$match': {
+                    forum: new ObjectId(forumId),
                 },
-                {
-                    '$sort': {
-                        dateUpdated: -1,
-                        dateCreated: 1,
-                    },
+            },
+            {
+                '$sort': {
+                    dateUpdated: -1,
+                    dateCreated: 1,
                 },
-                {
-                    '$skip': (page - 1) * resultsPerPage,
-                },
-                {
-                    '$limit': resultsPerPage,
-                },
+            },
+            {
+                '$skip': (page - 1) * resultsPerPage,
+            },
+            {
+                '$limit': resultsPerPage,
+            },
             ])
             .toArray();
 
@@ -55,32 +67,32 @@ class ThreadsData extends BaseData {
 
         let result = this.collection
             .aggregate([{
-                    '$sort': {
-                        dateCreated: -1,
-                    },
+                '$sort': {
+                    dateCreated: -1,
                 },
-                {
-                    '$limit': count,
+            },
+            {
+                '$limit': count,
+            },
+            {
+                '$lookup': {
+                    from: 'forums',
+                    localField: 'forum',
+                    foreignField: '_id',
+                    as: 'forum',
                 },
-                {
-                    '$lookup': {
-                        from: 'forums',
-                        localField: 'forum',
-                        foreignField: '_id',
-                        as: 'forum',
-                    },
+            },
+            {
+                '$lookup': {
+                    from: 'users',
+                    localField: 'author',
+                    foreignField: '_id',
+                    as: 'author',
                 },
-                {
-                    '$lookup': {
-                        from: 'users',
-                        localField: 'author',
-                        foreignField: '_id',
-                        as: 'author',
-                    },
-                },
-                {
-                    '$unwind': '$author',
-                },
+            },
+            {
+                '$unwind': '$author',
+            },
             ])
             .toArray();
 
