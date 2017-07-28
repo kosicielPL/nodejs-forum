@@ -67,6 +67,11 @@ class BaseData {
                 return this.ModelClass.toViewModel(model);
             });
     }
+    updateById(model) {
+        return this.collection.updateOne({
+            _id: model._id,
+        }, model);
+    }
 
     _isModelValid(model) {
         return this.validator.isValid(model);
