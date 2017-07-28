@@ -26,7 +26,7 @@ block content
                 else
                   img(src="/img/avatars/default.png").img.img-responsive
               div.profileName
-                if userLogged.username === user.username
+                if userLogged && userLogged.username === user.username
                   h4.myUser
                     | #{user.username}
                 else
