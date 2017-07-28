@@ -5,7 +5,7 @@ const init = (server) => {
     io.on('connection', (socket) => {
         const cookie = socket.handshake.headers.cookie;
         const uniqueIdentifier = cookie.split(';')[0]; // session cookie
-        
+
         if (io.clients.indexOf(uniqueIdentifier) === -1) {
             io.clients.push(uniqueIdentifier);
         }

@@ -2,7 +2,7 @@ const init = (data) => {
     const controller = {
         async generateUsersView(req, res) {
             const allUsers = await data.users.getAll();
-
+            let userLogged;
             let result = allUsers;
             const page = parseInt(req.params.page, 10) || 1;
             const size = 12;
@@ -10,10 +10,18 @@ const init = (data) => {
             let totalPages = allUsers.length / size;
             totalPages = Math.ceil(totalPages);
 
+            if (page < 1 || typeof page === 'undefined') {
+                page = 1;
+            }
+
             if (page > totalPages && page > 1) {
                 return res.redirect(
-                    '/users/1'
+                    '/users'
                 );
+            }
+
+            if (req.user) {
+                userLogged = req.user;
             }
 
             result.sort(function(a, b) {
@@ -35,6 +43,7 @@ const init = (data) => {
                 allUsers: result,
                 currentPage: page * 1,
                 totalPages: totalPages * 1,
+                userLogged: userLogged,
             });
         },
 

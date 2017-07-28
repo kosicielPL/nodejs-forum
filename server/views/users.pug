@@ -26,8 +26,12 @@ block content
                 else
                   img(src="/img/avatars/default.png").img.img-responsive
               div.profileName
-                h4
-                  | #{user.username}
+                if userLogged.username === user.username
+                  h4.myUser
+                    | #{user.username}
+                else
+                  h4
+                    | #{user.username}
   div.row.forum-pagination
     div.pagination
       //- first page

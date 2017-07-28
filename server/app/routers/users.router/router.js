@@ -5,7 +5,7 @@ module.exports = (data) => {
     const router = new express.Router();
     const controller = require('./controller').init(data);
 
-    router.get('/:page', (req, res, next) => {
+    router.get('/:page?', (req, res, next) => {
         return controller.generateUsersView(req, res, next);
     });
 

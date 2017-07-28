@@ -39,3 +39,7 @@
 .userCard:focus {
     background: rgba(255,255,255, 0.2);
 }
+
+.myUser {
+    color: #f44242;
+}
