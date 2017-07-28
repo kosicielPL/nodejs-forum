@@ -1,0 +1,22 @@
+extends ./layout
+
+block styles
+  link(rel='stylesheet', href='/stylesheets/search.css')
+
+block currentPageCategory
+  -var selected = 'search';
+
+block navigationMenu
+  li.active Search
+
+block logotext
+  | Search
+
+block content
+  center
+    form(action="/search", method="POST").form-search
+      != messages()
+      div.form-group
+        label(for="search")
+        input(type="text", placeholder = "Search", required, autofocus, name="search").form-control.search-input
+        button(type="submit").btn.btn-danger Search

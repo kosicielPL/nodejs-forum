@@ -1,0 +1,82 @@
+extends ../layout
+
+block styles
+  link(rel='stylesheet', href='/stylesheets/forum/forum.css')
+  link(rel='stylesheet', href='/stylesheets/forum/pagination.css')
+
+block currentPageCategory
+  -var selected = 'search';
+
+block navigationMenu
+  li
+    a(href='/search/') Search
+  li.active= title
+
+block logotext
+  | #{title}
+
+block content
+  div.container-fluid
+    each thread in threads
+      -
+        date =  utils.relativeTime(thread.dateCreated)
+
+        if (thread.posts){
+          posts = thread.posts.length - 1
+        } else {
+          posts = 0
+        }
+        thread.content = utils.shortenThreadContent(thread.content, 200);
+
+      a(href="/forums/thread/" + thread._id, title= thread.content).thread-row-container
+        div.row.thread-row.grid
+          div.col-sm-7
+            div.container-fluid
+              div.row
+                span.thread-row-icon.glyphicon.glyphicon-file
+                span.thread-row-title #{thread.title}
+              div.row.visible-xs
+                div.thread-row-text= thread.content
+              div.row.visible-xs
+                div
+                  span.thread-row-comment
+                    span.glyphicon.glyphicon-comment
+                    |  #{posts}   &nbsp;&nbsp;&nbsp;
+                  span.thread-row-author= thread.authorName
+                  span.thread-row-date.pull-right= date
+          div.col-sm-2.hidden-xs.thread-row-author= thread.authorName
+          div.col-sm-1.hidden-xs.thread-row-comment
+            span.glyphicon.glyphicon-comment
+            |   #{posts}
+          div.col-sm-2.hidden-xs.thread-row-date= date
+
+  div.row.forum-pagination
+    div.pagination
+      //- first page
+      if currentPage > 3
+        a(href='/forums/' + forum.internalName + '/1').page-item 1
+      //- previous page
+      if currentPage > 4
+        span.page-item ...
+      //- span.page-item ...
+      //- page - 2
+      if currentPage > 2
+        a(href='/forums/' + forum.internalName + '/' + (currentPage - 2)).page-item= currentPage - 2
+      //- page - 1
+      if currentPage > 1
+        a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-item= currentPage - 1
+      //- current page
+      if threadsCount > 0
+        span.page-item.active= currentPage
+      //- page + 1
+      if totalPages > currentPage
+        a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-item= currentPage + 1
+      //- page + 2
+      if totalPages > currentPage + 1
+        a(href='/forums/' + forum.internalName + '/' + (currentPage + 2)).page-item= currentPage + 2
+      //- next page
+      if totalPages > currentPage + 3
+        span.page-item ...
+      //- last page
+      if totalPages > currentPage + 2
+        a(href='/forums/' + forum.internalName + '/' + totalPages).page-item= totalPages
