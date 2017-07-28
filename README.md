@@ -33,4 +33,6 @@ Forums part of the webpage has categories view (all the categories and the forum
 
 ### LIVE DEMO
 
-[Hosted at Amazon Web Services](http://ec2-52-59-28-191.eu-central-1.compute.amazonaws.com/)
+Hosted at Amazon Web Services
+
+[http://bigtesticicles.abuser.eu/](http://bigtesticicles.abuser.eu/)
