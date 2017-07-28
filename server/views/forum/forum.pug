@@ -41,32 +41,15 @@ block content
   div.container-fluid
     each thread in threads
       -
-        date =  new Date(thread.dateUpdated)
-        today = new Date()
-        difference = Math.floor(Math.abs(today - date) / (60 * 1000)) //in minutes
+        date =  utils.relativeTime(thread.dateCreated)
 
-        if(difference < 1){
-          date = 'just now'
-        } else if (difference < 2){
-          date = difference + ' minute ago'
-        } else if (difference < 60){
-          date = difference + ' minutes ago'
-        } else if (difference / 60 < 2){
-          date = Math.floor(difference / 60) + ' hour ago'
-        } else if (difference / 60 < 24){
-          date = Math.floor(difference / 60) + ' hours ago'
-        } else if (today.getYear() >= date.getYear()){
-          date = date.toDateString().slice(0, -5)
-        } else {
-          date = date.toDateString()
-        }
-      -
         if (thread.posts){
           posts = thread.posts.length - 1
         } else {
           posts = 0
         }
-      - if(thread.content.length > 200) thread.content = thread.content.substring(0,200) + '...';
+        thread.content = utils.shortenThreadContent(thread.content, 200);
+
       a(href="/forums/thread/" + thread._id, title= thread.content).thread-row-container
         div.row.thread-row.grid
           div.col-sm-7
@@ -88,12 +71,7 @@ block content
             span.glyphicon.glyphicon-comment
             |   #{posts}
           div.col-sm-2.hidden-xs.thread-row-date= date
-  //- div.row.thread-controls
-  //-     div.col-xs-6.thread-controls-left
-  //-         a(href="#").btn.btn-new-thread NEW THREAD
-  //-     div.col-xs-6.thread-controls-right
-  //-         a(href="#").btn.btn-search-thread
-  //-             span.glyphicon.glyphicon-search
+
   div.row.forum-pagination
     div.pagination
       //- first page

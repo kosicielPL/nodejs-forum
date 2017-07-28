@@ -23,15 +23,16 @@ block content
         h2 Nothing important to display yet :'(
       else
         each forum in forums
-          - date = new Date(forum.thread.dateCreated)
+          - thread = forum.thread
+          - date = utils.dateFormat("dddd, MMMM DD, YYYY", thread.dateCreated)
           div.news-container
-            h5.title= forum.thread.title
-            h5.forum= forum.name
+            h5.title= thread.title
+            h5.forum= name
             span.info posted by 
-              a(href="/users/profile/" + forum.thread.authorName).author= forum.thread.authorName
-              |  on #{date.toDateString()}
-            p.content !{forum.thread.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')}
+              a(href="/users/profile/" + thread.authorName).author= thread.authorName
+              |  on #{date}
+            p.content!= utils.prepareThreadContent(thread.content)
             span.pull-right
-              a(href="/forums/thread/" + forum.thread._id).link Read more
+              a(href="/forums/thread/" + thread._id).link Open thread
   div.col-md-4
     div.row.sidenav

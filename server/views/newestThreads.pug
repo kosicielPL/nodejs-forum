@@ -1,8 +1,10 @@
 div.container-fluid
   h4 Latest threads
 each thread in newestThreads
-  - date =  new Date(thread.dateCreated)
-  - if(thread.content.length > 50) thread.content = thread.content.substring(0,50) + '...';
+  - date = utils.dateFormat("MMMM DD, YYYY", thread.dateCreated)
+  - time = utils.dateFormat("HH:MM", thread.dateCreated)
+  - thread.content = utils.shortenThreadContent(thread.content, 50);
+
   a(href="/forums/thread/" + thread._id).latest-thread-row
     div.container-fluid
       div.row
@@ -19,7 +21,7 @@ each thread in newestThreads
           div.row
             span.small in
             |  #{thread.forum[0].name}
-          div.row.small on #{date.toDateString()}
+          div.row.small on #{date} at #{time}
       div.row
         div.col-xs-12.title= thread.title
       div.row
