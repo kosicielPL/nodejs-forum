@@ -1,14 +1,15 @@
 const init = (data) => {
     const controller = {
         async generateUsersView(req, res) {
-            const allUsers = await data.users.getAll();
             const page = parseInt(req.params.page, 10) || 1;
             const size = 12;
+            const username = req.query.username;
+            const allUsers = await data.users.getAllUsersLength(username);
             const totalUsers = allUsers.length;
             let userLogged;
-            let result = allUsers;
-            let totalPages = allUsers.length / size;
+            let totalPages = totalUsers / size;
             totalPages = Math.ceil(totalPages);
+
 
             if (page < 1 || typeof page === 'undefined') {
                 page = 1;
@@ -20,31 +21,22 @@ const init = (data) => {
                 );
             }
 
+            const users = await data.users
+                .getAllUsers(username, 12, page);
+
+
             if (req.user) {
                 userLogged = req.user;
             }
-            // NOT THE BEST BUT CAN'T SORT IT IN MONGO ALPHABETICALLY
-            result.sort(function(a, b) {
-                const nameA = a.username.toLowerCase();
-                const nameB = b.username.toLowerCase();
-                if (nameA < nameB) {
-                    return -1;
-                }
-                if (nameA > nameB) {
-                    return 1;
-                }
-                return 0;
-            });
-            // FIX ME
-            result = result.slice((page - 1) * size, page * size);
 
             return res.render('users', {
                 title: 'Users',
-                allUsers: result,
+                allUsers: users,
                 currentPage: page * 1,
                 totalPages: totalPages * 1,
                 totalUsers: totalUsers * 1,
                 userLogged: userLogged,
+                username: username,
             });
         },
 

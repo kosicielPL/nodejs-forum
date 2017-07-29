@@ -7,6 +7,52 @@ class UsersData extends BaseData {
         super(db, User, User);
     }
 
+    getAllUsersLength(username) {
+        if (!username) {
+            username = '';
+        }
+
+        const result = this.collection
+            .aggregate([{
+                '$match': {
+                    username: { $regex: '(?i).*' + username + '.*' },
+                },
+            },
+            ])
+            .toArray();
+        return result;
+    }
+
+    getAllUsers(username, resultsPerPage, page) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        if (resultsPerPage < 0) {
+            resultsPerPage = 0;
+        }
+
+        if (!username) {
+            username = '';
+        }
+
+        const result = this.collection
+            .aggregate([{
+                '$match': {
+                    username: { $regex: '(?i).*' + username + '.*' },
+                },
+            },
+            {
+                '$skip': (page - 1) * resultsPerPage,
+            },
+            {
+                '$limit': resultsPerPage,
+            },
+            ])
+            .toArray();
+        return result;
+    }
+
     findByUsername(username) {
         const regex = '^' + username + '$'; // exact match
 

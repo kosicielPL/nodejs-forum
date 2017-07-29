@@ -15,6 +15,20 @@ block logotext
   | Users
 
 block content
+  div.row.collapse#search-form
+    div.container
+      form.form-inline.pull-right
+        div.input-group
+          input(type="text", name="username", placeholder="Search users").form-control#search
+        | &nbsp;
+        button(type="submit").btn.btn-default Search
+  div.row.thread-controls
+    div.col-xs-12.thread-controls-right
+      button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
+        span.glyphicon.glyphicon-search
+  if allUsers.length < 1
+    div.container.text-center
+      h2 There's nobody with the name '#{username}'
   div.container-fluid.users-container
     each user in allUsers
         div.col-lg-4.col-md-4.col-sm-6.col-xs-12.animated.bounceIn
@@ -32,33 +46,65 @@ block content
                 else
                   h4
                     | #{user.username}
-  div.row.forum-pagination
-    div.pagination
-      //- first page
-      if currentPage > 3
-        a(href='/users/1').page-item 1
-      //- previous page
-      if currentPage > 4
-        span.page-item ...
-      //- span.page-item ...
-      //- page - 2
-      if currentPage > 2
-        a(href='/users/' + (currentPage - 2)).page-item= currentPage - 2
-      //- page - 1
-      if currentPage > 1
-        a(href='/users/' + (currentPage - 1)).page-item= currentPage - 1
-      //- current page
-      if totalUsers > 0
-        span.page-item.active= currentPage
-      //- page + 1
-      if totalPages > currentPage
-        a(href='/users/' + (currentPage + 1)).page-item= currentPage + 1
-      //- page + 2
-      if totalPages > currentPage + 1
-        a(href='/users/' + (currentPage + 2)).page-item= currentPage + 2
-      //- next page
-      if totalPages > currentPage + 3
-        span.page-item ...
-      //- last page
-      if totalPages > currentPage + 2
-        a(href='/users/' + totalPages).page-item= totalPages
+  if username
+    div.row.forum-pagination
+      div.pagination
+        //- first page
+        if currentPage > 3
+          a(href='/users/1?username=' + username).page-item 1
+        //- previous page
+        if currentPage > 4
+          span.page-item ...
+        //- span.page-item ...
+        //- page - 2
+        if currentPage > 2
+          a(href='/users/' + (currentPage - 2) + '?username=' + username).page-item= currentPage - 2
+        //- page - 1
+        if currentPage > 1
+          a(href='/users/' + (currentPage - 1) + '?username=' + username).page-item= currentPage - 1
+        //- current page
+        if totalUsers > 0
+          span.page-item.active= currentPage
+        //- page + 1
+        if totalPages > currentPage
+          a(href='/users/' + (currentPage + 1) + '?username=' + username).page-item= currentPage + 1
+        //- page + 2
+        if totalPages > currentPage + 1
+          a(href='/users/' + (currentPage + 2) + '?username=' + username).page-item= currentPage + 2
+        //- next page
+        if totalPages > currentPage + 3
+          span.page-item ...
+        //- last page
+        if totalPages > currentPage + 2
+          a(href='/users/' + totalPages + '?username=' + username).page-item= totalPages
+  else             
+    div.row.forum-pagination
+      div.pagination
+        //- first page
+        if currentPage > 3
+          a(href='/users/1').page-item 1
+        //- previous page
+        if currentPage > 4
+          span.page-item ...
+        //- span.page-item ...
+        //- page - 2
+        if currentPage > 2
+          a(href='/users/' + (currentPage - 2)).page-item= currentPage - 2
+        //- page - 1
+        if currentPage > 1
+          a(href='/users/' + (currentPage - 1)).page-item= currentPage - 1
+        //- current page
+        if totalUsers > 0
+          span.page-item.active= currentPage
+        //- page + 1
+        if totalPages > currentPage
+          a(href='/users/' + (currentPage + 1)).page-item= currentPage + 1
+        //- page + 2
+        if totalPages > currentPage + 1
+          a(href='/users/' + (currentPage + 2)).page-item= currentPage + 2
+        //- next page
+        if totalPages > currentPage + 3
+          span.page-item ...
+        //- last page
+        if totalPages > currentPage + 2
+          a(href='/users/' + totalPages).page-item= totalPages
