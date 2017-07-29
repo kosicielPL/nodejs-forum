@@ -6,6 +6,7 @@ const init = (data) => {
             let result = allUsers;
             const page = parseInt(req.params.page, 10) || 1;
             const size = 12;
+            const totalUsers = allUsers.length;
 
             let totalPages = allUsers.length / size;
             totalPages = Math.ceil(totalPages);
@@ -43,6 +44,7 @@ const init = (data) => {
                 allUsers: result,
                 currentPage: page * 1,
                 totalPages: totalPages * 1,
+                totalUsers: totalUsers * 1,
                 userLogged: userLogged,
             });
         },

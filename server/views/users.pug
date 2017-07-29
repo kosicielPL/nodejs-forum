@@ -48,7 +48,7 @@ block content
       if currentPage > 1
         a(href='/users/' + (currentPage - 1)).page-item= currentPage - 1
       //- current page
-      if threadsCount > 0
+      if totalUsers > 0
         span.page-item.active= currentPage
       //- page + 1
       if totalPages > currentPage

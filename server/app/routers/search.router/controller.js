@@ -20,15 +20,6 @@ const init = (app, data, config) => {
                 threadsPerPage = 1;
             }
 
-            // let dbForum =
-            //     await data.forums.getByCriteria('internalName');
-
-            // dbForum = dbForum[0];
-
-            // let dbThreads =
-            //     await data.threads.getInForum(
-            //         dbForum._id, threadsPerPage, page
-            //     );
             const threads = await data.threads.findByTitle(title);
 
             if (threads.length <= 0) {
