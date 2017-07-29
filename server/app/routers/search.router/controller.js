@@ -9,8 +9,8 @@ const init = (app, data, config) => {
 
         async showSearchResults(req, res, next) {
             const title = req.params.title;
-            let threadsPerPage = config.forums.forumView.threadsPerPage;
             let page = req.params.page;
+            let threadsPerPage = config.forums.forumView.threadsPerPage;
 
             if (page < 1 || typeof page === 'undefined') {
                 page = 1;
@@ -43,10 +43,14 @@ const init = (app, data, config) => {
                 );
             }
 
+            let result = threads;
+            result = result
+                .slice((page - 1) * threadsPerPage, page * threadsPerPage);
+
             return res.render('forum/search', {
                 title: title,
                 forum: title,
-                threads: threads,
+                threads: result,
                 currentPage: page * 1,
                 totalPages: totalPages * 1,
                 threadsCount: dbThreadsCount * 1,

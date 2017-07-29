@@ -14,8 +14,11 @@ class ThreadsData extends BaseData {
                     $regex: '(?i).*' + title + '.*',
                 },
             })
+            .sort({
+                dateUpdated: -1,
+                dateCreated: 1,
+            })
             .toArray();
-
         return result;
     }
 

@@ -27,6 +27,15 @@ module.exports = (app, data, config) => {
                     });
             }
             return controller.showSearchResults(req, res, next);
+        })
+        .get('/:title/:page?', (req, res, next) => {
+            if (!req.user) {
+                return Promise.resolve()
+                    .then(() => {
+                        return res.redirect('/login');
+                    });
+            }
+            return controller.showSearchResults(req, res, next);
         });
 
     return router;
