@@ -2,6 +2,7 @@ extends ./layout
 
 block styles
   link(rel='stylesheet', href='/stylesheets/search.css')
+  link(rel='stylesheet', href='/lib/animate.css/animate.min.css')
 
 block currentPageCategory
   -var selected = 'search';
@@ -18,5 +19,5 @@ block content
       != messages()
       div.form-group
         label(for="search")
-        input(type="text", placeholder = "Search", required, autofocus, name="search").form-control.search-input
-        button(type="submit").btn.btn-danger Search
+        input(type="text", placeholder = "Search", required, autofocus, name="search").form-control.search-input.animated.bounceIn
+        button(type="submit").btn.btn-danger.animated.bounceInUp Search
