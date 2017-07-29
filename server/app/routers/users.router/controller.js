@@ -61,10 +61,9 @@ const init = (data) => {
         },
 
         async generateSettingsView(req, res) {
-            const targetUsername = req.params.user;
-            const targetUser = await data.users.findByUsername(targetUsername);
+            const user = req.user;
 
-            if (!targetUser) {
+            if (!user) {
                 return res.render('error', {
                     title: 'Error 404',
                     message: 'User not found',
@@ -73,11 +72,42 @@ const init = (data) => {
                     },
                 });
             }
-
             return res.render('user/settings', {
-                title: targetUser.username + '\'s profile settings',
-                targetUser: targetUser,
+                title: user.username + '\'s profile settings',
+                targetUser: user,
             });
+        },
+
+        async updateUser(req, res) {
+            const userId = req.user._id;
+            const buffer = {};
+            const updateModel = {};
+
+            buffer.username = req.body.username;
+            buffer.firstName = req.body.firstname;
+            buffer.lastName = req.body.lastname;
+            buffer.email = req.body.email;
+            buffer.password = req.body.password;
+
+            Object.keys(buffer).forEach((key) => {
+                if (buffer[key] !== ''
+                    && typeof buffer[key] !== 'undefined'
+                    && buffer[key] !== req.user[key]) {
+                    updateModel[key] = buffer[key];
+                }
+            });
+
+            try {
+                await data.users.updateById(userId, updateModel);
+            } catch (error) {
+                console.log(error);
+                return res.send(error);
+            }
+
+            req.flash('success',
+                req.user.username + '\'s account updated.'
+            );
+            return res.redirect('/users/profile/' + req.user.username);
         },
     };
 

@@ -1,36 +1,90 @@
 /* globals $ */
-function hideBootstrapElem(selector1, selector2, callback) {
-  $(selector1).removeClass('show', 0, '_default', function() {
-    $(selector1).addClass('hide');
-  });
+let inputOpen = {
+  username: false,
+  firstname: false,
+  lastname: false,
+  email: false,
+  password: false,
+};
 
-  callback(selector2);
+function closeOpenedInputs(obj, curr) {
+  for (const key in obj) {
+    const value = obj[key];
+
+    if (typeof value === 'object') {
+        closeOpenedInputs(value, curr);
+    }
+
+    if (key !== curr && value === true) {
+        toggleInput(key);
+        obj[key] = false;
+    }
+  }
 }
 
-function showBootstrapElem(selector) {
-  $(selector).removeClass('hide', 0, '_default', function() {
-    $(selector).addClass('show');
-  });
-  // const input = $(selector).children()[0];
-  // if ($(input).prop('tagName') === 'INPUT') $(input).focus();
-}
+function toggleInput(name) {
+  const $placeholder = $('#settings-' + name + '-placeholder');
+  const $form = $('#settings-' + name + '-form');
+  const $input = $('#settings-' + name + '-input');
+  const $btn = $('#settings-' + name + '-btn');
 
-function toggleBootstrapElems(selector1, selector2) {
-  if ($(selector1).hasClass('show')) {
-    hideBootstrapElem(selector1, selector2, showBootstrapElem);
+  if ($input.val() !== '') {
+    $placeholder.text($input.val());
+  }
+
+  $placeholder
+    .toggleClass('show')
+    .toggleClass('hide');
+  console.log('placeholder toggled!');
+
+  $form
+    .toggleClass('show')
+    .toggleClass('hide');
+  console.log('input toggled!');
+
+  $btn
+    .find('span')
+    .toggleClass('glyphicon-edit')
+    .toggleClass('glyphicon-ok');
+  console.log('btn toggled!');
+
+  if ($form.hasClass('show')) {
+    $($input).focus();
+  }
+  closeOpenedInputs(inputOpen, name);
+
+  if (inputOpen[name] === false) {
+    inputOpen[name] = true;
   } else {
-    hideBootstrapElem(selector2, selector1, showBootstrapElem);
+    inputOpen[name] = false;
   }
 }
 
 $(document).ready(function() {
-  $('#settings-username-btn').on('click', function() {
-    toggleBootstrapElems('#settings-username-placeholder', '#settings-username-input');
-    $('#settings-username-btn').find('span').toggleClass('glyphicon-edit').toggleClass('glyphicon-ok');
+  // username
+  $('#settings-username-btn').click(function() {
+    toggleInput('username');
   });
 
-  $('#settings-username-input').focusout(function() {
-    toggleBootstrapElems('#settings-username-placeholder', '#settings-username-input');
-    $('#settings-username-btn').find('span').toggleClass('glyphicon-edit').toggleClass('glyphicon-ok');
+  // firstname
+  $('#settings-firstname-btn').click(function() {
+    toggleInput('firstname');
+  });
+
+  //  lastname
+  $('#settings-lastname-btn').click(function() {
+    toggleInput('lastname');
+  });
+
+  // email
+  $('#settings-email-btn').click(function() {
+    toggleInput('email');
+  });
+
+  // email
+  $('#settings-password-btn').click(function() {
+    toggleInput('password');
   });
 });
+
+
