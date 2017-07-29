@@ -9,7 +9,12 @@ block currentPageCategory
   -var selected = 'users';
   
 block navigationMenu
-  li.active= 'Users'
+  if username
+    li
+      a(href='/users') Users
+    li.active= username
+  else
+    li.active= 'Users'
 
 block logotext
   | Users
@@ -19,7 +24,7 @@ block content
     div.container
       form.form-inline.pull-right
         div.input-group
-          input(type="text", name="username", placeholder="Search users").form-control#search
+          input(type="text", name="username", placeholder="Search users", autofocus).form-control#search
         | &nbsp;
         button(type="submit").btn.btn-default Search
   div.row.thread-controls
