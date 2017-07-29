@@ -7,17 +7,42 @@ class ThreadsData extends BaseData {
         super(db, Thread, Thread);
     }
 
-    findByTitle(title) {
+    findByTitleLength(title) {
         const result = this.collection
-            .find({
-                title: {
-                    $regex: '(?i).*' + title + '.*',
+            .find({ title: { $regex: '(?i).*' + title + '.*' } })
+            .toArray();
+
+        return result;
+    }
+
+    findByTitle(title, resultsPerPage, page) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        if (resultsPerPage < 0) {
+            resultsPerPage = 0;
+        }
+
+        const result = this.collection
+            .aggregate([{
+                '$match': {
+                    title: { $regex: '(?i).*' + title + '.*' },
                 },
-            })
-            .sort({
-                dateUpdated: -1,
-                dateCreated: 1,
-            })
+            },
+            {
+                '$sort': {
+                    dateUpdated: -1,
+                    dateCreated: 1,
+                },
+            },
+            {
+                '$skip': (page - 1) * resultsPerPage,
+            },
+            {
+                '$limit': resultsPerPage,
+            },
+            ])
             .toArray();
         return result;
     }

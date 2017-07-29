@@ -20,7 +20,8 @@ const init = (app, data, config) => {
                 threadsPerPage = 1;
             }
 
-            const threads = await data.threads.findByTitle(title);
+            const threads = await data.threads
+                .findByTitle(title, threadsPerPage, page);
 
             if (threads.length <= 0) {
                 return res.render('error', {
@@ -32,7 +33,9 @@ const init = (app, data, config) => {
                 });
             }
 
-            const dbThreadsCount = threads.length;
+            const dbThreads = await data.threads
+                .findByTitleLength(title);
+            const dbThreadsCount = dbThreads.length;
 
             let totalPages = dbThreadsCount / threadsPerPage;
             totalPages = Math.ceil(totalPages);
@@ -43,14 +46,10 @@ const init = (app, data, config) => {
                 );
             }
 
-            let result = threads;
-            result = result
-                .slice((page - 1) * threadsPerPage, page * threadsPerPage);
-
             return res.render('forum/search', {
                 title: title,
                 forum: title,
-                threads: result,
+                threads: threads,
                 currentPage: page * 1,
                 totalPages: totalPages * 1,
                 threadsCount: dbThreadsCount * 1,
