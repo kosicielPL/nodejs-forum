@@ -1,13 +1,10 @@
 extends ../layout
 
 block styles
-  link(rel='stylesheet', href='/stylesheets/user/signup.css')
-  link(rel='stylesheet', href='/stylesheets/user/profile.css')
+  link(rel='stylesheet', href='/stylesheets/user/settings.css')
 
 block scripts
-  //- script(src='/js/user/signup.js')
   script(src='/js/user/settings.js')
-  script(src='/lib/bootstrap-validator/dist/validator.js')
 
 block navigationMenu
   li Users 
@@ -15,149 +12,111 @@ block navigationMenu
   li.active Settings
 
 block content
-  h2 
-    | #{targetUser.username}'s profile settings
-  .table-responsive
-    table.table.user-info
-      tr
-        td 
-          label(for="settings-username") username 
-        td
-          span#settings-username-placeholder.show #{targetUser.username}
-          span#settings-username-input.hide
-            input.form-control(
-              data-remote="/helpers/checkusername"
-              type="username"
-              placeholder= targetUser.username
-              maxlength="15"
-              name="username"
-              data-minlength="4"
-              pattern="^[a-zA-Z0-9]*$"
-              autofocus
-              required) 
-            span(aria-hidden="true").glyphicon.form-control-feedback
-        td 
-          a#settings-username-btn.btn.btn-default.btn-sm.pull-right(focusable="false")
-            span.glyphicon.glyphicon-edit
-      tr
-        td name 
-        td #{targetUser.firstName} #{targetUser.lastName}
-          a.btn.btn-default.btn-sm.pull-right
-            span.glyphicon.glyphicon-edit
-      tr
-        td email 
-        td #{targetUser.email}
-          a.btn.btn-default.btn-sm.pull-right
-            span.glyphicon.glyphicon-edit
-      tr 
-        td role 
-        td #{targetUser.role}
-          a.btn.btn-default.btn-sm.pull-right
-            span.glyphicon.glyphicon-edit
-  center
-    form(action="/signup", method="POST", encType="multipart/form-data" data-toggle="validator").form-signup.form-horizontal
-      //- USERNAME INPUT
-      div.form-group.has-feedback
-        label(for="signup-username").control-label.col-md-4.col-sm-3.col-xs-12 Username:
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          input(
-            data-remote="/helpers/checkusername",
-            type="username",
-            placeholder = targetUser.username,
-            maxlength="15",
-            data-minlength="4",
-            pattern="^[a-zA-Z0-9]*$",
-            required, autofocus,
+  h3
+    | #{user.username}'s profile settings
+  form(action="/users/profile/" + targetUser.username + "/settings", method="POST", encType="multipart/form-data" data-toggle="validator")
+    .row
+      .col-xs-1.col-md-1
+        a#settings-username-btn.btn.btn-default.btn-xs
+          span.glyphicon.glyphicon-edit
+      .col-xs-4.col-md-2
+        label(for="settings-username-input") Username
+      .col-xs-6.col-md-3.form-group.has-feedback
+        span#settings-username-placeholder.show #{user.username}
+        span#settings-username-form.hide
+          input#settings-username-input.form-control(
+            type="username"
             name="username"
-            )#signup-username.form-control
+            data-remote="/helpers/checkusername"
+            maxlength="15"
+            data-minlength="4"
+            pattern="^[a-zA-Z0-9]*$"
+            placeholder= "Provide new username") 
           span(aria-hidden="true").glyphicon.form-control-feedback
-          div.with-errors
-
-      div.form-group.has-feedback
-        label(for="signup-email").control-label.col-md-4.col-sm-3.col-xs-12 Email:
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          input(
-            type="email",
-            placeholder="Email",
-            required, name="email",
-            data-error="Email format is invalid!",
-            pattern= "^[^@\s]+@[^@\s]+\.[^@\s]+$"
-            )#signup-email.form-control
-          span(aria-hidden="true").glyphicon.form-control-feedback
-          div.help-block.with-errors
-      div.form-group.has-feedback
-        label(for="signup-firstname").control-label.col-md-4.col-sm-3.col-xs-12 First name:
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          input(
-            type="text",
-            maxlength="20",
-            data-minlength="2",
-            pattern="^[a-zA-Z]*$",
-            placeholder="First name",
-            required,
+        .help-block.with-errors
+    .row
+      .col-xs-1.col-md-1
+        a#settings-firstname-btn.btn.btn-default.btn-xs
+          span.glyphicon.glyphicon-edit
+      .col-xs-4.col-md-2
+        label(for="settings-firstname-input") First name
+      .col-xs-6.col-md-3.form-group.has-feedback
+        span#settings-firstname-placeholder.show #{targetUser.firstName}
+        span#settings-firstname-form.hide
+          input#settings-firstname-input.form-control(
+            type="text"
             name="firstname"
-            )#signup-firstname.form-control
+            maxlength="20"
+            data-minlength="2"
+            pattern="^[a-zA-Z]*$"
+            placeholder= "Change first name")
           span(aria-hidden="true").glyphicon.form-control-feedback
-          div.help-block.with-errors
-      div.form-group.has-feedback
-        label(for="signup-lastname").control-label.col-md-4.col-sm-3.col-xs-12 Last name:
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          input(
-            type="text",
-            maxlength="20",
-            data-minlength="2",
-            pattern="^[a-zA-Z]*$",
-            placeholder="Last name",
-            required,
+        .help-block.with-errors
+    .row
+      .col-xs-1.col-md-1
+        a#settings-lastname-btn.btn.btn-default.btn-xs
+          span.glyphicon.glyphicon-edit
+      .col-xs-4.col-md-2
+        label(for="settings-lastname-input") Last name 
+      .col-xs-6.col-md-3.form-group.has-feedback
+        span#settings-lastname-placeholder.show #{targetUser.lastName}
+        span#settings-lastname-form.hide
+          input#settings-lastname-input.form-control(
+            type="text"
             name="lastname"
-            )#signup-lastname.form-control
+            maxlength="20"
+            data-minlength="2"
+            pattern="^[a-zA-Z]*$"
+            placeholder= "Change last name")
           span(aria-hidden="true").glyphicon.form-control-feedback
-          div.help-block.with-errors
-        
-      div.form-group.has-feedback
-        label(for="signup-password").control-label.col-md-4.col-sm-3.col-xs-12 Password: 
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          input(
-            type="password",
-            maxlength="20",
-            data-minlength="4",
-            placeholder = "Password",
-            required,
+        .help-block.with-errors
+    .row
+      .col-xs-1.col-md-1
+        a#settings-email-btn.btn.btn-default.btn-xs
+          span.glyphicon.glyphicon-edit
+      .col-xs-4.col-md-2
+        label(for="settings-email-input") E-mail
+      .col-xs-6.col-md-3.form-group.has-feedback
+        span#settings-email-placeholder.show #{targetUser.email}
+        span#settings-email-form.hide
+          input#settings-email-input.form-control(
+            type="text"
+            name="email"
+            maxlength="20"
+            data-minlength="2"
+            pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+            placeholder= "Provide new e-mail"
+            autocomplete="false")
+          span(aria-hidden="true").glyphicon.form-control-feedback
+        .help-block.with-errors
+    .row
+      .col-xs-1.col-md-1
+        a#settings-password-btn.btn.btn-default.btn-xs
+          span.glyphicon.glyphicon-edit
+      .col-xs-4.col-md-2
+        label(for="settings-password-input") Password
+      .col-xs-6.col-md-3.form-group.has-feedback
+        span#settings-password-placeholder.show
+          input.form-control(
+            type="password"
             name="password"
-            )#signup-password.form-control
+            maxlength="20"
+            data-minlength="4"
+            placeholder= "Change password")
           span(aria-hidden="true").glyphicon.form-control-feedback
-          div.help-block.with-errors
-      div.form-group.has-feedback
-        div.col-md-4.col-sm-3.col-xs-12
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          input(
-            type="password",
-            maxlength="20",
-            data-minlength="4",
-            placeholder = "Confirm password",
-            required,
-            name="passwordconfirm",
-            data-match="#signup-password",
-            data-match-error="Whoops, these don't match"
-            )#signup-password-confirm.form-control
+          .help-block.with-errors
+        span#settings-password-form.hide
+          input#settings-password-input.form-control(
+            type="password"
+            name="password-confirm"
+            data-match="#settings-password",
+            data-match-error="Provided passwords don't match'"
+            maxlength="20"
+            data-minlength="4"
+            placeholder="Confirm new password")
           span(aria-hidden="true").glyphicon.form-control-feedback
-          div.help-block.with-errors
-            //- input(type="password", placeholder = "Repeat password", required)#signup-password-repeat.form-control
-      div.form-group#avatar
-        label(for="signup-avatar").control-label.col-md-4.col-sm-3.col-xs-12 Avatar:
-        div.input-group.col-md-4.col-sm-6.col-xs-10
-          div.input-group
-            label.input-group-btn
-              span.btn.btn-default Browse... 
-                input(type="file", style="display: none;", accept="image/*", name="avatar")
-            input(
-              type="text",
-              readonly,
-              placeholder="No avatar selected"
-              )#avatar-text.form-control
-          center
-            div.avatar#avatar-preview
-              img(src="/img/avatars/default.png")
-      div.form-group
-        div.col-md-4.col-sm-3.col-xs-12
-        button(type="submit").btn.btn-info Sign up
+        .help-block.with-errors
+    .row
+      .col-md-12
+        br
+        button(type="submit").btn.btn-info Save all changes

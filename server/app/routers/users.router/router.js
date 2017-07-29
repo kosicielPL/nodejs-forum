@@ -17,5 +17,9 @@ module.exports = (data) => {
         return controller.generateSettingsView(req, res, next);
     });
 
+    router.post('/profile/:user/settings', (req, res, next) => {
+        return controller.updateUser(req, res, next);
+    });
+
     return router;
 };
