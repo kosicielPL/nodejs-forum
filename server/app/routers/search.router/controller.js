@@ -9,8 +9,8 @@ const init = (app, data, config) => {
 
         async showSearchResults(req, res, next) {
             const title = req.params.title;
-            let threadsPerPage = config.forums.forumView.threadsPerPage;
             let page = req.params.page;
+            let threadsPerPage = config.forums.forumView.threadsPerPage;
 
             if (page < 1 || typeof page === 'undefined') {
                 page = 1;
@@ -20,7 +20,8 @@ const init = (app, data, config) => {
                 threadsPerPage = 1;
             }
 
-            const threads = await data.threads.findByTitle(title);
+            const threads = await data.threads
+                .findByTitle(title, threadsPerPage, page);
 
             if (threads.length <= 0) {
                 return res.render('error', {
@@ -32,7 +33,9 @@ const init = (app, data, config) => {
                 });
             }
 
-            const dbThreadsCount = threads.length;
+            const dbThreads = await data.threads
+                .findByTitleLength(title);
+            const dbThreadsCount = dbThreads.length;
 
             let totalPages = dbThreadsCount / threadsPerPage;
             totalPages = Math.ceil(totalPages);

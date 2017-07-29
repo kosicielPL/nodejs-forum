@@ -2,12 +2,11 @@ const init = (data) => {
     const controller = {
         async generateUsersView(req, res) {
             const allUsers = await data.users.getAll();
-            let userLogged;
-            let result = allUsers;
             const page = parseInt(req.params.page, 10) || 1;
             const size = 12;
             const totalUsers = allUsers.length;
-
+            let userLogged;
+            let result = allUsers;
             let totalPages = allUsers.length / size;
             totalPages = Math.ceil(totalPages);
 
@@ -24,7 +23,7 @@ const init = (data) => {
             if (req.user) {
                 userLogged = req.user;
             }
-
+            // NOT THE BEST BUT CAN'T SORT IT IN MONGO ALPHABETICALLY
             result.sort(function(a, b) {
                 const nameA = a.username.toLowerCase();
                 const nameB = b.username.toLowerCase();
@@ -36,7 +35,7 @@ const init = (data) => {
                 }
                 return 0;
             });
-
+            // FIX ME
             result = result.slice((page - 1) * size, page * size);
 
             return res.render('users', {

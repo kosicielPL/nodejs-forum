@@ -54,29 +54,29 @@ block content
     div.pagination
       //- first page
       if currentPage > 3
-        a(href='/forums/' + forum.internalName + '/1').page-item 1
+        a(href='/search/' + title + '/1').page-item 1
       //- previous page
       if currentPage > 4
         span.page-item ...
       //- span.page-item ...
       //- page - 2
       if currentPage > 2
-        a(href='/forums/' + forum.internalName + '/' + (currentPage - 2)).page-item= currentPage - 2
+        a(href='/search/' + title + '/' + (currentPage - 2)).page-item= currentPage - 2
       //- page - 1
       if currentPage > 1
-        a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-item= currentPage - 1
+        a(href='/search/' + title + '/' + (currentPage - 1)).page-item= currentPage - 1
       //- current page
       if threadsCount > 0
         span.page-item.active= currentPage
       //- page + 1
       if totalPages > currentPage
-        a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-item= currentPage + 1
+        a(href='/search/' + title + '/' + (currentPage + 1)).page-item= currentPage + 1
       //- page + 2
       if totalPages > currentPage + 1
-        a(href='/forums/' + forum.internalName + '/' + (currentPage + 2)).page-item= currentPage + 2
+        a(href='/search/' + title + '/' + (currentPage + 2)).page-item= currentPage + 2
       //- next page
       if totalPages > currentPage + 3
         span.page-item ...
       //- last page
       if totalPages > currentPage + 2
-        a(href='/forums/' + forum.internalName + '/' + totalPages).page-item= totalPages
+        a(href='/search/' + title + '/' + totalPages).page-item= totalPages
