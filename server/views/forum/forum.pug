@@ -8,32 +8,41 @@ block currentPageCategory
   -var selected = 'forums';
 
 block navigationMenu
-  li
-    a(href='/forums/') Forums
-  li.active= forum.name
+  if isSearched
+    li
+      a(href='/forums/') Forums
+    li 
+      a(href='/forums/' + forum.internalName)
+        | #{forum.name}
+    li.active= searchedContent
+  else
+    li
+      a(href='/forums/') Forums
+    li.active= forum.name
 
 block logotext
   | #{forum.name}
 
 block content
-  div.row.collapse#search-form
-    div.container
-      form.form-inline.pull-right
-        div.input-group
-          input(type="text", name="search", placeholder="Search threads").form-control#search
-        | &nbsp;
-        button(type="submit").btn.btn-default Search
-  div.row.thread-controls
-    div.col-xs-6.thread-controls-left
-      if !forum.admin || (isLoggedIn && user.role === 'admin')
-        a(href="/forums/" + forum.internalName + "/new-thread").btn.btn-new-thread NEW THREAD
-    div.col-xs-6.thread-controls-right
-      button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
-        span.glyphicon.glyphicon-search
+  unless isSearched
+    div.row.collapse#search-form
+      div.container
+        form.form-inline.pull-right
+          div.input-group
+            input(type="text", name="search", placeholder="Search threads").form-control#search
+          | &nbsp;
+          button(type="submit").btn.btn-default Search
+    div.row.thread-controls
+      div.col-xs-6.thread-controls-left
+        if !forum.admin || (isLoggedIn && user.role === 'admin')
+          a(href="/forums/" + forum.internalName + "/new-thread").btn.btn-new-thread NEW THREAD
+      div.col-xs-6.thread-controls-right
+        button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
+          span.glyphicon.glyphicon-search
   if threads && threads.length <= 0
     div.container.text-center
       if isSearched
-        h2 We found nothing about '#{searchedContent}'
+        h1 We found nothing about '#{searchedContent}'
       else
         h2 This forums contains no threads :'(
         h2 But hey!
@@ -71,34 +80,66 @@ block content
             span.glyphicon.glyphicon-comment
             |   #{posts}
           div.col-sm-2.hidden-xs.thread-row-date= date
+  if searchedContent
+    div.row.forum-pagination
+      div.pagination
+        //- first page
+        if currentPage > 3
+          a(href='/forums/' + forum.internalName + '/1?search=' + searchedContent).page-item 1
+        //- previous page
+        if currentPage > 4
+          span.page-item ...
+        //- span.page-item ...
+        //- page - 2
+        if currentPage > 2
+          a(href='/forums/' + forum.internalName + '/' + (currentPage - 2) + '?search=' + searchedContent).page-item= currentPage - 2
+        //- page - 1
+        if currentPage > 1
+          a(href='/forums/' + forum.internalName + '/' + (currentPage - 1) + '?search=' + searchedContent).page-item= currentPage - 1
+        //- current page
+        if threadsCount > 0
+          span.page-item.active= currentPage
+        //- page + 1
+        if totalPages > currentPage
+          a(href='/forums/' + forum.internalName + '/' + (currentPage + 1) + '?search=' + searchedContent).page-item= currentPage + 1
+        //- page + 2
+        if totalPages > currentPage + 1
+          a(href='/forums/' + forum.internalName + '/' + (currentPage + 2) + '?search=' + searchedContent).page-item= currentPage + 2
+        //- next page
+        if totalPages > currentPage + 3
+          span.page-item ...
+        //- last page
+        if totalPages > currentPage + 2
+          a(href='/forums/' + forum.internalName + '/' + totalPages + '?search=' + searchedContent).page-item= totalPages
 
-  div.row.forum-pagination
-    div.pagination
-      //- first page
-      if currentPage > 3
-        a(href='/forums/' + forum.internalName + '/1').page-item 1
-      //- previous page
-      if currentPage > 4
-        span.page-item ...
-      //- span.page-item ...
-      //- page - 2
-      if currentPage > 2
-        a(href='/forums/' + forum.internalName + '/' + (currentPage - 2)).page-item= currentPage - 2
-      //- page - 1
-      if currentPage > 1
-        a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-item= currentPage - 1
-      //- current page
-      if threadsCount > 0
-        span.page-item.active= currentPage
-      //- page + 1
-      if totalPages > currentPage
-        a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-item= currentPage + 1
-      //- page + 2
-      if totalPages > currentPage + 1
-        a(href='/forums/' + forum.internalName + '/' + (currentPage + 2)).page-item= currentPage + 2
-      //- next page
-      if totalPages > currentPage + 3
-        span.page-item ...
-      //- last page
-      if totalPages > currentPage + 2
-        a(href='/forums/' + forum.internalName + '/' + totalPages).page-item= totalPages
+  else
+    div.row.forum-pagination
+      div.pagination
+        //- first page
+        if currentPage > 3
+          a(href='/forums/' + forum.internalName + '/1').page-item 1
+        //- previous page
+        if currentPage > 4
+          span.page-item ...
+        //- span.page-item ...
+        //- page - 2
+        if currentPage > 2
+          a(href='/forums/' + forum.internalName + '/' + (currentPage - 2)).page-item= currentPage - 2
+        //- page - 1
+        if currentPage > 1
+          a(href='/forums/' + forum.internalName + '/' + (currentPage - 1)).page-item= currentPage - 1
+        //- current page
+        if threadsCount > 0
+          span.page-item.active= currentPage
+        //- page + 1
+        if totalPages > currentPage
+          a(href='/forums/' + forum.internalName + '/' + (currentPage + 1)).page-item= currentPage + 1
+        //- page + 2
+        if totalPages > currentPage + 1
+          a(href='/forums/' + forum.internalName + '/' + (currentPage + 2)).page-item= currentPage + 2
+        //- next page
+        if totalPages > currentPage + 3
+          span.page-item ...
+        //- last page
+        if totalPages > currentPage + 2
+          a(href='/forums/' + forum.internalName + '/' + totalPages).page-item= totalPages

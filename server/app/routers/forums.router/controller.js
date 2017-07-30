@@ -39,6 +39,7 @@ const init = (app, data, config) => {
             }
 
             dbForum = dbForum[0];
+            let dbThreadsCount = dbForum.threads.length;
 
             let dbThreads =
                 await data.threads.getInForum(
@@ -46,13 +47,13 @@ const init = (app, data, config) => {
                 );
 
             if (search) {
-                dbThreads = dbThreads.filter((thread) => {
-                    return thread.title.toLowerCase().includes(search);
-                });
+                dbThreads = await data.threads
+                    .findByTitleID(search, dbForum._id, threadsPerPage, page);
                 isSearched = true;
+                const dblength = await data.threads
+                    .findByTitleLengthID(search, dbForum._id);
+                dbThreadsCount = dblength.length;
             }
-
-            const dbThreadsCount = dbForum.threads.length;
 
             let totalPages = dbThreadsCount / threadsPerPage;
             totalPages = Math.ceil(totalPages);

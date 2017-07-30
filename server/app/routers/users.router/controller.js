@@ -21,6 +21,11 @@ const init = (data) => {
                 );
             }
 
+            if (page > 1 && username !== req.query.username) {
+                const redirectTo = encodeURIComponent('req.query.username');
+                return res.redirect('/users/asdasd' + redirectTo);
+            }
+
             const users = await data.users
                 .getAllUsers(username, 12, page);
 

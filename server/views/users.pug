@@ -20,20 +20,21 @@ block logotext
   | Users
 
 block content
-  div.row.collapse#search-form
-    div.container
-      form.form-inline.pull-right
-        div.input-group
-          input(type="text", name="username", placeholder="Search users", autofocus).form-control#search
-        | &nbsp;
-        button(type="submit").btn.btn-default Search
-  div.row.thread-controls
-    div.col-xs-12.thread-controls-right
-      button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
-        span.glyphicon.glyphicon-search
-  if allUsers.length < 1
-    div.container.text-center
-      h2 There's nobody with the name '#{username}'
+  if currentPage < 2
+    div.row.collapse#search-form
+      div.container
+        form.form-inline.pull-right
+          div.input-group
+            input(type="text", name="username", placeholder="Search users", autofocus).form-control#search
+          | &nbsp;
+          button(type="submit").btn.btn-default Search
+    div.row.thread-controls
+      div.col-xs-12.thread-controls-right
+        button(data-toggle="collapse", data-target="#search-form").btn.btn-search-thread
+          span.glyphicon.glyphicon-search
+    if allUsers.length < 1
+      div.container.text-center
+        h2 There's nobody with the name '#{username}'
   div.container-fluid.users-container
     each user in allUsers
         div.col-lg-4.col-md-4.col-sm-6.col-xs-12.animated.bounceIn

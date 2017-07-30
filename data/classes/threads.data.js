@@ -15,6 +15,17 @@ class ThreadsData extends BaseData {
         return result;
     }
 
+    findByTitleLengthID(title, forumId) {
+        const result = this.collection
+            .find({
+                forum: new ObjectId(forumId),
+                title: { $regex: '(?i).*' + title + '.*' },
+            })
+            .toArray();
+
+        return result;
+    }
+
     findByTitle(title, resultsPerPage, page) {
         if (page < 1) {
             page = 1;
@@ -44,6 +55,48 @@ class ThreadsData extends BaseData {
             },
             ])
             .toArray();
+        return result;
+    }
+
+    findByTitleID(title, forumId, resultsPerPage, page) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        if (resultsPerPage < 0) {
+            resultsPerPage = 0;
+        }
+
+        let result = this.collection
+            .aggregate([{
+                '$match': {
+                    forum: new ObjectId(forumId),
+                    title: { $regex: '(?i).*' + title + '.*' },
+                },
+            },
+            {
+                '$sort': {
+                    dateUpdated: -1,
+                    dateCreated: 1,
+                },
+            },
+            {
+                '$skip': (page - 1) * resultsPerPage,
+            },
+            {
+                '$limit': resultsPerPage,
+            },
+            ])
+            .toArray();
+
+        if (this.ModelClass.toViewModel) {
+            result = result.then((models) => {
+                return models
+                    .map((model) =>
+                        this.ModelClass.toViewModel(model));
+            });
+        }
+
         return result;
     }
 
