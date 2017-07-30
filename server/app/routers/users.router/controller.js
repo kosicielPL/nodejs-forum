@@ -91,6 +91,8 @@ const init = (data, config) => {
             const buffer = {};
             const updateModel = {};
 
+            let usernameURLparameter = req.user.username;
+
             buffer.username = req.body.username;
             buffer.firstName = req.body.firstname;
             buffer.lastName = req.body.lastname;
@@ -106,18 +108,25 @@ const init = (data, config) => {
                 }
             });
 
-            await Promise.all(Object.keys(updateModel).map(async(key) => {
-                if (key !== 'password') {
-                    await validate.data(key, updateModel[key]);
-                } else if (key === 'password') {
-                    if (updateModel.hasOwnProperty('password')
-                        && updateModel.hasOwnProperty('passwordConfirm')) {
-                         await validate.data('password',
-                            [updateModel.password,
-                            updateModel.passwordConfirm]);
+            try {
+                await Promise.all(Object.keys(updateModel).map(async(key) => {
+                    if (key === 'password') {
+                        if (updateModel.hasOwnProperty('password')
+                            && updateModel.hasOwnProperty('passwordConfirm')) {
+                            await validate.data('password',
+                                [updateModel.password,
+                                updateModel.passwordConfirm]);
+                        }
+                    } else if (key === 'username') {
+                        await validate.data(key, updateModel[key]);
+                        usernameURLparameter = updateModel[key];
+                    } else {
+                        await validate.data(key, updateModel[key]);
                     }
-                }
-            }));
+                }));
+            } catch (error) {
+                return res.send(error.message);
+            }
 
             try {
                 await data.users.updateById(userId, updateModel);
@@ -127,9 +136,9 @@ const init = (data, config) => {
             }
 
             req.flash('success',
-                req.user.username + '\'s account updated.'
+                usernameURLparameter + '\'s account updated.'
             );
-            return res.redirect('/users/profile/' + req.user.username);
+            return res.redirect('/users/profile/' + usernameURLparameter);
         },
     };
 
