@@ -1,7 +1,7 @@
 module.exports = (app, data, config) => {
     const home = require('./routers/home.router')(app, data, config);
     const auth = require('./routers/auth.router')(data, config.users);
-    const users = require('./routers/users.router')(data);
+    const users = require('./routers/users.router')(data, config.users);
     const settings = require('./routers/settings.router')(data);
     const forums = require('./routers/forums.router')(app, data, config);
     const search = require('./routers/search.router')(app, data, config);

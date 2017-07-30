@@ -1,4 +1,4 @@
-const init = (data) => {
+const init = (data, config) => {
     const controller = {
         async generateUsersView(req, res) {
             const page = parseInt(req.params.page, 10) || 1;
@@ -84,6 +84,9 @@ const init = (data) => {
         },
 
         async updateUser(req, res) {
+            const validate = require('../../validator').init(config, data);
+            const hash = require('../../hasher').init();
+
             const userId = req.user._id;
             const buffer = {};
             const updateModel = {};
@@ -93,6 +96,7 @@ const init = (data) => {
             buffer.lastName = req.body.lastname;
             buffer.email = req.body.email;
             buffer.password = req.body.password;
+            buffer.passwordConfirm = req.body.passwordconfirm;
 
             Object.keys(buffer).forEach((key) => {
                 if (buffer[key] !== ''
@@ -102,11 +106,24 @@ const init = (data) => {
                 }
             });
 
+            await Promise.all(Object.keys(updateModel).map(async(key) => {
+                if (key !== 'password') {
+                    await validate.data(key, updateModel[key]);
+                } else if (key === 'password') {
+                    if (updateModel.hasOwnProperty('password')
+                        && updateModel.hasOwnProperty('passwordConfirm')) {
+                         await validate.data('password',
+                            [updateModel.password,
+                            updateModel.passwordConfirm]);
+                    }
+                }
+            }));
+
             try {
                 await data.users.updateById(userId, updateModel);
             } catch (error) {
                 console.log(error);
-                return res.send(error);
+                return res.send(error.message);
             }
 
             req.flash('success',

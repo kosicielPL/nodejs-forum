@@ -1,5 +1,21 @@
 const init = (config, data) => {
     const validate = {
+        async data(type, args) {
+            switch (type) {
+                case 'username':
+                    return this.username(args);
+                case 'firstName':
+                    return this.firstName(args);
+                case 'lastName':
+                    return this.lastName(args);
+                case 'email':
+                    return this.email(args);
+                case 'password':
+                    return this.password(args[0], args[1]);
+                default:
+                    throw Error('Validation data type not recognized!');
+            }
+        },
         async username(username) {
             const minLength = config.username.minLength;
             const maxLength = config.username.maxLength;
@@ -117,6 +133,7 @@ const init = (config, data) => {
             return true;
         },
 
+        // THIS IS HELL OF VALIDATION :D :D 
         async avatar(avatar) {
             return true;
         },

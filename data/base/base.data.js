@@ -71,11 +71,7 @@ class BaseData {
     updateById(id, model) {
         return this.collection.updateOne(
             { _id: id },
-            { $set: model },
-            function(err, result) {
-                if (err) console.log(err);
-                console.log(result);
-            }
+            { $set: model }
         );
     }
 
