@@ -39,4 +39,4 @@ Hosted at Amazon Web Services
 
 ### YOUTUBE VIDEO
 
-[https://www.youtube.com/watch?v=aFUZ-nV8v88](GO TO VIDEO)
+[GO TO VIDEO](https://www.youtube.com/watch?v=aFUZ-nV8v88)
