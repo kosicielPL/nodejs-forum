@@ -75,8 +75,6 @@ class BaseData {
         );
     }
 
-
-
     _isModelValid(model) {
         return this.validator.isValid(model);
     }

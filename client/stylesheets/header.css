@@ -211,6 +211,10 @@ select {
     color: #000 !important;
 }
 
+textarea {
+    resize: none;
+}
+
 .has-feedback-left input.form-control {
     padding-left: 34px;
     padding-right: 12px;

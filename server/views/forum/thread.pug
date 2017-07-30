@@ -1,11 +1,16 @@
 extends ../layout
 
+block globals
+  script.
+    var config = !{JSON.stringify(config.forums.post)}
+
 block styles
   link(rel='stylesheet', href='/stylesheets/forum/thread.css')
   link(rel='stylesheet', href='/stylesheets/forum/pagination.css')
 
 block scripts
   script(src='/js/forums/new-post.js')
+  script(src='/js/forums/edit-post.js')
   script(src='/lib/bootstrap-validator/dist/validator.js')
 
 block currentPageCategory
@@ -26,7 +31,9 @@ block content
   each post in posts
     -
       date = utils.dateFormat("D/M/YYYY", post.dateCreated)
+      dateUpdated = utils.dateFormat("D/M/YYYY", post.dateUpdated)
       time = utils.dateFormat("HH:mm", post.dateCreated)
+      timeUpdated = utils.dateFormat("HH:mm", post.dateUpdated)
       
     div(id=post._id, class=post.original ? "original-post" : "").container-fluid.post-container
       div.sidebar.post-left-part
@@ -42,9 +49,18 @@ block content
           div.post-author-posts= (post.author.posts ? post.author.posts.length : 0) + ' posts'
         span.pull-right.post-date.visible-sm.visible-xs &nbsp; #{date}
         span.pull-right.post-date.visible-sm.visible-xs= time
+        if isLoggedIn && (user.username === post.author.username) && post.original !== true
+          span.pull-right.post-date.visible-sm.visible-xs
+            a.edit-btn Edit
+            | &nbsp;
       div.post-right-part.container-fluid
         div.row.post-date.hidden-xs.hidden-sm= 'Posted on ' + date + ' at ' + time
+          if isLoggedIn && (user.username === post.author.username) && post.original !== true
+            a.edit-btn  Edit
         div.row.post-text!= utils.prepareThreadContent(post.content)
+        if post.dateCreated < post.dateUpdated && post.original !== true
+          div.row
+            small.edited-annotation= 'Edited on ' + dateUpdated + ' at ' + timeUpdated
         
   div.row.forum-pagination
     div.pagination
@@ -90,7 +106,7 @@ block content
           div.post-author-posts= (user.posts ? user.posts.length : 0) + ' posts'
       div.post-right-part.container-fluid
         div.row.new-post-content
-          form(action='/forums/thread/' + thread._id +'/new-post', method='post', data-toggle="validator")
+          form(action='/forums/thread/' + thread._id +'/', method='post', data-toggle="validator")
             div.form-group
               div.form-input
                 textarea(

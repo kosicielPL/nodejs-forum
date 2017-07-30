@@ -259,17 +259,82 @@ const init = (app, data, config) => {
 
             return res.redirect(url);
         },
+
+        async updatePost(req, res, next) {
+            const user = req.user;
+            const content = req.body.content;
+            const postId = data.generateObjectId(req.params.postId);
+            const validate = require('../../validator').init(config.forums);
+
+            try {
+                await validate.post(content);
+            } catch (error) {
+                res.writeHead(500, error);
+                return res.send();
+            }
+
+            const dbUser = await data.users.getById(user._id);
+            const dbPost = await data.posts.getById(postId);
+
+            if (dbPost.length <= 0) {
+                res.writeHead(500, 'No such post');
+                return res.send();
+            }
+
+            if (typeof dbPost.original !== 'undefined' &&
+                dbPost.original === true) {
+                res.writeHead(500, 'Threads can\'t be changed!');
+                return res.send();
+            }
+
+            if (dbPost.author.toString() !== dbUser._id.toString()) {
+                res.writeHead(500, 'Post is not yours to change');
+                return res.send();
+            }
+
+            dbPost.content = content;
+            dbPost.dateUpdated = new Date();
+
+            data.posts.updateById(dbPost._id, dbPost);
+
+            return res.sendStatus(200);
+        },
+
+        async getPost(req, res, next) {
+            const postId = req.params.postId;
+
+            if (postId.length !== 24) {
+                res.writeHead(500,
+                    'Invalid post id');
+                return res.send();
+            }
+
+            const dbPost = await data.posts.getById(postId);
+
+            if (dbPost.length <= 0) {
+                res.writeHead(500,
+                    'Post doesn\'t exist');
+                return res.send();
+            }
+
+            res.status(200);
+            return res.json({
+                id: dbPost._id,
+                content: dbPost.content,
+            });
+        },
     };
 
     return controller;
 };
 
 async function createNewPostInDb(data, author, content, thread, isOriginal) {
+    const timeNow = new Date();
     let createdPost = {
         thread: thread._id,
         content: content,
-        dateCreated: new Date(),
-        dateUpdated: new Date(),
+        dateCreated: timeNow,
+        dateUpdated: timeNow,
         author: author._id,
     };
 
