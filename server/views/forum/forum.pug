@@ -24,7 +24,7 @@ block logotext
   | #{forum.name}
 
 block content
-  unless isSearched
+  unless isSearched && threads.length > 0
     div.row.collapse#search-form
       div.container
         form.form-inline.pull-right
