@@ -5,7 +5,8 @@ const postContainerEl = '.post-container';
 const editContainerEl = '.post-right-part';
 
 function addEditClick() {
-    $(buttonEl).click(startEdit);
+    $(buttonEl).off();
+    $(buttonEl).on('click', startEdit);
 }
 
 $(document).ready(() => {
@@ -23,12 +24,14 @@ function startEdit() {
     getPostContent(targetPostId)
         .catch((error) => {
             toastr.error(error, 'ERROR');
+            stopEdit();
         })
         .then((content) => {
             $(editContainer).children().hide();
             const editHtml = $('<div class="row edit-content"/>');
             editHtml.load('/js/forums/edit-post.html', () => {
                 const textarea = editHtml.find('textarea');
+                $(editContainer).append(editHtml);
 
                 textarea.text(content);
                 textarea.height(textarea[0].scrollHeight);
@@ -49,9 +52,9 @@ function startEdit() {
                 editHtml.find('.edit-submit').click((e) => {
                     e.preventDefault();
                     if ($(this).hasClass('disabled') || sumbitClicked) {
-                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
-                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
-                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM, FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM, FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM, FUCKER', 'ERROR');
                         return;
                     }
                     sumbitClicked = true;
@@ -59,13 +62,16 @@ function startEdit() {
                     sendEditedPost(targetPostId, newContent)
                         .catch((error) => {
                             toastr.error(error, 'ERROR');
+                            stopEdit();
                         })
                         .then(() => {
                             loadEditedPost(targetPostId)
                                 .catch((error) => {
                                     toastr.error(error, 'ERROR');
+                                    stopEdit();
                                 })
                                 .then((html) => {
+                                    stopEdit();
                                     const currentPostContainer = $('#' + targetPostId);
                                     const udaptedPost = $(html).find('#' + targetPostId).children();
 
@@ -74,10 +80,7 @@ function startEdit() {
                                 });
                         });
                 });
-
             });
-
-            $(editContainer).append(editHtml);
         });
 }
 
