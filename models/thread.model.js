@@ -4,7 +4,8 @@ class Thread extends BaseModel {
     static isValid(model) {
         return typeof model !== 'undefined' &&
             typeof model.content === 'string' &&
-            model.content.length > 3;
+            typeof model.title === 'string' &&
+            typeof model.authorName === 'string';
     }
 
     static toViewModel(model) {

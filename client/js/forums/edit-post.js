@@ -1,4 +1,4 @@
-/* globals $, resizeTextarea, config */
+/* globals $, resizeTextarea, config, toastr */
 
 const buttonEl = '.edit-btn';
 const postContainerEl = '.post-container';
@@ -17,36 +17,68 @@ function startEdit() {
     const targetPost = $(this).closest(postContainerEl);
     const targetPostId = $(targetPost).attr('id');
     const editContainer = '#' + targetPostId + ' ' + editContainerEl;
-    $(editContainer).children().hide();
+    let sumbitClicked = false;
+
     scrollTo(editContainer);
+    getPostContent(targetPostId)
+        .catch((error) => {
+            toastr.error(error, 'ERROR');
+        })
+        .then((content) => {
+            $(editContainer).children().hide();
+            const editHtml = $('<div class="row edit-content"/>');
+            editHtml.load('/js/forums/edit-post.html', () => {
+                const textarea = editHtml.find('textarea');
 
-    const editHtml = $('<div class="row edit-content"/>');
+                textarea.text(content);
+                textarea.height(textarea[0].scrollHeight);
+                editHtml.find('form').validator();
+                editHtml.find('form').validator('validate');
+                textarea.attr({
+                    'data-minlength': config.minLength,
+                    'data-minlength-error': 'Content must be atleast ' +
+                        config.minLength +
+                        ' symbols',
+                    'maxlength': config.maxLength,
+                });
 
-    editHtml.load('/js/forums/edit-post.html', () => {
-        const textarea = editHtml.find('textarea');
-        textarea.attr('data-minlength', config.minLength);
-        textarea.attr(
-            'data-minlength-error',
-            'Content must be atleast ' + config.minLength + ' symbols'
-        );
-        textarea.attr('maxlength', config.maxLength);
-        getEditPost(targetPostId, textarea);
-        textarea.on('input', resizeTextarea);
-        editHtml.find('form').validator();
+                textarea.focus();
+                textarea.on('input', resizeTextarea);
 
-        editHtml.find('.edit-cancel').click(stopEdit);
-        editHtml.find('.edit-submit').click((e) => {
-            e.preventDefault();
-            if ($(this).hasClass('disabled')) {
-                return;
-            }
-            const newContent = textarea.val();
-            sendEditRequest(targetPostId, newContent);
+                editHtml.find('.edit-cancel').click(stopEdit);
+                editHtml.find('.edit-submit').click((e) => {
+                    e.preventDefault();
+                    if ($(this).hasClass('disabled') || sumbitClicked) {
+                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
+                        return;
+                    }
+                    sumbitClicked = true;
+                    const newContent = textarea.val();
+                    sendEditedPost(targetPostId, newContent)
+                        .catch((error) => {
+                            toastr.error(error, 'ERROR');
+                        })
+                        .then(() => {
+                            loadEditedPost(targetPostId)
+                                .catch((error) => {
+                                    toastr.error(error, 'ERROR');
+                                })
+                                .then((html) => {
+                                    const currentPostContainer = $('#' + targetPostId);
+                                    const udaptedPost = $(html).find('#' + targetPostId).children();
+
+                                    currentPostContainer.html(udaptedPost);
+                                    addEditClick();
+                                });
+                        });
+                });
+
+            });
+
+            $(editContainer).append(editHtml);
         });
-
-    });
-
-    $(editContainer).append(editHtml);
 }
 
 function stopEdit() {
@@ -55,85 +87,89 @@ function stopEdit() {
     $(editContainerEl).children().show();
 }
 
-function getEditPost(postId, targetContainer) {
+function getPostContent(postId) {
     const url = '/forums/post/' + postId;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        tryCount: 0,
-        retryLimit: 3,
-        timeout: 5000,
-        async: true,
-        success: (data) => {
-            targetContainer.text(data.content);
-            targetContainer.height(targetContainer[0].scrollHeight);
-            targetContainer.focus();
-            targetContainer.closest('form').validator('validate');
-        },
-        error: (xhr, status, error) => {
-            this.tryCount++;
-            if (status === 'timeout') {
-                if (this.tryCount <= this.retryLimit) {
-                    $.ajax(this);
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            tryCount: 0,
+            retryLimit: 3,
+            timeout: 5000,
+            async: true,
+            success: (data) => {
+                resolve(data.content);
+            },
+            error: (xhr, status, error) => {
+                this.tryCount++;
+                if (status === 'timeout') {
+                    if (this.tryCount <= this.retryLimit) {
+                        $.ajax(this);
+                    }
                 }
-            }
-            return;
-        },
+                reject(error);
+            },
+        });
     });
 }
 
-function sendEditRequest(postId, content) {
+function sendEditedPost(postId, content) {
     const url = '/forums/post/' + postId;
-    $.ajax({
-        url: url,
-        type: 'PUT',
-        tryCount: 0,
-        retryLimit: 3,
-        timeout: 5000,
-        async: true,
-        data: {
-            content: content,
-        },
-        success: () => {
-            changeContent(postId);
-        },
-        error: (xhr, status, error) => {
-            this.tryCount++;
-            if (status === 'timeout') {
-                if (this.tryCount <= this.retryLimit) {
-                    $.ajax(this);
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            tryCount: 0,
+            retryLimit: 3,
+            timeout: 5000,
+            async: true,
+            data: {
+                content: content,
+            },
+            success: () => {
+                resolve();
+            },
+            error: (xhr, status, error) => {
+                this.tryCount++;
+                if (status === 'timeout') {
+                    if (this.tryCount <= this.retryLimit) {
+                        $.ajax(this);
+                    }
                 }
-            }
-            return;
-        },
+
+                reject(error);
+            },
+        });
     });
 }
 
-function changeContent(postId) {
+function loadEditedPost(postId) {
     const url = window.location.href;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        tryCount: 0,
-        retryLimit: 3,
-        timeout: 5000,
-        async: true,
-        success: (data) => {
-            const currentPostContainer = $('#' + postId);
-            const udaptedPost = $(data).find('#' + postId).children();
 
-            currentPostContainer.html(udaptedPost);
-            addEditClick();
-        },
-        error: (xhr, status, error) => {
-            this.tryCount++;
-            if (status === 'timeout') {
-                if (this.tryCount <= this.retryLimit) {
-                    $.ajax(this);
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            tryCount: 0,
+            retryLimit: 3,
+            timeout: 5000,
+            async: true,
+            success: (data) => {
+                resolve(data);
+            },
+            error: (xhr, status, error) => {
+                this.tryCount++;
+                if (status === 'timeout') {
+                    if (this.tryCount <= this.retryLimit) {
+                        $.ajax(this);
+                    }
                 }
-            }
-            return;
-        },
+
+                reject(error);
+            },
+        });
     });
 }
 

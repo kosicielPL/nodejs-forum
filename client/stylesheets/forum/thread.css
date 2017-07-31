@@ -17,6 +17,9 @@
         vertical-align: top;
         min-height: 150px !important;
     }
+    .post-text {
+        min-height: 100px;
+    }
 }
 
 @media (max-width: 991px) {
@@ -115,8 +118,8 @@ a.post-author-name:focus {
     border: 0px;
     background: rgba(255, 255, 255, 0.03);
     padding: 0px;
-    word-wrap: break-word;
     word-break: break-all;
+    word-wrap: break-word;
 }
 
 .btn-ok {
@@ -163,4 +166,5 @@ a.post-author-name:focus {
 
 .edited-annotation {
     color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
 }
