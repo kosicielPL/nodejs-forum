@@ -13,6 +13,9 @@ const init = (data, config) => {
         },
 
         generateLoginView(req, res) {
+            if (typeof req.session.backURL === 'undefined') {
+                req.session.backURL = req.header('Referer');
+            }
             return res.render('user/login', {
                 title: 'Log in',
             });
@@ -106,14 +109,20 @@ const init = (data, config) => {
                     if (req.body.rememberme !== 'rememberme') {
                         req.session.cookie.expires = false;
                     }
-                    return res.redirect('/');
+                    if (res.locals.previousUrl) {
+                        return res.redirect(res.locals.previousUrl);
+                    }
+                    const backURL = req.session.backURL || '/';
+                    delete req.session.backURL;
+                    return res.redirect(backURL);
                 });
             })(req, res);
         },
 
         logout(req, res) {
+            const backUrl = req.header('Referer') || '/';
             req.logout();
-            return res.redirect('/');
+            return res.redirect(backUrl);
         },
     };
 
