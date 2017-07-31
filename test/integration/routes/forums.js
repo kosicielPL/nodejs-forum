@@ -5,6 +5,7 @@ const config = require('../../../server/config');
 describe('forums routing', () => {
     let app = null;
     let server = null;
+    let user;
 
     before(() => {
         process.env.NODE_ENV = 'test';
@@ -37,6 +38,7 @@ describe('forums routing', () => {
                     .init(server)
                     .then((io) => {
                         app.io = io;
+                        user = request.agent(server);
                         return Promise.resolve();
                     });
             });
@@ -101,6 +103,27 @@ describe('forums routing', () => {
         });
     });
     describe('/POST forums', () => {
+        it('/forums/general-discussion/new-thread', (done) => {
+            user
+                .post('/login')
+                .send({
+                    username: 'admin',
+                    password: 'admin',
+                })
+                .end((error, resolve) => {
+                    user
+                        .get('/forums/general-discussion/new-thread')
+                        .expect(200)
+                        .end((err, res) => {
+                            if (err) {
+                                done(err);
+                            }
+
+                            done();
+                        });
+                });
+        });
+
         it('/forums/:forum/new-thread', (done) => {
             request(server)
                 .post('/forums/:forum/new-thread')
@@ -113,6 +136,7 @@ describe('forums routing', () => {
                     return done();
                 });
         });
+
         it('/forums/thread/:id', (done) => {
             request(server)
                 .post('/forums/thread/:id')

@@ -31,7 +31,7 @@ describe('In Profile page', () => {
     });
 
     afterEach(() => {
-        driver.quit();
+        // driver.quit();
     });
 
     describe('when the page is loaded', () => {
