@@ -2,7 +2,7 @@ const request = require('supertest');
 const http = require('http');
 const config = require('../../../server/config');
 
-describe('users routing', () => {
+describe('settings routing', () => {
     let app = null;
     let server = null;
 
@@ -48,48 +48,10 @@ describe('users routing', () => {
         app = null;
     });
 
-    describe('GET /users', () => {
-        it('expect to return 200', (done) => {
+    describe('GET /settings (admin)', () => {
+        it('expect to return 404', (done) => {
             request(server)
-                .get('/users')
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-        it('if there is a second page - shoud return 200', (done) => {
-            request(server)
-                .get('/users/2')
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-        it('/users/profile/:user when valid :user', (done) => {
-            request(server)
-                .get('/users/profile/admin')
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-    });
-    describe('GET and expect 404', () => {
-        it('/users/profile/:user when invalid :user', (done) => {
-            request(server)
-                .get('/users/profile/asdasdasdf')
+                .get('/http://localhost:3000/users/profile/admin/settings')
                 .expect(404)
                 .end((err, res) => {
                     if (err) {

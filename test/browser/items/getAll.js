@@ -9,14 +9,14 @@ describe('Items routes', () => {
         driver = setupDriver('chrome');
     });
 
-    it('check telerikacademy.com title', () => {
-        return driver.get('http://telerikacademy.com')
+    it('check Big Test Icicles title', () => {
+        return driver.get('http://localhost:3000')
             .then(() => {
                 return driver.getTitle();
             })
             .then((title) => {
                 console.log(title);
-                expect(title).not.to.be.undefined;
+                expect(title).to.be.deep.equal('Big Test Icicles');
             });
     });
 });
