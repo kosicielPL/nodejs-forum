@@ -42,6 +42,7 @@ const init = (data, config) => {
                 await validate.timezone(timezone, timezones);
                 await validate.avatar(avatar);
             } catch (error) {
+                res.status(400);
                 return res.send(error.message);
             }
 
@@ -77,6 +78,7 @@ const init = (data, config) => {
                     timezone: timezone,
                 });
             } catch (error) {
+                res.status(400);
                 return res.send(error);
             }
 

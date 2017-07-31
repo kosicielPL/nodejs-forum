@@ -9,14 +9,28 @@ module.exports = (app, data, config) => {
         return controller.generateAllForumsView(req, res, next);
     });
 
+    router.get('/post/:postId', (req, res, next) => {
+        return controller.getPost(req, res, next);
+    });
+
+    router.put('/post/:postId', (req, res, next) => {
+        if (!req.user) {
+            return Promise.resolve()
+                .then(() => {
+                    return res.redirect('/login');
+                });
+        }
+        return controller.updatePost(req, res, next);
+    });
+
     // get page for new thread in forum
     router.get('/:forum/new-thread', (req, res, next) => {
         if (!req.user) {
             return Promise.resolve()
                 .then(() => {
                     return res.redirect('/login');
-                    });
-            }
+                });
+        }
         return controller.generateNewThreadView(req, res, next);
     });
 
@@ -26,19 +40,19 @@ module.exports = (app, data, config) => {
             return Promise.resolve()
                 .then(() => {
                     return res.redirect('/login');
-                    });
-            }
+                });
+        }
         return controller.createNewThread(req, res, next);
     });
 
     // post new post in thread lol
-    router.post('/thread/:thread/new-post', (req, res, next) => {
+    router.post('/thread/:thread/', (req, res, next) => {
         if (!req.user) {
             return Promise.resolve()
                 .then(() => {
                     return res.redirect('/login');
-                    });
-            }
+                });
+        }
         return controller.createNewPost(req, res, next);
     });
 

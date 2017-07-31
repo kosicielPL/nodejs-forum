@@ -48,6 +48,7 @@
     padding-bottom: 10px;
     font-size: 16px;
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 .post-avatar {
@@ -62,14 +63,14 @@
 }
 
 .post-author-name,
-.post-author-name:visited  {
+.post-author-name:visited {
     color: #fff;
     text-decoration: none;
     font-size: 16px;
 }
 
 a.post-author-name:hover,
-a.post-author-name:focus{
+a.post-author-name:focus {
     color: #ddd;
     text-decoration: none;
 }
@@ -89,13 +90,77 @@ a.post-author-name:focus{
 .post-container+.post-container {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .thread-title {
     word-wrap: break-word;
+    word-break: break-all;
 }
+
 #new-post-content {
     overflow: hidden;
     min-height: 200px;
+    word-break: break-all;
     color: #000;
     font-size: 16px;
     background: rgba(255, 255, 255, 0.8);
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.edit-content textarea {
+    overflow: hidden;
+    min-height: 85px;
+    color: #fff;
+    font-size: 16px;
+    border: 0px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.btn-ok {
+    color: greenyellow;
+}
+
+.btn-ok:hover {
+    color: green;
+}
+
+.btn-ok.disabled {
+    display: none;
+}
+
+.btn-cancel {
+    color: red;
+}
+
+.btn-cancel:hover {
+    color: darkred;
+}
+
+.edit-content .btn {
+    background: transparent;
+    margin: 0px !important;
+    font-size: 24px;
+    padding: 0px;
+}
+
+.edit-btn,
+.edit-btn:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#shadow {
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+    display: block;
+}
+
+.edited-annotation {
+    color: rgba(255, 255, 255, 0.6);
 }

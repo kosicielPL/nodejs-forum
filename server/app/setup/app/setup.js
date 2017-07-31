@@ -1,4 +1,4 @@
-/* globals __dirname */
+/* globals __dirname, process */
 
 const express = require('express');
 const path = require('path');
@@ -19,18 +19,20 @@ const applyTo = (app, config) => {
         return (req.user ? req.user.username : 'Annonymous');
     });
 
-    app.use(logger(
-        ':user'.yellow +
-        ' @ ' +
-        ':remote-addr'.gray +
-        ' -> ' +
-        ':method'.magenta +
-        ' ' +
-        ':url'.gray +
-        ' ' +
-        ':status'.yellow +
-        ' in '.gray +
-        ':response-time ms'));
+    if (process.env.NODE_ENV !== 'test') {
+        app.use(logger(
+            ':user'.yellow +
+            ' @ ' +
+            ':remote-addr'.gray +
+            ' -> ' +
+            ':method'.magenta +
+            ' ' +
+            ':url'.gray +
+            ' ' +
+            ':status'.yellow +
+            ' in '.gray +
+            ':response-time ms'));
+    }
 
     app.use(favicon(path.join(__dirname, '../../../../client', 'favicon.ico')));
     app.use(fileUpload());
