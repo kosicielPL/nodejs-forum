@@ -6,7 +6,7 @@
     "start": "node ./server",
     "test": "mocha ./test/**/*.js",
     "coverage:unit": "istanbul cover node_modules/mocha/bin/_mocha test/unit/**/*.js -- -R spec",
-    "coverage:integration": "istanbul cover node_modules/mocha/bin/_mocha test/integration/**/*.js -- -R spec --timeout 5000",
+    "coverage:integration": "istanbul cover node_modules/mocha/bin/_mocha test/integration/**/*.js -- -R spec --timeout 0",
     "selenium": "istanbul cover node_modules/mocha/bin/_mocha test/browser/**/*.js -- -R spec --timeout 0"
   },
   "dependencies": {

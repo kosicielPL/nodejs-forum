@@ -64,7 +64,7 @@ async function initializeApp(data, configuration) {
     try {
         app =
             await require('./app')
-            .init(data, config.options, connectionString)
+            .init(data, config.options, connectionString);
     } catch (error) {
         console.log('Error initializing app!'.bgRed.white);
         console.log(error);

@@ -100,4 +100,30 @@ describe('forums routing', () => {
                 });
         });
     });
+    describe('/POST forums', () => {
+        it('/forums/:forum/new-thread', (done) => {
+            request(server)
+                .post('/forums/:forum/new-thread')
+                .expect(302)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+        it('/forums/thread/:id', (done) => {
+            request(server)
+                .post('/forums/thread/:id')
+                .expect(302)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+    });
 });
