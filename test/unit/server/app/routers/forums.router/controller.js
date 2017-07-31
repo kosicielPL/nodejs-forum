@@ -3,7 +3,7 @@ const {
 } = require('chai');
 const {
     init,
-} = require('../../../../../../server/app/routers/home.router/controller');
+} = require('../../../../../../server/app/routers/forums.router/controller');
 const config = require('../../../../../../server/config');
 
 describe('forums router', () => {
@@ -16,8 +16,8 @@ describe('forums router', () => {
 
     beforeEach(() => {
         data = {
-            forums: {
-                getAdminContent(count) {
+            categories: {
+                getAll() {
                     return Promise.resolve(items);
                 },
             },
@@ -28,14 +28,14 @@ describe('forums router', () => {
         res = require('../../../../req-res').getResponseMock();
     });
 
-    it('expects to get result', () => {
-        return controller.generateHomeView(req, res)
+    it('generateAllForumsView()', () => {
+        return controller.generateAllForumsView(req, res)
             .then(() => {
                 expect(res.options).to.be.deep.equal({
-                    title: 'Big Test Icicles',
-                    forums: items,
+                    title: 'Forums',
+                    categories: items,
                 });
-                expect(res.viewName).to.be.equal('home');
+                expect(res.viewName).to.be.equal('forum/categories');
             });
     });
 });
