@@ -118,8 +118,8 @@ a.post-author-name:focus {
     border: 0px;
     background: rgba(255, 255, 255, 0.03);
     padding: 0px;
-    word-wrap: break-word;
     word-break: break-all;
+    word-wrap: break-word;
 }
 
 .btn-ok {
