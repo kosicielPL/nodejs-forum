@@ -28,7 +28,8 @@ describe('home routing', () => {
         return Promise.resolve()
             .then(() => require('../../../db').init(connectionString))
             .then((db) => require('../../../data').init(db))
-            .then((data) => require('../../../server/app').init(data, config.options, connectionString))
+            .then((data) => require('../../../server/app')
+                .init(data, config.options, connectionString))
             .then((_app) => {
                 app = _app;
                 server = http.createServer(app);

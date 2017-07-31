@@ -2,7 +2,7 @@ const request = require('supertest');
 const http = require('http');
 const config = require('../../../server/config');
 
-describe('about routing', () => {
+describe('users routing', () => {
     let app = null;
     let server = null;
 
@@ -48,11 +48,37 @@ describe('about routing', () => {
         app = null;
     });
 
-    describe('GET /', () => {
+    describe('GET /users', () => {
         it('expect to return 200', (done) => {
             request(server)
-                .get('/about')
+                .get('/users')
                 .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+        it('/users/profile/:user when valid :user', (done) => {
+            request(server)
+                .get('/users/profile/admin')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+    });
+    describe('GET and expect 404', () => {
+        it('/users/profile/:user when invalid :user', (done) => {
+            request(server)
+                .get('/users/profile/asdasdasdf')
+                .expect(404)
                 .end((err, res) => {
                     if (err) {
                         return done(err);

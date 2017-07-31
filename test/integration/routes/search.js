@@ -2,7 +2,7 @@ const request = require('supertest');
 const http = require('http');
 const config = require('../../../server/config');
 
-describe('about routing', () => {
+describe('search routing', () => {
     let app = null;
     let server = null;
 
@@ -47,12 +47,49 @@ describe('about routing', () => {
         server = null;
         app = null;
     });
-
-    describe('GET /', () => {
-        it('expect to return 200', (done) => {
+    describe('GET /search', () => {
+        it('/search without login', (done) => {
             request(server)
-                .get('/about')
+                .get('/search')
+                .expect(302)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+        it('/search logged in', (done) => {
+            request(server)
+                .get('/search')
                 .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+        it('/search/:title when valid :title', (done) => {
+            request(server)
+                .get('/search/test')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+    });
+    describe('GET and expect 404', () => {
+        it('/search/:title when invalid :title', (done) => {
+            request(server)
+                .get('/search/asdasdasdf')
+                .expect(404)
                 .end((err, res) => {
                     if (err) {
                         return done(err);

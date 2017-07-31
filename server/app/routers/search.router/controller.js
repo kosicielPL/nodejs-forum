@@ -24,13 +24,11 @@ const init = (app, data, config) => {
                 .findByTitle(title, threadsPerPage, page);
 
             if (threads.length <= 0) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Nothing found about \'' + title + '\'',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error(
+                    'Nothing found about \'' + title + '\''
+                );
+                error.status = 404;
+                return next(error);
             }
 
             const dbThreads = await data.threads

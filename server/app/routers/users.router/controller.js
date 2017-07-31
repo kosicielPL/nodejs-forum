@@ -23,7 +23,7 @@ const init = (data, config) => {
 
             if (page > 1 && username !== req.query.username) {
                 const redirectTo = encodeURIComponent('req.query.username');
-                return res.redirect('/users/asdasd' + redirectTo);
+                return res.redirect('/users/' + redirectTo);
             }
 
             const users = await data.users
@@ -45,18 +45,24 @@ const init = (data, config) => {
             });
         },
 
-        async generateProfileView(req, res) {
+        async generateProfileView(req, res, next) {
             const targetUsername = req.params.user;
             const targetUser = await data.users.findByUsername(targetUsername);
 
+            // if (!targetUser) {
+            //     return res.render('error', {
+            //         title: 'Error 404',
+            //         message: 'User not found',
+            //         error: {
+            //             status: 404,
+            //         },
+            //     });
+            // }
+
             if (!targetUser) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'User not found',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('User not found');
+                error.status = 404;
+                return next(error);
             }
 
             return res.render('user/profile', {
@@ -109,7 +115,7 @@ const init = (data, config) => {
             });
 
             try {
-                await Promise.all(Object.keys(updateModel).map(async(key) => {
+                await Promise.all(Object.keys(updateModel).map(async (key) => {
                     if (key === 'password') {
                         if (updateModel.hasOwnProperty('password')
                             && updateModel.hasOwnProperty('passwordConfirm')) {
