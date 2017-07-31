@@ -5,6 +5,7 @@ const config = require('../../../server/config');
 describe('users routing', () => {
     let app = null;
     let server = null;
+    let user;
 
     before(() => {
         process.env.NODE_ENV = 'test';
@@ -37,6 +38,7 @@ describe('users routing', () => {
                     .init(server)
                     .then((io) => {
                         app.io = io;
+                        user = request.agent(server);
                         return Promise.resolve();
                     });
             });
@@ -143,58 +145,30 @@ describe('users routing', () => {
     // });
 
     describe('/POST tests:', () => {
-        const user = {
-            username: 'test',
-            password: 'test',
-            email: 'test',
-            firstName: 'test',
-            lastName: 'test',
-            country: 'Bulgaria',
-            dateJoined: 'test',
-            avatar: '',
-            role: 'user',
-            posts: [],
-            threads: [],
-            timezone: 'Africa/Addis_Ababa',
-        };
-        const profile = {
-            username: 'test',
-            email: 'test',
-            firstName: 'test',
-            lastName: 'test',
-        };
+        // const user = {
+        //     username: 'test',
+        //     password: 'test',
+        //     email: 'test',
+        //     firstName: 'test',
+        //     lastName: 'test',
+        //     country: 'Bulgaria',
+        //     dateJoined: 'test',
+        //     avatar: '',
+        //     role: 'user',
+        //     posts: [],
+        //     threads: [],
+        //     timezone: 'Africa/Addis_Ababa',
+        // };
+        // const profile = {
+        //     username: 'test',
+        //     email: 'test',
+        //     firstName: 'test',
+        //     lastName: 'test',
+        // };
         const login = {
             username: 'test',
             password: 'test',
         };
-
-        it.skip('expect to get 200 from /signup', (done) => {
-            request(server)
-                .post('/signup')
-                .send(user)
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-
-        it.skip('expect to get 200 from users/profile/:id/settings', (done) => {
-            request(server)
-                .post('users/profile/:id/settings')
-                .send(profile)
-                .expect(301)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
 
         it('expect to get 302 from /login', (done) => {
             request(server)
@@ -209,6 +183,5 @@ describe('users routing', () => {
                     return done();
                 });
         });
-
     });
 });
