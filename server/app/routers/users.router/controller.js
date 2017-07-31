@@ -49,16 +49,6 @@ const init = (data, config) => {
             const targetUsername = req.params.user;
             const targetUser = await data.users.findByUsername(targetUsername);
 
-            // if (!targetUser) {
-            //     return res.render('error', {
-            //         title: 'Error 404',
-            //         message: 'User not found',
-            //         error: {
-            //             status: 404,
-            //         },
-            //     });
-            // }
-
             if (!targetUser) {
                 const error = new Error('User not found');
                 error.status = 404;
@@ -103,8 +93,8 @@ const init = (data, config) => {
             buffer.firstName = req.body.firstname;
             buffer.lastName = req.body.lastname;
             buffer.email = req.body.email;
-            buffer.password = req.body.password;
-            buffer.passwordConfirm = req.body.passwordconfirm;
+            buffer.password = hash.password(req.body.password);
+            const passwordConfirm = hash.password(req.body.passwordconfirm);
 
             Object.keys(buffer).forEach((key) => {
                 if (buffer[key] !== ''
@@ -115,13 +105,13 @@ const init = (data, config) => {
             });
 
             try {
-                await Promise.all(Object.keys(updateModel).map(async (key) => {
+                await Promise.all(Object.keys(updateModel).map(async(key) => {
                     if (key === 'password') {
                         if (updateModel.hasOwnProperty('password')
                             && updateModel.hasOwnProperty('passwordConfirm')) {
                             await validate.data('password',
                                 [updateModel.password,
-                                updateModel.passwordConfirm]);
+                                passwordConfirm]);
                         }
                     } else if (key === 'username') {
                         await validate.data(key, updateModel[key]);
@@ -131,19 +121,14 @@ const init = (data, config) => {
                     }
                 }));
             } catch (error) {
-                return res.send(error.message);
+                console.log(error);
             }
 
             try {
                 await data.users.updateById(userId, updateModel);
             } catch (error) {
-                console.log(error);
-                return res.send(error.message);
+                return res.send(error);
             }
-
-            req.flash('success',
-                usernameURLparameter + '\'s account updated.'
-            );
             return res.redirect('/users/profile/' + usernameURLparameter);
         },
     };

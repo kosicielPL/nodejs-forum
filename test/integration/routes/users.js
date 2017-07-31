@@ -85,6 +85,19 @@ describe('users routing', () => {
                     return done();
                 });
         });
+
+        it('expect to get 302 from /logout', (done) => {
+            request(server)
+                .get('/logout')
+                .expect(302)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
     });
     describe('GET and expect 404', () => {
         it('/users/profile/:user when invalid :user', (done) => {
@@ -99,5 +112,103 @@ describe('users routing', () => {
                     return done();
                 });
         });
+    });
+
+    // describe('/POST /signup', () => {
+    //     it('expect to return 200', (done) => {
+    //         request(server)
+    //             .post('/signup')
+    //             .send({
+    //                 username: 'test1234',
+    //                 password: 'test1234',
+    //                 email: 'test@bigtesticicles.com',
+    //                 firstName: 'test',
+    //                 lastName: 'test',
+    //                 country: 'Bulgaria',
+    //                 dateJoined: '2017-07-27 19:01:32.193Z',
+    //                 avatar: '',
+    //                 role: 'user',
+    //                 posts: [],
+    //                 threads: [],
+    //                 timezone: 'Africa/Addis_Ababa',
+    //             })
+    //             .expect(200)
+    //             .end((err, res) => {
+    //                 if (err) {
+    //                     return done(err);
+    //                 }
+    //                 return done();
+    //             });
+    //     });
+    // });
+
+    describe('/POST tests:', () => {
+        const user = {
+            username: 'test',
+            password: 'test',
+            email: 'test',
+            firstName: 'test',
+            lastName: 'test',
+            country: 'Bulgaria',
+            dateJoined: 'test',
+            avatar: '',
+            role: 'user',
+            posts: [],
+            threads: [],
+            timezone: 'Africa/Addis_Ababa',
+        };
+        const profile = {
+            username: 'test',
+            email: 'test',
+            firstName: 'test',
+            lastName: 'test',
+        };
+        const login = {
+            username: 'test',
+            password: 'test',
+        };
+
+        it.skip('expect to get 200 from /signup', (done) => {
+            request(server)
+                .post('/signup')
+                .send(user)
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+
+        it.skip('expect to get 200 from users/profile/:id/settings', (done) => {
+            request(server)
+                .post('users/profile/:id/settings')
+                .send(profile)
+                .expect(301)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+
+        it('expect to get 302 from /login', (done) => {
+            request(server)
+                .post('/login')
+                .send(login)
+                .expect(302)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+
     });
 });

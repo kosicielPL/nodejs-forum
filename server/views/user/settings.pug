@@ -1,10 +1,15 @@
 extends ../layout
 
+block globals
+  script.
+    var config = !{JSON.stringify(config.users)}
+
 block styles
   link(rel='stylesheet', href='/stylesheets/user/settings.css')
 
 block scripts
   script(src='/js/user/settings.js')
+  script(src='/lib/bootstrap-validator/dist/validator.js')
 
 block navigationMenu
   li Users 
@@ -28,9 +33,11 @@ block content
             type="username"
             name="username"
             data-remote="/helpers/checkusername"
-            maxlength="15"
-            data-minlength="4"
-            pattern="^[a-zA-Z0-9]*$"
+            maxlength=config.users.username.maxLength
+            data-minlength=config.users.username.minLength
+            data-minlength-error="Username must be atleast " + config.users.username.minLength + " symbols"
+            pattern=config.users.username.regex
+            data-pattern-error=config.users.username.regexError
             placeholder= "Provide new username") 
           span(aria-hidden="true").glyphicon.form-control-feedback
         .help-block.with-errors
@@ -46,8 +53,9 @@ block content
           input#settings-firstname-input.form-control(
             type="text"
             name="firstname"
-            maxlength="20"
-            data-minlength="2"
+            maxlength=config.users.firstName.maxLength
+            data-minlength=config.users.firstName.minLength
+            data-minlength-error="First name must be atleast " + config.users.firstName.minLength + " letters"
             pattern="^[a-zA-Z]*$"
             placeholder= "Change first name")
           span(aria-hidden="true").glyphicon.form-control-feedback
@@ -64,8 +72,9 @@ block content
           input#settings-lastname-input.form-control(
             type="text"
             name="lastname"
-            maxlength="20"
-            data-minlength="2"
+            maxlength=config.users.lastName.maxLength
+            data-minlength=config.users.lastName.minLength
+            data-minlength-error="Last name must be atleast " + config.users.lastName.minLength + " letters"
             pattern="^[a-zA-Z]*$"
             placeholder= "Change last name")
           span(aria-hidden="true").glyphicon.form-control-feedback
@@ -80,14 +89,14 @@ block content
         span#settings-email-placeholder.show #{targetUser.email}
         span#settings-email-form.hide
           input#settings-email-input.form-control(
-            type="text"
+            type="email"
             name="email"
-            maxlength="20"
-            data-minlength="2"
-            pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+            data-remote="/helpers/checkemail"
+            pattern=config.users.email.regex
+            data-pattern-error="Please enter a valid email"
             placeholder= "Provide new e-mail"
             autocomplete="false")
-          span(aria-hidden="true").glyphicon.form-control-feedback
+          //- span(aria-hidden="true").glyphicon.form-control-feedback
         .help-block.with-errors
     .row
       .col-xs-1.col-md-1
@@ -97,11 +106,12 @@ block content
         label(for="settings-password-input") Password
       .col-xs-6.col-md-3.form-group.has-feedback
         span#settings-password-placeholder.show
-          input.form-control(
+          input#settings-password.form-control(
             type="password"
             name="password"
-            maxlength="20"
-            data-minlength="4"
+            maxlength=config.users.password.maxLength
+            data-minlength=config.users.password.minLength
+            data-minlength-error="Password must be atleast " + config.users.password.minLength + " symbols"
             placeholder= "Change password")
           span(aria-hidden="true").glyphicon.form-control-feedback
           .help-block.with-errors
@@ -109,10 +119,11 @@ block content
           input#settings-password-input.form-control(
             type="password"
             name="passwordconfirm"
+            maxlength=config.users.password.maxLength
+            data-minlength=config.users.password.minLength
+            data-minlength-error="Password must be atleast " + config.users.password.minLength + " symbols"
             data-match="#settings-password",
-            data-match-error="Provided passwords don't match'"
-            maxlength="20"
-            data-minlength="4"
+            data-match-error="Provided passwords don't match"
             placeholder="Confirm new password")
           span(aria-hidden="true").glyphicon.form-control-feedback
         .help-block.with-errors
