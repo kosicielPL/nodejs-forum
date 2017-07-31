@@ -17,6 +17,9 @@
         vertical-align: top;
         min-height: 150px !important;
     }
+    .post-text {
+        min-height: 100px;
+    }
 }
 
 @media (max-width: 991px) {
@@ -163,4 +166,5 @@ a.post-author-name:focus {
 
 .edited-annotation {
     color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
 }

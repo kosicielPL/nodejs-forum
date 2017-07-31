@@ -3,8 +3,9 @@ const BaseModel = require('./base/base.model');
 class Forum extends BaseModel {
     static isValid(model) {
         return typeof model !== 'undefined' &&
-            typeof model.text === 'string' &&
-            model.text.length > 3;
+            typeof model.name === 'string' &&
+            typeof model.internalName === 'string' &&
+            typeof model.description === 'string';
     }
 
     static toViewModel(model) {

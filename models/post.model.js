@@ -3,8 +3,7 @@ const BaseModel = require('./base/base.model');
 class Post extends BaseModel {
     static isValid(model) {
         return typeof model !== 'undefined' &&
-            typeof model.content === 'string' &&
-            model.content.length > 3;
+            typeof model.content === 'string';
     }
 
     static toViewModel(model) {

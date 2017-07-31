@@ -2,29 +2,11 @@ const BaseModel = require('./base/base.model');
 
 class User extends BaseModel {
     static isValid(model) {
-        const regex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        if (typeof model === 'undefined') {
-            return false;
-        }
-        if (typeof model.username !== 'string' &&
-            model.username.length < 4) {
-            return false;
-        }
-        if (model.password < 6) {
-            return false;
-        }
-        if (!regex.test(model.email)) {
-            return false;
-        }
-        if (typeof model.firstName !== 'string' &&
-            model.firstName.length < 3) {
-            return false;
-        }
-        if (typeof model.firstName !== 'string' &&
-            model.firstName.length < 3) {
-            return false;
-        }
-        return true;
+        return typeof model !== 'undefined' &&
+            typeof model.username === 'string' &&
+            typeof model.firstName === 'string' &&
+            typeof model.lastName === 'string' &&
+            typeof model.password !== 'undefined';
     }
 
     static toViewModel(model) {
