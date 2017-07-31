@@ -29,13 +29,9 @@ const init = (app, data, config) => {
                 await data.forums.getByCriteria('internalName', forumName);
 
             if (!dbForum || dbForum.length <= 0) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Forum not found',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('Forum not found');
+                error.status = 404;
+                return next(error);
             }
 
             dbForum = dbForum[0];
@@ -90,25 +86,17 @@ const init = (app, data, config) => {
             }
 
             if (threadId.length !== 24) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Invalid thread ID',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('Invalid thread id');
+                error.status = 404;
+                return next(error);
             }
 
             const dbThread = await data.threads.getById(threadId);
 
             if (dbThread === null) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Thread not found',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('Thread not found');
+                error.status = 404;
+                return next(error);
             }
 
             const dbPosts =
@@ -144,7 +132,9 @@ const init = (app, data, config) => {
                 .getByCriteria('internalName', req.params.forum);
 
             if (dbForum.length <= 0) {
-                return res.send('Forum not found');
+                const error = new Error('Forum not found');
+                error.status = 404;
+                return next(error);
             }
 
             if (dbForum[0].admin === true &&
@@ -164,13 +154,9 @@ const init = (app, data, config) => {
             const threadId = req.params.thread;
 
             if (threadId.length !== 24) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Invalid thread id',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('Invalid thread id');
+                error.status = 404;
+                return next(error);
             }
 
             try {
@@ -183,13 +169,9 @@ const init = (app, data, config) => {
             dbThread = await data.threads.getById(threadId);
 
             if (dbThread === null) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Thread not found',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('Thread not found');
+                error.status = 404;
+                return next(error);
             }
 
             const createdPost =
@@ -226,13 +208,9 @@ const init = (app, data, config) => {
             }
 
             if (dbForum.length <= 0) {
-                return res.render('error', {
-                    title: 'Error 404',
-                    message: 'Forum not found',
-                    error: {
-                        status: 404,
-                    },
-                });
+                const error = new Error('Forum not found');
+                error.status = 404;
+                return next(error);
             }
 
             const dbThread = await data.threads.create({

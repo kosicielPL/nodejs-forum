@@ -6,12 +6,6 @@ module.exports = (app, data, config) => {
 
     // all forums
     router.get('/', (req, res, next) => {
-        if (!req.user) {
-            return Promise.resolve()
-                .then(() => {
-                    return res.redirect('/login');
-                });
-        }
         return controller.generateAllForumsView(req, res, next);
     });
 
@@ -20,6 +14,12 @@ module.exports = (app, data, config) => {
     });
 
     router.put('/post/:postId', (req, res, next) => {
+        if (!req.user) {
+            return Promise.resolve()
+                .then(() => {
+                    return res.redirect('/login');
+                });
+        }
         return controller.updatePost(req, res, next);
     });
 

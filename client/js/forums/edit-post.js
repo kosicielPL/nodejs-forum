@@ -20,7 +20,6 @@ function startEdit() {
     $(editContainer).children().hide();
     scrollTo(editContainer);
 
-    const content = $(editContainer).find('.row.post-text').text();
     const editHtml = $('<div class="row edit-content"/>');
 
     editHtml.load('/js/forums/edit-post.html', () => {

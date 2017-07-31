@@ -5,13 +5,30 @@ const config = require('../../../server/config');
 describe('forums routing', () => {
     let app = null;
     let server = null;
+    
+    before(() => {
+        process.env.NODE_ENV = 'test';
+        let connectionString = 'mongodb://';
 
-    beforeEach(() => {
+        if (config.database.password.length > 0 &&
+            config.database.username.length > 0) {
+            connectionString +=
+                config.database.username +
+                ':' +
+                config.database.password +
+                '@';
+        }
+
+        connectionString +=
+            config.database.host +
+            ':' +
+            config.database.port +
+            '/' +
+            config.database.dbName;
         return Promise.resolve()
-            .then(() => require('../../../db').init(config.database))
+            .then(() => require('../../../db').init(connectionString))
             .then((db) => require('../../../data').init(db))
-            .then((data) => require('../../../server/app')
-                .init(data, config.options))
+            .then((data) => require('../../../server/app').init(data, config.options, connectionString))
             .then((_app) => {
                 app = _app;
                 server = http.createServer(app);
@@ -19,11 +36,31 @@ describe('forums routing', () => {
                     .init(server)
                     .then((io) => {
                         app.io = io;
+                        return Promise.resolve();
                     });
             });
     });
-    describe('GET /', () => {
-        it('expect to return 200', (done) => {
+
+    after(() => {
+        server.close();
+        server = null;
+        app = null;
+    });
+
+    describe('GET and expect 200', () => {
+        it('/', (done) => {
+            request(server)
+                .get('/')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+        it('/forums/', (done) => {
             request(server)
                 .get('/forums')
                 .expect(200)
@@ -35,23 +72,7 @@ describe('forums routing', () => {
                     return done();
                 });
         });
-    });
-    describe('GET /forums/', () => {
-        it('expect to return 200', (done) => {
-            request(server)
-                .get('/forums/')
-                .expect(200)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-    });
-    describe('GET /forums/:forum', () => {
-        it('expect to return 200 when valid :forum', (done) => {
+        it('/forums/:forum when valid :forum', (done) => {
             request(server)
                 .get('/forums/general-discussion')
                 .expect(200)
@@ -64,11 +85,11 @@ describe('forums routing', () => {
                 });
         });
     });
-    describe('GET /forums/:forum', () => {
-        it('expect to return 404 when invalid :forum', (done) => {
+    describe('GET and expect 404', () => {
+        it('/forums/:forum when invalid :forum', (done) => {
             request(server)
                 .get('/forums/afaf')
-                .expect(200)
+                .expect(404)
                 .end((err, res) => {
                     if (err) {
                         return done(err);
