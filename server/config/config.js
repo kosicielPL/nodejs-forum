@@ -1,9 +1,9 @@
 const database = {
     host: 'localhost',
     port: 27017,
-    dbName: 'forum2',
-    username: 'kostek',
-    password: '1234',
+    dbName: 'forum',
+    username: '',
+    password: '',
 };
 
 const server = {
