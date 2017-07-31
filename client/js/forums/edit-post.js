@@ -1,4 +1,4 @@
-/* globals $, resizeTextarea, config */
+/* globals $, resizeTextarea, config, toastr */
 
 const buttonEl = '.edit-btn';
 const postContainerEl = '.post-container';
@@ -17,10 +17,12 @@ function startEdit() {
     const targetPost = $(this).closest(postContainerEl);
     const targetPostId = $(targetPost).attr('id');
     const editContainer = '#' + targetPostId + ' ' + editContainerEl;
+    let sumbitClicked = false;
+
     scrollTo(editContainer);
     getPostContent(targetPostId)
         .catch((error) => {
-
+            toastr.error(error, 'ERROR');
         })
         .then((content) => {
             $(editContainer).children().hide();
@@ -46,18 +48,22 @@ function startEdit() {
                 editHtml.find('.edit-cancel').click(stopEdit);
                 editHtml.find('.edit-submit').click((e) => {
                     e.preventDefault();
-                    if ($(this).hasClass('disabled')) {
+                    if ($(this).hasClass('disabled') || sumbitClicked) {
+                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
+                        toastr.error('DONT\'T SPAM FUCKER', 'ERROR');
                         return;
                     }
+                    sumbitClicked = true;
                     const newContent = textarea.val();
                     sendEditedPost(targetPostId, newContent)
                         .catch((error) => {
-
+                            toastr.error(error, 'ERROR');
                         })
                         .then(() => {
                             loadEditedPost(targetPostId)
                                 .catch((error) => {
-
+                                    toastr.error(error, 'ERROR');
                                 })
                                 .then((html) => {
                                     const currentPostContainer = $('#' + targetPostId);
@@ -102,7 +108,7 @@ function getPostContent(postId) {
                         $.ajax(this);
                     }
                 }
-                reject();
+                reject(error);
             },
         });
     });
@@ -133,7 +139,7 @@ function sendEditedPost(postId, content) {
                     }
                 }
 
-                reject();
+                reject(error);
             },
         });
     });
@@ -161,7 +167,7 @@ function loadEditedPost(postId) {
                     }
                 }
 
-                reject();
+                reject(error);
             },
         });
     });
