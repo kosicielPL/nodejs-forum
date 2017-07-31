@@ -2,7 +2,7 @@ const request = require('supertest');
 const http = require('http');
 const config = require('../../../server/config');
 
-describe('search routing', () => {
+describe('helpers routing', () => {
     let app = null;
     let server = null;
     let user;
@@ -26,6 +26,7 @@ describe('search routing', () => {
             config.database.port +
             '/' +
             config.database.dbName;
+
         return Promise.resolve()
             .then(() => require('../../../db').init(connectionString))
             .then((db) => require('../../../data').init(db))
@@ -50,32 +51,49 @@ describe('search routing', () => {
         app = null;
     });
 
-    describe('/login and then home', () => {
-        it('/login and then home', (done) => {
-            user
-                .post('/login')
-                .send({
-                    username: 'admin',
-                    password: 'admin',
-                })
-                .end((error, resolve) => {
-                    user
-                        .get('/')
-                        .expect(200)
-                        .end((err, res) => {
-                            if (err) {
-                                return done(err);
-                            }
+    describe('GET /helpers/', () => {
+        it('/forums-structure', (done) => {
+            request(server)
+                .get('/helpers/forums-structure')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
 
-                            return done();
-                        });
+                    return done();
                 });
         });
-    });
-    describe('GET /login', () => {
-        it('expect to return 200', (done) => {
+
+        it('/newest-threads', (done) => {
             request(server)
-                .get('/login')
+                .get('/helpers/newest-threads')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+
+        it('/checkusername', (done) => {
+            request(server)
+                .get('/helpers/checkusername')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    return done();
+                });
+        });
+
+        it('/checkemail', (done) => {
+            request(server)
+                .get('/helpers/checkemail')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -86,22 +104,27 @@ describe('search routing', () => {
                 });
         });
     });
-    describe('POST /login', () => {
-        it('expect to return 302', (done) => {
-            request(server)
-                .post('/login')
-                .send({
-                    username: 'admin',
-                    password:
-                    'sha1$f052f6db$1$58535c1ad07b653d45450b6f010ffee3c7d718bf',
-                })
-                .expect(302)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-                    return done();
-                });
-        });
-    });
 });
+
+    // describe('GET and expect 404', () => {
+    //     it('/search/:title when invalid :title ', (done) => {
+    //         user
+    //             .post('/login')
+    //             .send({
+    //                 username: 'admin',
+    //                 password: 'admin',
+    //             })
+    //             .end((error, resolve) => {
+    //                 user
+    //                     .get('/search/asdfaghjnceuas')
+    //                     .expect(404)
+    //                     .end((err, res) => {
+    //                         if (err) {
+    //                             return done(err);
+    //                         }
+
+    //                         return done();
+    //                     });
+    //             });
+    //     });
+    // });

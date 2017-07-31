@@ -5,6 +5,7 @@ const config = require('../../../server/config');
 describe('settings routing', () => {
     let app = null;
     let server = null;
+    let user;
 
     before(() => {
         process.env.NODE_ENV = 'test';
@@ -37,6 +38,7 @@ describe('settings routing', () => {
                     .init(server)
                     .then((io) => {
                         app.io = io;
+                        user = request.agent(server);
                         return Promise.resolve();
                     });
             });
@@ -46,6 +48,29 @@ describe('settings routing', () => {
         server.close();
         server = null;
         app = null;
+    });
+
+    describe('/settings logged in', () => {
+        it('/settings logged in', (done) => {
+            user
+                .post('/login')
+                .send({
+                    username: 'admin',
+                    password: 'admin',
+                })
+                .end((error, resolve) => {
+                    user
+                        .get('/users/profile/admin/settings')
+                        .expect(200)
+                        .end((err, res) => {
+                            if (err) {
+                                return done(err);
+                            }
+
+                            return done();
+                        });
+                });
+        });
     });
 
     describe('GET /settings (admin)', () => {
