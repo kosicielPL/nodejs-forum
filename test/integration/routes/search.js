@@ -5,6 +5,7 @@ const config = require('../../../server/config');
 describe('users routing', () => {
     let app = null;
     let server = null;
+    let user;
 
     before(() => {
         process.env.NODE_ENV = 'test';
@@ -26,24 +27,6 @@ describe('users routing', () => {
             '/' +
             config.database.dbName;
 
-        // it('should login with details to login form / POST', (done) => {
-        //     request(server)
-        //         .post('/login')
-        //         .field('username', 'admin')
-        //         .field(
-        //         'password',
-        //         'sha1$f052f6db$1$58535c1ad07b653d45450b6f010ffee3c7d718bf'
-        //         )
-        //         .expect(302)
-        //         .end((err, res) => {
-        //             if (err) {
-        //                 return done(err);
-        //             }
-
-        //             return done();
-        //         });
-        // });
-
         return Promise.resolve()
             .then(() => require('../../../db').init(connectionString))
             .then((db) => require('../../../data').init(db))
@@ -56,6 +39,7 @@ describe('users routing', () => {
                     .init(server)
                     .then((io) => {
                         app.io = io;
+                        user = request.agent(server);
                         return Promise.resolve();
                     });
             });
@@ -80,41 +64,67 @@ describe('users routing', () => {
                     return done();
                 });
         });
-        it('/search logged in (fix me)', (done) => {
-            request(server)
-                .get('/search')
-                .expect(302)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
+        describe('/Login search', () => {
+            it('/search logged in', (done) => {
+                user
+                    .post('/login')
+                    .send({
+                        username: 'admin',
+                        password: 'admin',
+                    })
+                    .end((error, resolve) => {
+                        user
+                            .get('/search')
+                            .expect(200)
+                            .end((err, res) => {
+                                if (err) {
+                                    return done(err);
+                                }
 
-                    return done();
-                });
-        });
-        it('/search/:title when valid :title (fix me)', (done) => {
-            request(server)
-                .get('/search/test')
-                .expect(302)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
+                                return done();
+                            });
+                    });
+            });
+            it('/search/:title when valid :title', (done) => {
+                user
+                    .post('/login')
+                    .send({
+                        username: 'admin',
+                        password: 'admin',
+                    })
+                    .end((error, resolve) => {
+                        user
+                            .get('/search/test')
+                            .expect(200)
+                            .end((err, res) => {
+                                if (err) {
+                                    return done(err);
+                                }
 
-                    return done();
-                });
+                                return done();
+                            });
+                    });
+            });
         });
         describe('GET and expect 404', () => {
-            it('/search/:title when invalid :title (fix me)', (done) => {
-                request(server)
-                    .get('/search/asdasdasdf')
-                    .expect(302)
-                    .end((err, res) => {
-                        if (err) {
-                            return done(err);
-                        }
+            it('/search/:title when invalid :title ', (done) => {
+                user
+                    .post('/login')
+                    .send({
+                        username: 'admin',
+                        password: 'admin',
+                    })
+                    .end((error, resolve) => {
+                        user
+                            .get('/search/asdfaghjnceuas')
+                            .expect(404)
+                            .end((err, res) => {
+                                if (err) {
+                                    return done(err);
+                                }
 
-                        return done();
+                                return done();
+                            });
                     });
             });
         });

@@ -2,7 +2,7 @@ const request = require('supertest');
 const http = require('http');
 const config = require('../../../server/config');
 
-describe('forums routing', () => {
+describe('helpers routing', () => {
     let app = null;
     let server = null;
     let user;
@@ -26,6 +26,7 @@ describe('forums routing', () => {
             config.database.port +
             '/' +
             config.database.dbName;
+
         return Promise.resolve()
             .then(() => require('../../../db').init(connectionString))
             .then((db) => require('../../../data').init(db))
@@ -50,10 +51,10 @@ describe('forums routing', () => {
         app = null;
     });
 
-    describe('GET and expect 200', () => {
-        it('/', (done) => {
+    describe('GET /helpers/', () => {
+        it('/forums-structure', (done) => {
             request(server)
-                .get('/')
+                .get('/helpers/forums-structure')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -63,9 +64,10 @@ describe('forums routing', () => {
                     return done();
                 });
         });
-        it('/forums/', (done) => {
+
+        it('/newest-threads', (done) => {
             request(server)
-                .get('/forums')
+                .get('/helpers/newest-threads')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -75,9 +77,10 @@ describe('forums routing', () => {
                     return done();
                 });
         });
-        it('/forums/:forum when valid :forum', (done) => {
+
+        it('/checkusername', (done) => {
             request(server)
-                .get('/forums/general-discussion')
+                .get('/helpers/checkusername')
                 .expect(200)
                 .end((err, res) => {
                     if (err) {
@@ -87,60 +90,11 @@ describe('forums routing', () => {
                     return done();
                 });
         });
-    });
-    describe('GET and expect 404', () => {
-        it('/forums/:forum when invalid :forum', (done) => {
+
+        it('/checkemail', (done) => {
             request(server)
-                .get('/forums/afaf')
-                .expect(404)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-    });
-    describe('/POST forums', () => {
-        it('/forums/general-discussion/new-thread', (done) => {
-            user
-                .post('/login')
-                .send({
-                    username: 'admin',
-                    password: 'admin',
-                })
-                .end((error, resolve) => {
-                    user
-                        .get('/forums/general-discussion/new-thread')
-                        .expect(200)
-                        .end((err, res) => {
-                            if (err) {
-                                done(err);
-                            }
-
-                            done();
-                        });
-                });
-        });
-
-        it('/forums/:forum/new-thread', (done) => {
-            request(server)
-                .post('/forums/:forum/new-thread')
-                .expect(302)
-                .end((err, res) => {
-                    if (err) {
-                        return done(err);
-                    }
-
-                    return done();
-                });
-        });
-
-        it('/forums/thread/:id', (done) => {
-            request(server)
-                .post('/forums/thread/:id')
-                .expect(302)
+                .get('/helpers/checkemail')
+                .expect(200)
                 .end((err, res) => {
                     if (err) {
                         return done(err);
@@ -151,3 +105,26 @@ describe('forums routing', () => {
         });
     });
 });
+
+    // describe('GET and expect 404', () => {
+    //     it('/search/:title when invalid :title ', (done) => {
+    //         user
+    //             .post('/login')
+    //             .send({
+    //                 username: 'admin',
+    //                 password: 'admin',
+    //             })
+    //             .end((error, resolve) => {
+    //                 user
+    //                     .get('/search/asdfaghjnceuas')
+    //                     .expect(404)
+    //                     .end((err, res) => {
+    //                         if (err) {
+    //                             return done(err);
+    //                         }
+
+    //                         return done();
+    //                     });
+    //             });
+    //     });
+    // });

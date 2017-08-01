@@ -57,17 +57,9 @@ const applyTo = (app, config) => {
 
     // pass config and flash objects to all views
     app.use((req, res, next) => {
-        res.locals.config = config;
-        next();
-    });
-
-    app.use((req, res, next) => {
         const timezone = (req.user ? req.user.timezone : 'Europe/Sofia');
         res.locals.utils = require('../../utils').init(timezone);
-        next();
-    });
-
-    app.use((req, res, next) => {
+        res.locals.config = config;
         res.locals.messages = require('express-messages')(req, res);
         next();
     });

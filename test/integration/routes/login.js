@@ -5,6 +5,7 @@ const config = require('../../../server/config');
 describe('search routing', () => {
     let app = null;
     let server = null;
+    let user;
 
     before(() => {
         process.env.NODE_ENV = 'test';
@@ -37,6 +38,7 @@ describe('search routing', () => {
                     .init(server)
                     .then((io) => {
                         app.io = io;
+                        user = request.agent(server);
                         return Promise.resolve();
                     });
             });
@@ -46,6 +48,29 @@ describe('search routing', () => {
         server.close();
         server = null;
         app = null;
+    });
+
+    describe('/login and then home', () => {
+        it('/login and then home', (done) => {
+            user
+                .post('/login')
+                .send({
+                    username: 'admin',
+                    password: 'admin',
+                })
+                .end((error, resolve) => {
+                    user
+                        .get('/')
+                        .expect(200)
+                        .end((err, res) => {
+                            if (err) {
+                                return done(err);
+                            }
+
+                            return done();
+                        });
+                });
+        });
     });
     describe('GET /login', () => {
         it('expect to return 200', (done) => {
@@ -67,7 +92,8 @@ describe('search routing', () => {
                 .post('/login')
                 .send({
                     username: 'admin',
-                    password: 'sha1$f052f6db$1$58535c1ad07b653d45450b6f010ffee3c7d718bf',
+                    password:
+                    'sha1$f052f6db$1$58535c1ad07b653d45450b6f010ffee3c7d718bf',
                 })
                 .expect(302)
                 .end((err, res) => {
