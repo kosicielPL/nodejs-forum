@@ -11,9 +11,9 @@ describe('In Profile page', () => {
     const appUrl = 'http://localhost:3000';
     const firstName = 'Selenium';
     const lastName = 'Chai';
-    const username = 'downingtn';
+    const username = 'Selenium';
     const email = 'selenium@bigtesticicles.com';
-    const password = 'qkometal';
+    const password = '12345678';
 
 
     before(() => {
@@ -53,14 +53,16 @@ describe('In Profile page', () => {
                 });
         });
 
-        it('expect a button for log out to be visible', () => {
-            return async()
-                .then(() => ui.click('.dropdown-toggle'))
-                .then(() => ui.getText('.dropdown-menu li:last-child'))
-                .then((btnText) => {
-                    expect(btnText).to.contain('Log out');
-                });
-        });
+
+        // it('expect a button for log out to be visible', () => {
+        //     return async()
+        //         .then(() => ui.click('.dropdown-toggle'))
+        //         .then(() => ui.getText('.dropdown-menu li:last-child'))
+        //         .then((btnText) => {
+        //             expect(btnText).to.contain('Log out');
+        //         });
+        // });
+
         // it('expect search to be accessible', () => {
         //     return async()
         //         .then(() => ui.click('li.hidden-xs::nth-child(3)'))

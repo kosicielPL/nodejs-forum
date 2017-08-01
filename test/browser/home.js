@@ -2,6 +2,8 @@
 const { expect } = require('chai');
 const { setupDriver } = require('./utils/setup-driver');
 const webdriver = require('selenium-webdriver');
+const ui = require('./utils/ui');
+const async = require('../../common/async');
 
 describe('Home', () => {
     let driver = null;
@@ -16,30 +18,41 @@ describe('Home', () => {
         driver = setupDriver('chrome');
     });
 
-    it('check Big Test Icicles title', (done) => {
-        driver.get(appUrl)
-            .then(() => {
-                return driver.getTitle();
-            })
-            .then((title) => {
-                expect(title).to.be.deep.equal('Big Test Icicles');
-                done();
-            });
-    });
-    it('check if logo contains BIG, TEST and ICICLES', (done) => {
+    it('check if forum-body exists', (done) => {
         driver.get(appUrl)
             .then(() => {
                 return driver.findElement(
-                    webdriver.By.className('logo-text')
+                    webdriver.By.css('.forum-body')
                 );
             })
             .then((el) => {
-                return el.getText();
+                expect(el).to.exist;
+                done();
+            });
+    });
+
+    it('check if sidenav exists', (done) => {
+        driver.get(appUrl)
+            .then(() => {
+                return driver.findElement(
+                    webdriver.By.css('.row.sidenav')
+                );
             })
-            .then((text) => {
-                expect(text).to.contain('BIG');
-                expect(text).to.contain('TEST');
-                expect(text).to.contain('ICICLES');
+            .then((el) => {
+                expect(el).to.exist;
+                done();
+            });
+    });
+
+    it('check if footer exists', (done) => {
+        driver.get(appUrl)
+            .then(() => {
+                return driver.findElement(
+                    webdriver.By.css('.forum-footer')
+                );
+            })
+            .then((el) => {
+                expect(el).to.exist;
                 done();
             });
     });

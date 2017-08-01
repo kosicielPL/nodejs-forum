@@ -10,9 +10,15 @@ describe('about router', () => {
     let data = null;
     const app = null;
     let controller = null;
-    const users = [1, 2, 3];
-    const threads = [1, 2, 3];
-    const posts = [1, 2, 3];
+    // const users = [1, 2, 3];
+    // const threads = [1, 2, 3];
+    // const posts = [1, 2, 3];
+    const context = {
+        title: 'About',
+        users: [1, 2, 3],
+        threads: [1, 2, 3],
+        posts: [1, 2, 3],
+    };
     let req = null;
     let res = null;
 
@@ -20,17 +26,17 @@ describe('about router', () => {
         data = {
             users: {
                 getAll() {
-                    return Promise.resolve(users);
+                    return Promise.resolve(context.users);
                 },
             },
             threads: {
                 getAll() {
-                    return Promise.resolve(threads);
+                    return Promise.resolve(context.threads);
                 },
             },
             posts: {
                 getAll() {
-                    return Promise.resolve(posts);
+                    return Promise.resolve(context.posts);
                 },
             },
         };
@@ -40,15 +46,10 @@ describe('about router', () => {
         res = require('../../../../req-res').getResponseMock();
     });
 
-    it('expects to get result', () => {
+    it('generateAboutView()', () => {
         return controller.generateAboutView(req, res)
             .then(() => {
-                expect(res.options).to.be.deep.equal({
-                    title: 'About',
-                    users: users.length,
-                    threads: threads.length,
-                    posts: posts.length,
-                });
+                expect(res.options).to.be.deep.equal(context);
                 expect(res.viewName).to.be.equal('about');
             });
     });
