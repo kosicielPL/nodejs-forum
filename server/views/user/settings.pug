@@ -20,27 +20,27 @@ block content
   h3
     | #{user.username}'s profile settings
   form(action="/users/profile/" + targetUser.username + "/settings", method="POST", encType="multipart/form-data" data-toggle="validator")
-    .row
-      .col-xs-1.col-md-1
-        a#settings-username-btn.btn.btn-default.btn-xs
-          span.glyphicon.glyphicon-edit
-      .col-xs-4.col-md-2
-        label(for="settings-username-input") Username
-      .col-xs-6.col-md-3.form-group.has-feedback
-        span#settings-username-placeholder.show #{user.username}
-        span#settings-username-form.hide
-          input#settings-username-input.form-control(
-            type="username"
-            name="username"
-            data-remote="/helpers/checkusername"
-            maxlength=config.users.username.maxLength
-            data-minlength=config.users.username.minLength
-            data-minlength-error="Username must be atleast " + config.users.username.minLength + " symbols"
-            pattern=config.users.username.regex
-            data-pattern-error=config.users.username.regexError
-            placeholder= "Provide new username") 
-          span(aria-hidden="true").glyphicon.form-control-feedback
-        .help-block.with-errors
+    //- .row
+    //-   .col-xs-1.col-md-1
+    //-     a#settings-username-btn.btn.btn-default.btn-xs
+    //-       span.glyphicon.glyphicon-edit
+    //-   .col-xs-4.col-md-2
+    //-     label(for="settings-username-input") Username
+    //-   .col-xs-6.col-md-3.form-group.has-feedback
+    //-     span#settings-username-placeholder.show #{user.username}
+    //-     span#settings-username-form.hide
+    //-       input#settings-username-input.form-control(
+    //-         type="username"
+    //-         name="username"
+    //-         data-remote="/helpers/checkusername"
+    //-         maxlength=config.users.username.maxLength
+    //-         data-minlength=config.users.username.minLength
+    //-         data-minlength-error="Username must be atleast " + config.users.username.minLength + " symbols"
+    //-         pattern=config.users.username.regex
+    //-         data-pattern-error=config.users.username.regexError
+    //-         placeholder= "Provide new username") 
+    //-       span(aria-hidden="true").glyphicon.form-control-feedback
+    //-     .help-block.with-errors
     .row
       .col-xs-1.col-md-1
         a#settings-firstname-btn.btn.btn-default.btn-xs
