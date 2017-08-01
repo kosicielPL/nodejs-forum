@@ -18,21 +18,30 @@ block content
       | &nbsp;Settings
 
   if targetUser.avatar.length > 0
-    img(src="/img/avatars/users/" + targetUser.avatar).img.img-responsive.pull-left
+    img(src="/img/avatars/users/" + targetUser.avatar)#img-profile.img.pull-left
   else
     img(src="/img/avatars/default.png").img.img-responsive.pull-left
     
   .table-responsive
     table.table.user-info
       tr
-        td username 
+        td Username 
         td #{targetUser.username}
       tr
-        td name 
+        td First name 
+        td #{targetUser.firstName}
+      tr
+        td Last name 
         td #{targetUser.firstName} #{targetUser.lastName}
       tr
-        td email 
+        td Email 
         td #{targetUser.email}
+      tr
+        td Country 
+        td #{targetUser.country}  
+      tr
+        td Time zone 
+        td #{targetUser.timezone}
       tr 
         td role 
         td #{targetUser.role}

@@ -55,11 +55,14 @@ $(document).ready(function() {
       .toggleClass('hide');
     console.log('input toggled!');
 
-    $btn
-      .find('span')
-      .toggleClass('glyphicon-edit')
-      .toggleClass('glyphicon-ok');
-    console.log('btn toggled!');
+    if (name !== 'password') {
+      $btn
+        .find('span')
+        .toggleClass('glyphicon-edit')
+        .toggleClass('glyphicon-ok');
+      console.log('btn toggled!');
+    }
+
 
     if ($form.hasClass('show')) {
       $($input).focus();
